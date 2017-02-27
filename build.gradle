@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'com/server/Main'
+  }
+}
+
+dependencies {
+  testCompile 'junit:junit:4.11'
+  testCompile 'org.assertj:assertj-core:3.6.1'
+}
+
+task execute(type: JavaExec) {
+  main = "com.server.Main"
+  classpath = sourceSets.main.runtimeClasspath
+}

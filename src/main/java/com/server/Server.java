@@ -29,6 +29,8 @@ public class Server {
 
                 if (httpRequestParser.getUri().equals("/")) {
                     response = httpRequestParser.versionNumber() + " " + 200 + " OK";
+                } else if (httpRequestParser.getUri().equals("/form")) {
+                    response = httpRequestParser.versionNumber() + " " + 200 + " OK";
                 } else {
                     response = httpRequestParser.versionNumber() + " " + 302 + " Object moved" +
                             "\nLocation: http://localhost:5000/";

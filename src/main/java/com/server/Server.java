@@ -21,7 +21,6 @@ public class Server {
     public void run() {
         try {
             String httpRequest = input.readLine();
-            System.out.print(httpRequest);
 
             try {
                 httpRequestParser.parse(httpRequest);

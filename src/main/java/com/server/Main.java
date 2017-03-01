@@ -14,13 +14,18 @@ public class Main {
 
         try {
             ServerSocket serverSocket = new ServerSocket(serverSettingsParser.getPort());
-            Socket clientSocket = serverSocket.accept();
+            while (true) {
+                System.out.println("Socked waiting");
+                Socket clientSocket = serverSocket.accept();
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
 
-            Server server = new Server(input, output);
-            server.run();
+                Server server = new Server(input, output);
+                server.run();
+                clientSocket.close();
+                System.out.println("Socked closed");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,6 @@
 package com.server.http_request;
 
-import com.server.http_request.RequestLineParser;
-import com.server.http_request.RequestLineParser.RequestLineFormatException;
+import com.server.http_request.RequestLineParser.*;
 
 public class HttpRequestParser {
     private String requestLine;

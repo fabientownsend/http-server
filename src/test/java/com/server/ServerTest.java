@@ -42,4 +42,74 @@ public class ServerTest {
             "Location: http://localhost:5000/\n"
         );
     }
+
+    @Test
+    public void tryOption() {
+        BufferedReader input = new BufferedReader(new StringReader("OPTIONS /method_options HTTP/1.1"));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output);
+        server.run();
+
+        assertThat(out.toString()).isEqualTo(
+            "HTTP/1.1 200 OK\n" +
+            "Allow: GET,HEAD,POST,OPTIONS,PUT\n"
+        );
+    }
+
+    @Test
+    public void methodOptionsWithGet() {
+        BufferedReader input = new BufferedReader(new StringReader("GET /method_options HTTP/1.1"));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output);
+        server.run();
+
+        assertThat(out.toString()).isEqualTo(
+                "HTTP/1.1 200 OK\n" +
+                "Allow: GET,OPTIONS\n"
+        );
+    }
+
+    @Test
+    public void methodOptionsWithPut() {
+        BufferedReader input = new BufferedReader(new StringReader("PUT /method_options HTTP/1.1"));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output);
+        server.run();
+
+        assertThat(out.toString()).isEqualTo(
+                "HTTP/1.1 200 OK\n" +
+                "Allow: GET,OPTIONS\n"
+        );
+    }
+
+    @Test
+    public void methodOptionsWithHead() {
+        BufferedReader input = new BufferedReader(new StringReader("HEAD /method_options HTTP/1.1"));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output);
+        server.run();
+
+        assertThat(out.toString()).isEqualTo(
+                "HTTP/1.1 200 OK\n" +
+                "Allow: GET,OPTIONS\n"
+        );
+    }
+
+    @Test
+    public void methodOptionsWithPost() {
+        BufferedReader input = new BufferedReader(new StringReader("POST /method_options HTTP/1.1"));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output);
+        server.run();
+
+        assertThat(out.toString()).isEqualTo(
+                "HTTP/1.1 200 OK\n" +
+                "Allow: GET,OPTIONS\n"
+        );
+    }
 }

@@ -15,7 +15,6 @@ public class Main {
         try {
             ServerSocket serverSocket = new ServerSocket(serverSettingsParser.getPort());
             while (true) {
-                System.out.println("Socked waiting");
                 Socket clientSocket = serverSocket.accept();
 
                 BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -24,7 +23,6 @@ public class Main {
                 Server server = new Server(input, output);
                 server.run();
                 clientSocket.close();
-                System.out.println("Socked closed");
             }
         } catch (IOException e) {
             e.printStackTrace();

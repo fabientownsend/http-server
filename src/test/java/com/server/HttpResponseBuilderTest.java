@@ -64,12 +64,4 @@ public class HttpResponseBuilderTest {
                 "Allow: GET,OPTIONS"
         );
     }
-
-    @Test
-    public void notOptionButOkUri() {
-        HttpResponseBuilder httpResponseBuilder = new HttpResponseBuilder();
-        ClientHttpRequest httpRequest = new ClientHttpRequest("GET", "/method_options2", "HTTP/1.1");
-        String httpResponse = httpResponseBuilder.build(httpRequest);
-        assertThat(httpResponse).isEqualTo("HTTP/1.1 200 OK");
-    }
 }

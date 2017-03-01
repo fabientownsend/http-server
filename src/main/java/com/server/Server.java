@@ -35,6 +35,23 @@ public class Server {
                     response = httpRequestParser.versionNumber() + " " + 200 + " OK";
                 } else if (httpRequestParser.getUri().equals("/form")) {
                     response = httpRequestParser.versionNumber() + " " + 200 + " OK";
+                } else if (httpRequestParser.getHttpVerb().equals("OPTIONS") &&
+                        httpRequestParser.getUri().equals("/method_options")) {
+                    response = httpRequestParser.versionNumber() + " " + 200 + " OK\n" +
+                            "Allow: GET,HEAD,POST,OPTIONS,PUT";
+                } else if (httpRequestParser.getHttpVerb().equals("OPTIONS") &&
+                        httpRequestParser.getUri().equals("/method_options2")) {
+                    response = httpRequestParser.versionNumber() + " " + 200 + " OK\n" +
+                            "Allow: GET,OPTIONS";
+                } else if ((httpRequestParser.getHttpVerb().equals("GET") ||
+                            httpRequestParser.getHttpVerb().equals("PUT") ||
+                            httpRequestParser.getHttpVerb().equals("HEAD") ||
+                            httpRequestParser.getHttpVerb().equals("POST")) &&
+                        httpRequestParser.getUri().equals("/method_options")) {
+                    response = httpRequestParser.versionNumber() + " " + 200 + " OK\n" +
+                            "Allow: GET,OPTIONS";
+                } else if (httpRequestParser.getUri().equals("/method_options2")) {
+                    response = httpRequestParser.versionNumber() + " " + 200 + " OK";
                 } else if (httpRequestParser.getUri().equals("/redirect")) {
                     response = httpRequestParser.versionNumber() + " " + 302 + " Object moved" +
                             "\nLocation: http://localhost:5000/";

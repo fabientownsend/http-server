@@ -41,7 +41,7 @@ public class RequestLineParser {
     }
 
     enum HttpVerb {
-        DELETE, GET, HEAD, PUT, POST
+        DELETE, GET, HEAD, OPTIONS, PUT, POST
     }
 
     public class RequestLineFormatException extends Exception {

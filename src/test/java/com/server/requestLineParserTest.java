@@ -29,6 +29,13 @@ public class RequestLineParserTest {
     }
 
     @Test
+    public void returnsOptionHttpVerb()  throws RequestLineFormatException {
+        RequestLineParser requestLineParser = new RequestLineParser();
+        requestLineParser.parse("OPTIONS / HTTP/1.1");
+        assertThat(requestLineParser.getHttpVerb()).isEqualTo("OPTIONS");
+    }
+
+    @Test
     public void returnsPostHttpVerb()  throws RequestLineFormatException {
         RequestLineParser requestLineParser = new RequestLineParser();
         requestLineParser.parse("POST / HTTP/1.1");

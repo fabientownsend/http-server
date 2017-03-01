@@ -35,9 +35,11 @@ public class Server {
                     response = httpRequestParser.versionNumber() + " " + 200 + " OK";
                 } else if (httpRequestParser.getUri().equals("/form")) {
                     response = httpRequestParser.versionNumber() + " " + 200 + " OK";
-                } else {
+                } else if (httpRequestParser.getUri().equals("/redirect")) {
                     response = httpRequestParser.versionNumber() + " " + 302 + " Object moved" +
                             "\nLocation: http://localhost:5000/";
+                } else {
+                    response = httpRequestParser.versionNumber() + " " + 404 + " Not Found";
                 }
                 output.println(response);
             } catch (RequestLineFormatException e) {

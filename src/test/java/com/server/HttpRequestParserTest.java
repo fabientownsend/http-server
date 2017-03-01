@@ -1,6 +1,7 @@
 package com.server;
 
-import com.server.RequestLineParser.RequestLineFormatException;
+import com.server.http_request.HttpRequestParser;
+import com.server.http_request.RequestLineParser.RequestLineFormatException;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;

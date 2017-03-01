@@ -1,4 +1,4 @@
-package com.server;
+package com.server.http_request;
 
 public class RequestLineParser {
     private String httpVerb;
@@ -44,7 +44,7 @@ public class RequestLineParser {
         DELETE, GET, HEAD, PUT;
     }
 
-    class RequestLineFormatException extends Exception {
+    public class RequestLineFormatException extends Exception {
 
     }
 }

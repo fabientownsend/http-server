@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.server.RequestLineParser.RequestLineFormatException;
+import com.server.http_request.HttpRequestParser;
+import com.server.http_request.RequestLineParser.RequestLineFormatException;
 
 public class Server {
     private BufferedReader input;
@@ -19,6 +20,10 @@ public class Server {
     }
 
     public void run() {
+        executeClientRequest();
+    }
+
+    private void executeClientRequest() {
         try {
             String httpRequest = input.readLine();
 

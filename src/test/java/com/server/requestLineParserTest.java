@@ -1,9 +1,10 @@
 package com.server;
 
+import com.server.http_request.RequestLineParser;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
-import com.server.RequestLineParser.RequestLineFormatException;
+import com.server.http_request.RequestLineParser.RequestLineFormatException;
 
 public class RequestLineParserTest {
     @Test

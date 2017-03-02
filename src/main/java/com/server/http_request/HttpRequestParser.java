@@ -18,6 +18,9 @@ public class HttpRequestParser {
         this.body = requestMessageBody(requests);
     }
 
+    public String getRequestLine(String httpRequest) {
+        return httpRequest.split("\\n")[0];
+    }
     public String getHttpVerb() {
         return requestLineParser.getHttpVerb();
     }
@@ -65,7 +68,7 @@ public class HttpRequestParser {
         return optionalRequestHeader;
     }
 
-    private String getRequestMessageHeader(String httpRequest) {
+    public String getRequestMessageHeader(String httpRequest) {
         StringBuilder header = new StringBuilder();
         String[] httpRequestLines = httpRequest.split("\\n");
 
@@ -81,5 +84,17 @@ public class HttpRequestParser {
 
     private boolean isEndRequestMessageHeader(String line) {
         return line.equals("") || line.equals("\n");
+    }
+
+    public boolean hasBody(String httpHeader) {
+        return getRequestHeader(httpHeader).containsKey("Content-Length");
+    }
+
+    public int contentLength(String simpleHttpRequest) {
+        if (hasBody(simpleHttpRequest)) {
+            return Integer.parseInt(getRequestHeader(simpleHttpRequest).get("Content-Length"));
+        } else {
+            return 0;
+        }
     }
 }

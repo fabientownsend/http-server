@@ -4,7 +4,9 @@ import com.server.http_request.HttpRequestParser;
 import com.server.http_request.RequestLineParser.RequestLineFormatException;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import java.util.Hashtable;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class HttpRequestParserTest {
     private String httpRequest = "PUT /form HTTP/1.1\n"
@@ -42,5 +44,14 @@ public class HttpRequestParserTest {
         HttpRequestParser requestLineParser = new HttpRequestParser();
         requestLineParser.parse(httpRequest);
         assertThat(requestLineParser.versionNumber()).isEqualTo("HTTP/1.1");
+    }
+
+    @Test
+    public void returnsOptionalRequestHeader()  throws RequestLineFormatException {
+        HttpRequestParser requestLineParser = new HttpRequestParser();
+        requestLineParser.parse(httpRequest);
+        Hashtable<String, String> optionalRequestHeader = requestLineParser.getRequestHeader(httpRequest);
+        assertThat(optionalRequestHeader.get("Content-Length")).isEqualTo("11");
+        assertThat(optionalRequestHeader.get("Host")).isEqualTo("localhost:5000");
     }
 }

@@ -15,6 +15,10 @@ public class HttpResponseBuilder {
     public String build(ClientHttpRequest httpRequest) {
         String httpResponse  = httpRequest.getHttpVersionNumber();
 
+        if (httpRequest.getHttpVerb().equals("POST")) {
+            System.out.println("POST " + httpRequest.getUri());
+        }
+
         if (httpRequest.getUri().equals("/redirect")) {
             httpResponse += " 302 Object moved\n";
             httpResponse += "Location: http://localhost:5000/";
@@ -26,6 +30,19 @@ public class HttpResponseBuilder {
             } else if (httpRequest.getUri().equals("/method_options2") ||
                        httpRequest.getUri().equals("/method_options")) {
                 httpResponse += "\nAllow: GET,OPTIONS";
+            } else if (httpRequest.getUri().equals("/form") && httpRequest.getHttpVerb().equals("GET")) {
+                String data = httpRequest.getLastData();
+                if (!data.equals("")) {
+                    System.out.println("request with data");
+                    httpResponse += "\nContent-Length: " + data.length() + "\n";
+                    httpResponse += "\n" + data;
+                } else {
+                    System.out.println("request but data empty");
+                }
+
+                for (String lal : httpRequest.getData()) {
+                    System.out.println(lal + ", ");
+                }
             }
         } else {
             httpResponse += " 404 Not Found";

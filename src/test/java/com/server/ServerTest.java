@@ -1,8 +1,10 @@
 package com.server;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.LinkedList;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -111,5 +113,22 @@ public class ServerTest {
                 "HTTP/1.1 200 OK\n" +
                 "Allow: GET,OPTIONS\n"
         );
+    }
+
+    @Test
+    @Ignore
+    public void saveTheDataInMemory() {
+        LinkedList<String> memory = new LinkedList<>();
+        BufferedReader input = new BufferedReader(new StringReader(
+            "POST /method_options HTTP/1.1\n"
+            + "\n"
+            + "\"My\"=\"Data\"asdf"
+        ));
+        StringWriter out = new StringWriter();
+        PrintWriter output = new PrintWriter(out, true);
+        Server server = new Server(input, output, memory);
+        server.run();
+
+        assertThat(memory.remove()).isEqualTo("\"My\"=\"Data\"asdf");
     }
 }

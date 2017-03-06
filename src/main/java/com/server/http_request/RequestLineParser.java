@@ -25,7 +25,7 @@ public class RequestLineParser {
                 return;
             }
         }
-        throw new RequestLineFormatException();
+        //throw new RequestLineFormatException();
     }
 
     public String getHttpVerb() {

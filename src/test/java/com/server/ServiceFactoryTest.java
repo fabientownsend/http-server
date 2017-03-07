@@ -4,18 +4,58 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ServiceFacotryTest {
+public class ServiceFactoryTest {
     @Test
-    public void returnsVerbGetFromHttpRequest() throws Exception {
-        String simpleHttpRequest = "GET / HTTP/1.1\n"
-            + "Host: localhost:5000\n"
-            + "Connection: Keep-Alive\n"
-            + "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n"
-            + "Accept-Encoding: gzip,deflate";
+    public void returnsDefaultPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/");
 
-        HttpRequestParser httpRequestParser = new HttpRequestParser();
-        ClientHttpRequest clientHttpRequest = httpRequestParser.parse(simpleHttpRequest);
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(DefaultPage.class);
+    }
 
-        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.GET);
+    @Test
+    public void returnsFormPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/form");
+
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(FormPage.class);
+    }
+
+    @Test
+    public void returnsRedirectPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/redirect");
+
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(RedirectPage.class);
+    }
+
+    @Test
+    public void returnsMethodOptionsPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/method_options");
+
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(MethodOptions.class);
+    }
+
+    @Test
+    public void returnsMethodOptionsTwoPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/method_options2");
+
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(MethodOptions2.class);
+    }
+
+    @Test
+    public void returnsNotFoundPage() throws Exception {
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/it_doesnt_exist");
+
+        assertThat(serviceFactory.provide(clientHttpRequest)).isInstanceOf(NotFoundPage.class);
     }
 }

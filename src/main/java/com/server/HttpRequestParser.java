@@ -31,7 +31,6 @@ public class HttpRequestParser {
         }
 
         return HttpVerb.GET;
-        //throw new Exception();
     }
 
     private String parseUri() {

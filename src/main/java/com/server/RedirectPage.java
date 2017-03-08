@@ -1,12 +1,17 @@
 package com.server;
 
 public class RedirectPage implements UpstreamService {
+    private final ClientHttpRequest clientHttpRequest;
+
     public RedirectPage(ClientHttpRequest clientHttpRequest) {
+        this.clientHttpRequest = clientHttpRequest;
     }
 
     public String generateContent() {
-        String response = "HTTP/1.1 302 Object moved";
-        response += "\nLocation: http://localhost:5000/";
-        return response;
+        HttpServerResponse httpServerResponse =
+                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        httpServerResponse.setHttpResponseCode(302);
+        httpServerResponse.setHeader("Location", "http://localhost:5000/");
+        return httpServerResponse.build();
     }
 }

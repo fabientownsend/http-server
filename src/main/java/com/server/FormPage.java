@@ -12,17 +12,18 @@ public class FormPage implements UpstreamService {
     }
 
     public String generateContent() {
-        String response =  "HTTP/1.1 200 OK";
+        HttpServerResponse httpServerResponse =
+                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        httpServerResponse.setHttpResponseCode(200);
 
         if (clientHttpRequest.getVerb() == HttpVerb.POST || clientHttpRequest.getVerb() == HttpVerb.PUT) {
             memory.add(0, clientHttpRequest.getBody());
         } else if (clientHttpRequest.getVerb() == HttpVerb.GET && memory.size() > 0) {
-            response += "\nContent-Length: " + memory.get(0).length() + "\n";
-            response += "\n" + memory.get(0);
+            httpServerResponse.setBody(memory.get(0));
         } else if (clientHttpRequest.getVerb() == HttpVerb.DELETE) {
             memory.remove(0);
         }
 
-        return response;
+        return httpServerResponse.build();
     }
 }

@@ -8,14 +8,16 @@ public class MethodOptions implements UpstreamService {
     }
 
     public String generateContent() {
-        String response = "HTTP/1.1 200 OK";
+        HttpServerResponse httpServerResponse =
+                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        httpServerResponse.setHttpResponseCode(200);
 
         if (clientHttpRequest.getVerb() == HttpVerb.OPTIONS) {
-            response += "\nAllow: GET,HEAD,POST,OPTIONS,PUT";
+            httpServerResponse.setHeader("Allow", "GET,HEAD,POST,OPTIONS,PUT");
         } else {
-            response += "\nAllow: GET,OPTIONS";
+            httpServerResponse.setHeader("Allow", "GET,OPTIONS");
         }
 
-        return response;
+        return httpServerResponse.build();
     }
 }

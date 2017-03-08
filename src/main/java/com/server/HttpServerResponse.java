@@ -34,7 +34,7 @@ public class HttpServerResponse {
 
     public void setBody(byte[] binaryImage) {
         ByteArrayOutputStream response = new ByteArrayOutputStream();
-        String header = "\nContent-Length: " + binaryImage.length + "\n\n";
+        String header = "\nContent-Length: " + "\n\n";
 
         try {
             response.write(header.getBytes());
@@ -61,10 +61,13 @@ public class HttpServerResponse {
     }
 
     private String httpResponseBody() {
+/*        byte[] binaryBody = bodyResponse.getBytes();
+        String contentLength = "\nContent-Length: " + binaryBody.length + "\n\n";
+        byte[] headerBinary = contentLength.getBytes();*/
+
         if (bodyResponse != null) {
-            String body = "\nContent-Length: " + bodyResponse.length();
-            body +=  "\n\n" + bodyResponse;
-            return body;
+            //String body = "\nContent-Length: " + bodyResponse.length();
+            return  "\n\n" + bodyResponse;
         } else {
             return "";
         }

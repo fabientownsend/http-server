@@ -23,6 +23,7 @@ public class Server {
     public void start() {
         try {
             String httpRequest = httpRequestProvider.getRequest();
+            System.out.println(httpRequest + "\n\n");
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
             HttpServerResponse httpServerResponse =
                     new HttpServerResponse(clientHttpRequest.getHttpVersion());
@@ -31,6 +32,7 @@ public class Server {
 
            httpServerResponse = service.generateContent();
 
+            System.out.println(new String(httpServerResponse.build()));
             outputStream.write(httpServerResponse.build());
         } catch (IOException e) {
         } catch (Exception e) {

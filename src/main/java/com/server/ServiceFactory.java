@@ -15,6 +15,8 @@ public class ServiceFactory {
 
         if (uri.equals("/")) {
             return new DefaultPage(httpServerResponse);
+        } else if (uri.equals("/tea")) {
+            return new Tea(httpServerResponse);
         } else if (uri.equals("/form")) {
             return new FormPage(httpServerResponse, clientHttpRequest, memory);
         } else if (uri.equals("/redirect")) {

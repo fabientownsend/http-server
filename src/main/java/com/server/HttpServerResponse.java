@@ -18,6 +18,7 @@ public class HttpServerResponse {
         reasonPhrase.put(200, "OK");
         reasonPhrase.put(404, "Not Found");
         reasonPhrase.put(302, "Object Moved");
+        reasonPhrase.put(418, "I'm a teapot");
     }
 
     public void setHttpResponseCode(Integer httpResponseCode) {

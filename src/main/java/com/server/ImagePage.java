@@ -26,7 +26,14 @@ public class ImagePage implements UpstreamService {
         } else if (clientHttpRequest.getUri().equals("/image.gif")) {
             httpServerResponse.setHeader("Content-Type", "image/gif");
             httpServerResponse.setBody(getImageBinary(directoryPath + "image.gif"));
+        } else if (clientHttpRequest.getUri().equals("/text-file.txt")) {
+            httpServerResponse.setHeader("Content-Type", "text/plain");
+            httpServerResponse.setBody(getImageBinary(directoryPath + "text-file.txt"));
+        } else if (clientHttpRequest.getUri().equals("/file1")) {
+            httpServerResponse.setHeader("Content-Type", "text/plain");
+            httpServerResponse.setBody(getImageBinary(directoryPath + "file1"));
         }
+
 
         return httpServerResponse;
     }

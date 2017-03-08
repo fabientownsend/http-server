@@ -10,7 +10,7 @@ public class ServiceFactory {
             ClientHttpRequest clientHttpRequest,
             LinkedList<String> memory) {
         String uri = clientHttpRequest.getUri();
-        Pattern pattern = Pattern.compile("([^\\s]+(\\.(?i)(jpeg|jpg|png|gif|bmp))$)");
+        Pattern pattern = Pattern.compile("([^\\s]+(\\.(?i)(txt|jpeg|jpg|png|gif|bmp))$)");
         Matcher matcher = pattern.matcher(uri);
 
         if (uri.equals("/")) {
@@ -23,7 +23,9 @@ public class ServiceFactory {
             return new MethodOptions(httpServerResponse, clientHttpRequest);
         } else if (uri.equals("/method_options2")) {
             return new MethodOptions2(httpServerResponse);
-        } else if (matcher.matches()) {
+        } else if (uri.equals("/coffee")) {
+            return new Coffee(httpServerResponse);
+        } else if (matcher.matches() || uri.equals("/file1")) {
             return new ImagePage(httpServerResponse, clientHttpRequest);
         } else {
             return new NotFoundPage(httpServerResponse);

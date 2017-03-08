@@ -1,16 +1,14 @@
 package com.server;
 
 public class DefaultPage implements UpstreamService {
-    private final ClientHttpRequest clientHttpRequest;
+    private final HttpServerResponse httpServerResponse;
 
-    public DefaultPage(ClientHttpRequest clientHttpRequest) {
-        this.clientHttpRequest = clientHttpRequest;
+    public DefaultPage(HttpServerResponse httpServerResponse) {
+        this.httpServerResponse = httpServerResponse;
     }
 
-    public String generateContent() {
-        HttpServerResponse httpServerResponse =
-                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+    public HttpServerResponse generateContent() {
         httpServerResponse.setHttpResponseCode(200);
-        return  httpServerResponse.build();
+        return  httpServerResponse;
     }
 }

@@ -12,7 +12,7 @@ public class ServerResponseTest {
         HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
         serverResponse.setHttpResponseCode(200);
 
-        assertThat(serverResponse.build()).contains("HTTP/1.1 200 OK");
+        assertThat(serverResponse.build()).contains("HTTP/1.1 200 OK".getBytes());
     }
 
     @Test
@@ -21,7 +21,7 @@ public class ServerResponseTest {
         serverResponse.setHttpResponseCode(200);
         serverResponse.setHeader("Content-Type", "text/plain");
 
-        assertThat(serverResponse.build()).contains("Content-Type: text/plain");
+        assertThat(serverResponse.build()).contains("Content-Type: text/plain".getBytes());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ServerResponseTest {
         serverResponse.setHeader("Content-Type", "text/plain");
         serverResponse.setBody("the content");
 
-        assertThat(serverResponse.build()).contains("the content");
+        assertThat(serverResponse.build()).contains("the content".getBytes());
     }
 
     @Test
@@ -41,6 +41,6 @@ public class ServerResponseTest {
         serverResponse.setHeader("Content-Type", "text/plain");
         serverResponse.setBody("the content");
 
-        assertThat(serverResponse.build()).contains("Content-Length: 11");
+        assertThat(serverResponse.build()).contains("Content-Length: 11".getBytes());
     }
 }

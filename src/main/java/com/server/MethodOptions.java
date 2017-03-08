@@ -2,14 +2,14 @@ package com.server;
 
 public class MethodOptions implements UpstreamService {
     private final ClientHttpRequest clientHttpRequest;
+    private final HttpServerResponse httpServerResponse;
 
-    public MethodOptions(ClientHttpRequest clientHttpRequest) {
+    public MethodOptions(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
+        this.httpServerResponse = httpServerResponse;
         this.clientHttpRequest = clientHttpRequest;
     }
 
-    public String generateContent() {
-        HttpServerResponse httpServerResponse =
-                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+    public HttpServerResponse generateContent() {
         httpServerResponse.setHttpResponseCode(200);
 
         if (clientHttpRequest.getVerb() == HttpVerb.OPTIONS) {
@@ -18,6 +18,6 @@ public class MethodOptions implements UpstreamService {
             httpServerResponse.setHeader("Allow", "GET,OPTIONS");
         }
 
-        return httpServerResponse.build();
+        return httpServerResponse;
     }
 }

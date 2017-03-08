@@ -1,16 +1,14 @@
 package com.server;
 
 public class NotFoundPage implements UpstreamService {
-    private final ClientHttpRequest clientHttpRequest;
+    private final HttpServerResponse httpServerResponse;
 
-    public NotFoundPage(ClientHttpRequest clientHttpRequest) {
-        this.clientHttpRequest = clientHttpRequest;
+    public NotFoundPage(HttpServerResponse httpServerResponse) {
+        this.httpServerResponse = httpServerResponse;
     }
 
-    public String generateContent() {
-        HttpServerResponse httpServerResponse =
-                new HttpServerResponse(clientHttpRequest.getHttpVersion());
+    public HttpServerResponse generateContent() {
         httpServerResponse.setHttpResponseCode(404);
-        return httpServerResponse.build();
+        return httpServerResponse;
     }
 }

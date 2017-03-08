@@ -29,12 +29,12 @@ public class HttpServerResponse {
         this.bodyResponse = bodyResponse;
     }
 
-    public String build() {
+    public byte[] build() {
         String response = httpResponseStatusLine();
         response += httpResponseHeader();
         response += httpResponseBody();
 
-        return response;
+        return response.getBytes();
     }
 
     private String httpResponseBody() {

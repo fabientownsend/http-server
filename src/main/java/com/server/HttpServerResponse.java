@@ -1,5 +1,7 @@
 package com.server;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Hashtable;
 
 public class HttpServerResponse {
@@ -8,6 +10,7 @@ public class HttpServerResponse {
     private final Hashtable<Integer, String> reasonPhrase;
     private String header;
     private String bodyResponse;
+    private byte[] bodyImageResponse;
 
     public HttpServerResponse(String httpVersion) {
         this.httpVersion = httpVersion;
@@ -29,12 +32,32 @@ public class HttpServerResponse {
         this.bodyResponse = bodyResponse;
     }
 
-    public byte[] build() {
-        String response = httpResponseStatusLine();
-        response += httpResponseHeader();
-        response += httpResponseBody();
+    public void setBody(byte[] binaryImage) {
+        ByteArrayOutputStream response = new ByteArrayOutputStream();
+        String header = "\nContent-Length: " + binaryImage.length + "\n\n";
 
-        return response.getBytes();
+        try {
+            response.write(header.getBytes());
+            response.write(binaryImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.bodyImageResponse = response.toByteArray();
+    }
+
+    public byte[] build() {
+        ByteArrayOutputStream response = new ByteArrayOutputStream();
+        try {
+            response.write(httpResponseStatusLine().getBytes());
+            response.write(httpResponseHeader().getBytes());
+            response.write(httpResponseBody().getBytes());
+            response.write((bodyImageResponse != null) ? bodyImageResponse : "".getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response.toByteArray();
     }
 
     private String httpResponseBody() {

@@ -3,7 +3,6 @@ package com.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.LinkedList;
 
 public class Server {
@@ -25,10 +24,14 @@ public class Server {
         try {
             String httpRequest = httpRequestProvider.getRequest();
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
-            UpstreamService service = serviceFactory.provide(clientHttpRequest, memory);
-            String response = service.generateContent();
+            HttpServerResponse httpServerResponse =
+                    new HttpServerResponse(clientHttpRequest.getHttpVersion());
+            UpstreamService service =
+                    serviceFactory.provide(httpServerResponse, clientHttpRequest, memory);
 
-            outputStream.write(response.getBytes(Charset.defaultCharset()));
+           httpServerResponse = service.generateContent();
+
+            outputStream.write(httpServerResponse.build());
         } catch (IOException e) {
         } catch (Exception e) {
             e.printStackTrace();

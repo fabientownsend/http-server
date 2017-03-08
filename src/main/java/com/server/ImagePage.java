@@ -16,26 +16,27 @@ public class ImagePage implements UpstreamService {
     public HttpServerResponse generateContent() {
         httpServerResponse.setHttpResponseCode(200);
         String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
+        String uri = clientHttpRequest.getUri();
+        String path = directoryPath + uri.substring(1, uri.length());
 
-        if (clientHttpRequest.getUri().equals("/image.jpeg")) {
-            httpServerResponse.setHeader("Content-Type", "image/jpeg");
-            httpServerResponse.setBody(getImageBinary(directoryPath + "image.jpeg"));
-        } else if (clientHttpRequest.getUri().equals("/image.png")) {
-            httpServerResponse.setHeader("Content-Type", "image/png");
-            httpServerResponse.setBody(getImageBinary(directoryPath + "image.png"));
-        } else if (clientHttpRequest.getUri().equals("/image.gif")) {
-            httpServerResponse.setHeader("Content-Type", "image/gif");
-            httpServerResponse.setBody(getImageBinary(directoryPath + "image.gif"));
-        } else if (clientHttpRequest.getUri().equals("/text-file.txt")) {
-            httpServerResponse.setHeader("Content-Type", "text/plain");
-            httpServerResponse.setBody(getImageBinary(directoryPath + "text-file.txt"));
-        } else if (clientHttpRequest.getUri().equals("/file1")) {
-            httpServerResponse.setHeader("Content-Type", "text/plain");
-            httpServerResponse.setBody(getImageBinary(directoryPath + "file1"));
-        }
-
+        httpServerResponse.setHeader("Content-Type", getComment(uri));
+        httpServerResponse.setBody(getImageBinary(path));
 
         return httpServerResponse;
+    }
+
+    private String getComment(String fileName) {
+        String[] split = fileName.split("\\.");
+
+        if (split.length >= 2) {
+            if (split[1].equals("txt")) {
+                return "text/plain";
+            } else {
+                return "image/" + split[1];
+            }
+        } else {
+            return "text/plain";
+        }
     }
 
     private byte[] getImageBinary(String directoryPath) {

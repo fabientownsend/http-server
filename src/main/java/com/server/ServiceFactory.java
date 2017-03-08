@@ -1,8 +1,8 @@
 package com.server;
 
+import java.io.File;
+import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ServiceFactory {
     public UpstreamService provide(
@@ -10,8 +10,8 @@ public class ServiceFactory {
             ClientHttpRequest clientHttpRequest,
             LinkedList<String> memory) {
         String uri = clientHttpRequest.getUri();
-        Pattern pattern = Pattern.compile("([^\\s]+(\\.(?i)(txt|jpeg|jpg|png|gif|bmp))$)");
-        Matcher matcher = pattern.matcher(uri);
+
+        Hashtable<String, Boolean> folderContent = getDirectoryFile();
 
         if (uri.equals("/")) {
             return new DefaultPage(httpServerResponse);
@@ -27,10 +27,23 @@ public class ServiceFactory {
             return new MethodOptions2(httpServerResponse);
         } else if (uri.equals("/coffee")) {
             return new Coffee(httpServerResponse);
-        } else if (matcher.matches() || uri.equals("/file1")) {
+        } else if (folderContent.containsKey(uri)) {
             return new ImagePage(httpServerResponse, clientHttpRequest);
         } else {
             return new NotFoundPage(httpServerResponse);
         }
+    }
+
+    private Hashtable getDirectoryFile() {
+        String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
+        Hashtable<String, Boolean> router = new Hashtable<>();
+
+        File directory = new File(directoryPath);
+        String[] files = directory.list();
+
+        for (String file : files) {
+            router.put("/" + file, true);
+        }
+        return router;
     }
 }

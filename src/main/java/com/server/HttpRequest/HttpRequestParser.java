@@ -1,5 +1,6 @@
 package com.server.HttpRequest;
 
+import com.server.BadRequestException;
 import com.server.HttpVerb;
 
 import java.util.Hashtable;
@@ -8,20 +9,26 @@ import java.util.LinkedList;
 public class HttpRequestParser {
     private String[] httpRequest;
 
-    public ClientHttpRequest parse(String httpRequest) throws Exception {
-        this.httpRequest = httpRequest.split("\\n");
-        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+    public ClientHttpRequest parse(String httpRequest) {
+        try {
+            this.httpRequest = httpRequest.split("\\n");
+            ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
-        clientHttpRequest.setVerb(parseVerb());
-        clientHttpRequest.setUri(parseUri());
-        clientHttpRequest.setHttpVersion(parseHttpVersion());
-        clientHttpRequest.setSectionInformation(parseSectionInformation());
-        clientHttpRequest.setBody(parseBody());
+            clientHttpRequest.setVerb(parseVerb());
+            clientHttpRequest.setUri(parseUri());
+            clientHttpRequest.setHttpVersion(parseHttpVersion());
+            clientHttpRequest.setSectionInformation(parseSectionInformation());
+            clientHttpRequest.setBody(parseBody());
 
-        return clientHttpRequest;
+            return clientHttpRequest;
+        } catch (BadRequestException message) {
+            throw new BadRequestException(message.getMessage());
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+            throw new BadRequestException("that's not a correct request. kkthxbye");
+        }
     }
 
-    private HttpVerb parseVerb() throws Exception {
+    private HttpVerb parseVerb() {
         String requestLine = getRequestLine();
         String[] infoLine = requestLine.split("\\s+");
         String strVerb = infoLine[0];
@@ -32,7 +39,7 @@ public class HttpRequestParser {
             }
         }
 
-        return HttpVerb.GET;
+        throw new BadRequestException("this verb isn't valid");
     }
 
     private String parseUri() {

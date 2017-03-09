@@ -19,6 +19,8 @@ public class HttpServerResponse {
         reasonPhrase.put(404, "Not Found");
         reasonPhrase.put(302, "Object Moved");
         reasonPhrase.put(418, "I'm a teapot");
+        reasonPhrase.put(500, "Internal Server Error");
+        reasonPhrase.put(400, "Bad Request");
     }
 
     public void setHttpResponseCode(Integer httpResponseCode) {
@@ -62,12 +64,7 @@ public class HttpServerResponse {
     }
 
     private String httpResponseBody() {
-/*        byte[] binaryBody = bodyResponse.getBytes();
-        String contentLength = "\nContent-Length: " + binaryBody.length + "\n\n";
-        byte[] headerBinary = contentLength.getBytes();*/
-
         if (bodyResponse != null) {
-            //String body = "\nContent-Length: " + bodyResponse.length();
             return  "\n\n" + bodyResponse;
         } else {
             return "";

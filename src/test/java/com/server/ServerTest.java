@@ -1,6 +1,5 @@
 package com.server;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -9,17 +8,16 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ServerTest {
-    @Ignore
     @Test
-    public void returnsAlways200() throws Exception {
-        BufferedReader socketInput = new BufferedReader(new StringReader("GET / HTTP/1.1"));
+    public void catchBadRequestException() throws Exception {
+        BufferedReader socketInput = new BufferedReader(new StringReader("GET HTTP/1.1"));
 
         OutputStream output = getStreamTest();
 
         Server server = new Server(socketInput, output, new LinkedList<>());
         server.start();
 
-        assertThat(output.toString()).isEqualTo("HTTP/1.1 200 OK");
+        assertThat(output.toString()).contains("400 Bad Request");
     }
 
     private OutputStream getStreamTest() {

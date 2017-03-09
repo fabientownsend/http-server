@@ -1,11 +1,11 @@
 package com.server.HttpRequest;
 
-import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpRequest.HttpRequestParser;
+import com.server.BadRequestException;
 import com.server.HttpVerb;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class HttpRequestParserTest {
     @Test
@@ -92,5 +92,39 @@ public class HttpRequestParserTest {
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequestWithBody);
 
         assertThat(clientHttpRequest.getBody()).isEqualTo("data=fatcat");
+    }
+
+    @Test
+    public void throwExceptionWhenVerbDoesntExist() {
+        String httpRequestWithBody = "LOL /form HTTP/1.1\n"
+                + "Content-Length: 11\n"
+                + "Host: localhost:5000\n"
+                + "Connection: Keep-Alive\n"
+                + "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n"
+                + "Accept-Encoding: gzip,deflate\n"
+                + "\n"
+                + "data=fatcat";
+        HttpRequestParser httpRequestParser = new HttpRequestParser();
+
+        assertThatExceptionOfType(BadRequestException.class).isThrownBy(
+                () -> httpRequestParser.parse(httpRequestWithBody)
+        );
+    }
+
+    @Test
+    public void throwExcpetionWhenLineRequestHasntThreeElements() {
+        String httpRequestWithBody = "GET HTTP/1.1\n"
+                + "Content-Length: 11\n"
+                + "Host: localhost:5000\n"
+                + "Connection: Keep-Alive\n"
+                + "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n"
+                + "Accept-Encoding: gzip,deflate\n"
+                + "\n"
+                + "data=fatcat";
+        HttpRequestParser httpRequestParser = new HttpRequestParser();
+
+        assertThatExceptionOfType(BadRequestException.class).isThrownBy(
+                () -> httpRequestParser.parse(httpRequestWithBody)
+        );
     }
 }

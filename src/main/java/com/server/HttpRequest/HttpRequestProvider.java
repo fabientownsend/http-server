@@ -2,6 +2,7 @@ package com.server.HttpRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 public class HttpRequestProvider {
     private final BufferedReader socketInput;
@@ -51,19 +52,23 @@ public class HttpRequestProvider {
         return false;
     }
 
-    private String getHeader() throws IOException {
+    private String getHeader() {
         String temp;
-        String requestHeader = socketInput.readLine() + newLine;
+        try {
+            String requestHeader = socketInput.readLine() + newLine;
 
-        while ((temp = socketInput.readLine()) != null) {
-            if (temp.equals(emptyString)) {
-                break;
+            while ((temp = socketInput.readLine()) != null) {
+                if (temp.equals(emptyString)) {
+                    break;
+                }
+
+                requestHeader += temp + newLine;
             }
 
-            requestHeader += temp + newLine;
+            return requestHeader;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
-
-        return requestHeader;
     }
 
     private String getBody(int length) throws IOException {

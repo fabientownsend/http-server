@@ -9,7 +9,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ServerTest {
     @Test
-    public void catchBadRequestException() throws Exception {
+    public void throwAnExceptionWhen() throws Exception {
+        BufferedReader inputError = null;
+        OutputStream output = getStreamTest();
+        Server server = new Server(inputError, output, new LinkedList<>());
+        server.start();
+
+        assertThat(output.toString()).contains("500 Internal Server Error");
+    }
+
+    @Test
+    public void catchBadRequestExceptionWhenWrongLineRequest() throws Exception {
         BufferedReader socketInput = new BufferedReader(new StringReader("GET HTTP/1.1"));
 
         OutputStream output = getStreamTest();

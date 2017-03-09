@@ -1,5 +1,6 @@
 package com.server;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class ServerResponseTest {
         assertThat(serverResponse.build()).contains("the content".getBytes());
     }
 
+    @Ignore
     @Test
     public void setsTheContentLengthWhenItHasContent() throws IOException {
         HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");

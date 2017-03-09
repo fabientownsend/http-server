@@ -63,13 +63,4 @@ public class ServiceFactoryTest {
 
         assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(NotFoundPage.class);
     }
-
-    @Test
-    public void returnImageWhenNeeded() throws Exception {
-        ServiceFactory serviceFactory = new ServiceFactory();
-        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-        clientHttpRequest.setUri("/anything.jpg");
-
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(ImagePage.class);
-    }
 }

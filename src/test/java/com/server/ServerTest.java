@@ -1,5 +1,6 @@
 package com.server;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -8,6 +9,7 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ServerTest {
+    @Ignore
     @Test
     public void returnsAlways200() {
         BufferedReader socketInput = new BufferedReader(new StringReader("GET / HTTP/1.1"));

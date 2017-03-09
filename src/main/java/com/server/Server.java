@@ -8,8 +8,12 @@ import com.server.Routes.ServiceFactory;
 import com.server.Routes.UpstreamService;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
+import java.util.logging.Level;
+
+import static com.server.Main.LOGGER;
 
 public class Server {
     private final OutputStream outputStream;
@@ -18,7 +22,8 @@ public class Server {
     private HttpRequestParser httpRequestParser;
     private ServiceFactory serviceFactory;
 
-    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) {
+
+    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) throws IOException {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.memory = memory;
         this.httpRequestParser = new HttpRequestParser();
@@ -29,13 +34,16 @@ public class Server {
     public void start() {
         try {
             String httpRequest = httpRequestProvider.getRequest();
+            LOGGER.log(Level.INFO, httpRequest);
+
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
             HttpServerResponse httpServerResponse =
                     new HttpServerResponse(clientHttpRequest.getHttpVersion());
             UpstreamService service =
                     serviceFactory.provide(httpServerResponse, clientHttpRequest, memory);
 
-           httpServerResponse = service.generateContent();
+            httpServerResponse = service.generateContent();
+            LOGGER.log(Level.INFO, httpServerResponse.build().toString());
 
             outputStream.write(httpServerResponse.build());
         } catch (Exception e) {

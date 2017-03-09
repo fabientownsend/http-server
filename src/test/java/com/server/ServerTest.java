@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ServerTest {
     @Ignore
     @Test
-    public void returnsAlways200() {
+    public void returnsAlways200() throws Exception {
         BufferedReader socketInput = new BufferedReader(new StringReader("GET / HTTP/1.1"));
 
         OutputStream output = getStreamTest();

@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class Router {
-    public UpstreamService route(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+    public BaseController route(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
         String uri = clientHttpRequest.getUri();
 
         Hashtable<String, Boolean> folderContent = getDirectoryFile();

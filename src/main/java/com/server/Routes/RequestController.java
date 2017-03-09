@@ -14,7 +14,7 @@ public class RequestController {
 
     public HttpServerResponse call(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
         Router router = new Router();
-        UpstreamService route = router.route(httpServerResponse, clientHttpRequest, memory);
+        BaseController route = router.route(httpServerResponse, clientHttpRequest, memory);
         HttpServerResponse response = route.execute();
 
         return response;

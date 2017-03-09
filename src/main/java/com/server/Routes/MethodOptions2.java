@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpResponse.HttpServerResponse;
 
-public class MethodOptions2 implements UpstreamService {
+public class MethodOptions2 implements BaseController {
     private final HttpServerResponse httpServerResponse;
 
     public MethodOptions2(HttpServerResponse httpServerResponse) {

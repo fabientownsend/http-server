@@ -1,6 +1,5 @@
 package com.server.HttpResponse;
 
-import com.server.HttpResponse.HttpServerResponse;
 import org.junit.Ignore;
 import org.junit.Test;
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileProvider implements UpstreamService {
+public class FileProvider implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private final ClientHttpRequest clientHttpRequest;
 

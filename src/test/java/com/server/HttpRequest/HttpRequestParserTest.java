@@ -19,7 +19,7 @@ public class HttpRequestParserTest {
         HttpRequestParser httpRequestParser = new HttpRequestParser();
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(simpleHttpRequest);
 
-        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.GET);
+        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.GET.name());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class HttpRequestParserTest {
         HttpRequestParser httpRequestParser = new HttpRequestParser();
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(simpleHttpRequest);
 
-        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.POST);
+        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.POST.name());
     }
 
     @Test
@@ -92,23 +92,6 @@ public class HttpRequestParserTest {
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequestWithBody);
 
         assertThat(clientHttpRequest.getBody()).isEqualTo("data=fatcat");
-    }
-
-    @Test
-    public void throwExceptionWhenVerbDoesntExist() {
-        String httpRequestWithBody = "LOL /form HTTP/1.1\n"
-                + "Content-Length: 11\n"
-                + "Host: localhost:5000\n"
-                + "Connection: Keep-Alive\n"
-                + "User-Agent: Apache-HttpClient/4.3.5 (java 1.5)\n"
-                + "Accept-Encoding: gzip,deflate\n"
-                + "\n"
-                + "data=fatcat";
-        HttpRequestParser httpRequestParser = new HttpRequestParser();
-
-        assertThatExceptionOfType(BadRequestException.class).isThrownBy(
-                () -> httpRequestParser.parse(httpRequestWithBody)
-        );
     }
 
     @Test

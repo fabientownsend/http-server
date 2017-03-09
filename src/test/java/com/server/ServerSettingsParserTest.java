@@ -34,7 +34,7 @@ public class ServerSettingsParserTest {
         ServerSettingsParser serverSettingsParser = new ServerSettingsParser(serverSettings);
 
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> serverSettingsParser.getPort()
+            () -> serverSettingsParser.getPort()
         );
     }
 
@@ -44,7 +44,7 @@ public class ServerSettingsParserTest {
         ServerSettingsParser serverSettingsParser = new ServerSettingsParser(serverSettings);
 
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-                () -> serverSettingsParser.getDirectory()
+            () -> serverSettingsParser.getDirectory()
         );
     }
 }

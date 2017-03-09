@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpResponse.HttpServerResponse;
 
-public class Tea implements UpstreamService {
+public class Tea implements BaseController {
     private final HttpServerResponse httpServerResponse;
 
     public Tea(HttpServerResponse httpServerResponse) {

@@ -4,7 +4,7 @@ import com.server.HttpResponse.HttpServerResponse;
 
 import java.io.File;
 
-public class DefaultPage implements UpstreamService {
+public class DefaultPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
 
     public DefaultPage(HttpServerResponse httpServerResponse) {

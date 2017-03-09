@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpResponse.HttpServerResponse;
 
-public class RedirectPage implements UpstreamService {
+public class RedirectPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
 
     public RedirectPage(HttpServerResponse httpServerResponse) {

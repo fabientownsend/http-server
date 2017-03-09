@@ -6,7 +6,7 @@ import com.server.HttpVerb;
 
 import java.util.LinkedList;
 
-public class FormPage implements UpstreamService {
+public class FormPage implements BaseController {
     private final ClientHttpRequest clientHttpRequest;
     private final HttpServerResponse httpServerResponse;
     private LinkedList<String> memory;

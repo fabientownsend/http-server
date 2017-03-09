@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpResponse.HttpServerResponse;
 
-public class Coffee implements UpstreamService {
+public class Coffee implements BaseController {
 
     private final HttpServerResponse httpServerResponse;
 

@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpResponse.HttpServerResponse;
 
-public class NotFoundPage implements UpstreamService {
+public class NotFoundPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
 
     public NotFoundPage(HttpServerResponse httpServerResponse) {

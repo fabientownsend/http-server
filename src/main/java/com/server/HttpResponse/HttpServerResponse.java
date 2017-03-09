@@ -1,4 +1,4 @@
-package com.server;
+package com.server.HttpResponse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

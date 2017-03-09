@@ -1,10 +1,13 @@
-package com.server;
+package com.server.Routes;
 
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpVerb;
+import com.server.Routes.FormPage;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.LinkedList;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

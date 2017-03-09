@@ -1,5 +1,6 @@
-package com.server;
+package com.server.HttpResponse;
 
+import com.server.HttpResponse.HttpServerResponse;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class ServerResponseTest {
     @Test
     public void returnsHttpServerCode() throws IOException {
-        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
+        HttpServerResponse serverResponse = new HttpServerResponse("HTTP/1.1");
         serverResponse.setHttpResponseCode(200);
 
         assertThat(serverResponse.build()).contains("HTTP/1.1 200 OK".getBytes());

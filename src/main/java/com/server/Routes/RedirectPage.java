@@ -1,4 +1,6 @@
-package com.server;
+package com.server.Routes;
+
+import com.server.HttpResponse.HttpServerResponse;
 
 public class RedirectPage implements UpstreamService {
     private final HttpServerResponse httpServerResponse;

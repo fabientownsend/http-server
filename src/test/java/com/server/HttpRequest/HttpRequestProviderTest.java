@@ -1,5 +1,6 @@
-package com.server;
+package com.server.HttpRequest;
 
+import com.server.HttpRequest.HttpRequestProvider;
 import org.junit.Test;
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.server;
+package com.server.HttpRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,7 @@
-package com.server;
+package com.server.Routes;
+
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpResponse.HttpServerResponse;
 
 import java.io.File;
 import java.util.Hashtable;

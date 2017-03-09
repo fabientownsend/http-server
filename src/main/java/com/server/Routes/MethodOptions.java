@@ -1,4 +1,8 @@
-package com.server;
+package com.server.Routes;
+
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpVerb;
 
 public class MethodOptions implements UpstreamService {
     private final ClientHttpRequest clientHttpRequest;

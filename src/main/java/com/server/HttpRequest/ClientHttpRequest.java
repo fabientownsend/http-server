@@ -1,4 +1,6 @@
-package com.server;
+package com.server.HttpRequest;
+
+import com.server.HttpVerb;
 
 import java.util.Hashtable;
 

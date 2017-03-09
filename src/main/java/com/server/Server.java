@@ -1,7 +1,13 @@
 package com.server;
 
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpRequest.HttpRequestParser;
+import com.server.HttpRequest.HttpRequestProvider;
+import com.server.HttpResponse.HttpServerResponse;
+import com.server.Routes.ServiceFactory;
+import com.server.Routes.UpstreamService;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
@@ -32,7 +38,6 @@ public class Server {
            httpServerResponse = service.generateContent();
 
             outputStream.write(httpServerResponse.build());
-        } catch (IOException e) {
         } catch (Exception e) {
             e.printStackTrace();
         }

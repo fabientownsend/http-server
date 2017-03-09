@@ -1,5 +1,8 @@
-package com.server;
+package com.server.HttpRequest;
 
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpRequest.HttpRequestParser;
+import com.server.HttpVerb;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

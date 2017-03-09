@@ -1,5 +1,8 @@
-package com.server;
+package com.server.Routes;
 
+import com.server.HttpRequest.ClientHttpRequest;
+import com.server.HttpResponse.HttpServerResponse;
+import com.server.Routes.*;
 import org.junit.Test;
 
 import java.util.LinkedList;

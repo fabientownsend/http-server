@@ -2,21 +2,27 @@ package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpVerb;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ImagePage implements UpstreamService {
+public class fileProvider implements UpstreamService {
     private final HttpServerResponse httpServerResponse;
     private final ClientHttpRequest clientHttpRequest;
 
-    public ImagePage(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
+    public fileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
         this.httpServerResponse = httpServerResponse;
         this.clientHttpRequest = clientHttpRequest;
     }
 
     public HttpServerResponse execute() {
+        if (clientHttpRequest.getVerb() != HttpVerb.GET) {
+            httpServerResponse.setHttpResponseCode(405);
+            return httpServerResponse;
+        }
+
         httpServerResponse.setHttpResponseCode(200);
         String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
         String uri = clientHttpRequest.getUri();

@@ -28,7 +28,7 @@ public class Router {
         } else if (uri.equals("/coffee")) {
             return new Coffee(httpServerResponse);
         } else if (folderContent.containsKey(uri)) {
-            return new ImagePage(httpServerResponse, clientHttpRequest);
+            return new fileProvider(httpServerResponse, clientHttpRequest);
         } else {
             return new NotFoundPage(httpServerResponse);
         }

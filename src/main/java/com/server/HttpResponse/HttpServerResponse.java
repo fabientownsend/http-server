@@ -21,6 +21,7 @@ public class HttpServerResponse {
         reasonPhrase.put(418, "I'm a teapot");
         reasonPhrase.put(500, "Internal Server Error");
         reasonPhrase.put(400, "Bad Request");
+        reasonPhrase.put(405, "Method Not Allowed");
     }
 
     public void setHttpResponseCode(Integer httpResponseCode) {

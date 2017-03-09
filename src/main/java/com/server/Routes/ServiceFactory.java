@@ -8,10 +8,13 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class ServiceFactory {
-    public UpstreamService provide(
-            HttpServerResponse httpServerResponse,
-            ClientHttpRequest clientHttpRequest,
-            LinkedList<String> memory) {
+    private final LinkedList<String> memory;
+
+    public ServiceFactory(LinkedList<String> memory) {
+        this.memory = memory;
+    }
+
+    public UpstreamService provide(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
         String uri = clientHttpRequest.getUri();
 
         Hashtable<String, Boolean> folderContent = getDirectoryFile();

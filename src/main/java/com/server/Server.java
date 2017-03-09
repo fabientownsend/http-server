@@ -17,7 +17,6 @@ import static com.server.Main.LOGGER;
 
 public class Server {
     private final OutputStream outputStream;
-    private LinkedList<String> memory;
     private HttpRequestProvider httpRequestProvider;
     private HttpRequestParser httpRequestParser;
     private ServiceFactory serviceFactory;
@@ -25,9 +24,8 @@ public class Server {
 
     public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) throws IOException {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
-        this.memory = memory;
         this.httpRequestParser = new HttpRequestParser();
-        this.serviceFactory = new ServiceFactory();
+        this.serviceFactory = new ServiceFactory(memory);
         this.outputStream = outputStream;
     }
 
@@ -37,10 +35,8 @@ public class Server {
             LOGGER.log(Level.INFO, httpRequest);
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
-            HttpServerResponse httpServerResponse =
-                    new HttpServerResponse(clientHttpRequest.getHttpVersion());
-            UpstreamService service =
-                    serviceFactory.provide(httpServerResponse, clientHttpRequest, memory);
+            HttpServerResponse httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+            UpstreamService service = serviceFactory.provide(httpServerResponse, clientHttpRequest);
 
             httpServerResponse = service.generateContent();
             LOGGER.log(Level.INFO, httpServerResponse.build().toString());

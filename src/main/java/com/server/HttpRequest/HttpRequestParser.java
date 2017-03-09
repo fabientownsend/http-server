@@ -1,7 +1,6 @@
 package com.server.HttpRequest;
 
 import com.server.BadRequestException;
-import com.server.HttpVerb;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -30,18 +29,12 @@ public class HttpRequestParser {
         }
     }
 
-    private HttpVerb parseVerb() {
+    private String parseVerb() {
         String requestLine = getRequestLine();
         String[] infoLine = requestLine.split("\\s+");
         String strVerb = infoLine[0];
 
-        for (HttpVerb verb: HttpVerb.values()) {
-            if (verb.name().equals(strVerb)) {
-                return verb;
-            }
-        }
-
-        throw new BadRequestException("this verb isn't valid");
+        return strVerb;
     }
 
     private String parseUri() {

@@ -21,12 +21,11 @@ public class Server {
     private RequestController requestController;
     private HttpServerResponse httpServerResponse;
 
-
     public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
         this.requestController = new RequestController(memory);
-        httpServerResponse = new HttpServerResponse("");
+        this.httpServerResponse = new HttpServerResponse("");
         this.outputStream = outputStream;
     }
 
@@ -39,6 +38,7 @@ public class Server {
             httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
 
             httpServerResponse = requestController.call(httpServerResponse, clientHttpRequest);
+            System.out.println(httpServerResponse.build().toString());
             LOGGER.log(Level.INFO, httpServerResponse.build().toString());
         } catch (BadRequestException e) {
             httpServerResponse.setHttpResponseCode(400);

@@ -24,11 +24,12 @@ public class FormPage implements UpstreamService {
     public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
 
-        if (clientHttpRequest.getVerb() == HttpVerb.POST || clientHttpRequest.getVerb() == HttpVerb.PUT) {
+        if (clientHttpRequest.getVerb().equals(HttpVerb.POST.name())
+            || clientHttpRequest.getVerb().equals(HttpVerb.PUT.name())) {
             memory.add(0, clientHttpRequest.getBody());
-        } else if (clientHttpRequest.getVerb() == HttpVerb.GET && memory.size() > 0) {
+        } else if (clientHttpRequest.getVerb().equals(HttpVerb.GET.name()) && memory.size() > 0) {
             httpServerResponse.setBody(memory.get(0));
-        } else if (clientHttpRequest.getVerb() == HttpVerb.DELETE) {
+        } else if (clientHttpRequest.getVerb().equals(HttpVerb.DELETE.name())) {
             memory.remove(0);
         }
 

@@ -16,7 +16,7 @@ public class MethodOptions implements UpstreamService {
     public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
 
-        if (clientHttpRequest.getVerb() == HttpVerb.OPTIONS) {
+        if (clientHttpRequest.getVerb().equals(HttpVerb.OPTIONS.name())) {
             httpServerResponse.setHeader("Allow", "GET,HEAD,POST,OPTIONS,PUT");
         } else {
             httpServerResponse.setHeader("Allow", "GET,OPTIONS");

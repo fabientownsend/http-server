@@ -1,21 +1,19 @@
 package com.server.HttpRequest;
 
-import com.server.HttpVerb;
-
 import java.util.Hashtable;
 
 public class ClientHttpRequest {
-    private HttpVerb verb;
+    private String verb;
     private String uri;
     private String httpVersion;
     private Hashtable<String, String> sectionInformation;
     private String body;
 
-    public HttpVerb getVerb() {
+    public String getVerb() {
         return verb;
     }
 
-    public void setVerb(HttpVerb verb) {
+    public void setVerb(String verb) {
         this.verb = verb;
     }
 

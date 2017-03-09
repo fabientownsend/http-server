@@ -8,17 +8,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class fileProvider implements UpstreamService {
+public class FileProvider implements UpstreamService {
     private final HttpServerResponse httpServerResponse;
     private final ClientHttpRequest clientHttpRequest;
 
-    public fileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
+    public FileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
         this.httpServerResponse = httpServerResponse;
         this.clientHttpRequest = clientHttpRequest;
     }
 
     public HttpServerResponse execute() {
-        if (clientHttpRequest.getVerb() != HttpVerb.GET) {
+        if (!clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
             httpServerResponse.setHttpResponseCode(405);
             return httpServerResponse;
         }

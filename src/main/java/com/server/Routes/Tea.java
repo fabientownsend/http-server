@@ -9,7 +9,7 @@ public class Tea implements UpstreamService {
         this.httpServerResponse = httpServerResponse;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
         httpServerResponse.setHeader("Content-Type", "text/html");
         return httpServerResponse;

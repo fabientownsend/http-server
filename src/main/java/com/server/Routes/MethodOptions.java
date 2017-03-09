@@ -13,7 +13,7 @@ public class MethodOptions implements UpstreamService {
         this.clientHttpRequest = clientHttpRequest;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
 
         if (clientHttpRequest.getVerb() == HttpVerb.OPTIONS) {

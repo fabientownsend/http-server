@@ -3,7 +3,6 @@ package com.server.Routes;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
 import com.server.HttpVerb;
-import com.server.Routes.FormPage;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -21,7 +20,7 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.GET);
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
-        assertThat(formPage.generateContent().build()).isEqualTo("HTTP/1.1 200 OK".getBytes());
+        assertThat(formPage.execute().build()).isEqualTo("HTTP/1.1 200 OK".getBytes());
     }
 
     @Test
@@ -33,7 +32,7 @@ public class FormPageTest {
         memory.add("hello");
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
 
-        httpServerResponse = formPage.generateContent();
+        httpServerResponse = formPage.execute();
         assertThat(httpServerResponse.build()).contains("hello".getBytes());
     }
 
@@ -47,7 +46,7 @@ public class FormPageTest {
         memory.add("hello");
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
 
-        httpServerResponse = formPage.generateContent();
+        httpServerResponse = formPage.execute();
         assertThat(httpServerResponse.build()).contains("Content-Length: 5".getBytes());
     }
 
@@ -59,7 +58,7 @@ public class FormPageTest {
         clientHttpRequest.setVerb(HttpVerb.PUT);
         clientHttpRequest.setBody("hello");
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
-        formPage.generateContent();
+        formPage.execute();
 
         assertThat(memory.remove()).contains("hello");
     }
@@ -72,7 +71,7 @@ public class FormPageTest {
         clientHttpRequest.setVerb(HttpVerb.POST);
         clientHttpRequest.setBody("hello");
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
-        formPage.generateContent();
+        formPage.execute();
 
         assertThat(memory.remove()).contains("hello");
     }
@@ -85,11 +84,11 @@ public class FormPageTest {
         clientHttpRequest.setVerb(HttpVerb.POST);
         clientHttpRequest.setBody("hello");
         FormPage formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
-        formPage.generateContent();
+        formPage.execute();
 
         clientHttpRequest.setVerb(HttpVerb.DELETE);
         formPage = new FormPage(httpServerResponse, clientHttpRequest, memory);
-        formPage.generateContent();
+        formPage.execute();
 
         assertThat(memory.size()).isEqualTo(0);
     }

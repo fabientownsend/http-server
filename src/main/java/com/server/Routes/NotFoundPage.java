@@ -9,7 +9,7 @@ public class NotFoundPage implements UpstreamService {
         this.httpServerResponse = httpServerResponse;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(404);
         return httpServerResponse;
     }

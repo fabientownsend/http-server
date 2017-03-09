@@ -9,7 +9,7 @@ public class RedirectPage implements UpstreamService {
         this.httpServerResponse = httpServerResponse;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(302);
         httpServerResponse.setHeader("Location", "http://localhost:5000/");
         return httpServerResponse;

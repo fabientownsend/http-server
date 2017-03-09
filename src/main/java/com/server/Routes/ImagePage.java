@@ -16,7 +16,7 @@ public class ImagePage implements UpstreamService {
         this.clientHttpRequest = clientHttpRequest;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
         String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
         String uri = clientHttpRequest.getUri();

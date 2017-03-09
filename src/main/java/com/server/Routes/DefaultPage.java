@@ -11,7 +11,7 @@ public class DefaultPage implements UpstreamService {
         this.httpServerResponse = httpServerResponse;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
         httpServerResponse.setHeader("Content-Type", "text/html");
         httpServerResponse.setBody(getListFiles().trim());

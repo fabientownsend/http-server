@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ServiceFactoryTest {
+public class RouterTest {
     private LinkedList <String> memory = new LinkedList<>();
-    private ServiceFactory serviceFactory = new ServiceFactory(memory);
+    private Router requestController = new Router();
     private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
 
     @Test
@@ -18,7 +18,7 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(DefaultPage.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(DefaultPage.class);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/form");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(FormPage.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(FormPage.class);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/redirect");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(RedirectPage.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(RedirectPage.class);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(MethodOptions.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(MethodOptions.class);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options2");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(MethodOptions2.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(MethodOptions2.class);
     }
 
     @Test
@@ -58,6 +58,6 @@ public class ServiceFactoryTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/it_doesnt_exist");
 
-        assertThat(serviceFactory.provide(httpServerResponse, clientHttpRequest)).isInstanceOf(NotFoundPage.class);
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory)).isInstanceOf(NotFoundPage.class);
     }
 }

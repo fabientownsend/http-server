@@ -10,7 +10,7 @@ public class Coffee implements UpstreamService {
         this.httpServerResponse = httpServerResponse;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(418);
         httpServerResponse.setHeader("Content-Type", "text/html");
         httpServerResponse.setBody("I'm a teapot");

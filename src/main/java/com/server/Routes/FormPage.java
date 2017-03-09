@@ -21,7 +21,7 @@ public class FormPage implements UpstreamService {
         this.memory = memory;
     }
 
-    public HttpServerResponse generateContent() {
+    public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
 
         if (clientHttpRequest.getVerb() == HttpVerb.POST || clientHttpRequest.getVerb() == HttpVerb.PUT) {

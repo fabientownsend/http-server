@@ -4,11 +4,9 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
 import com.server.HttpResponse.HttpServerResponse;
-import com.server.Routes.ServiceFactory;
-import com.server.Routes.UpstreamService;
+import com.server.Routes.RequestController;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -19,13 +17,13 @@ public class Server {
     private final OutputStream outputStream;
     private HttpRequestProvider httpRequestProvider;
     private HttpRequestParser httpRequestParser;
-    private ServiceFactory serviceFactory;
+    private RequestController requestController;
 
 
-    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) throws IOException {
+    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
-        this.serviceFactory = new ServiceFactory(memory);
+        this.requestController = new RequestController(memory);
         this.outputStream = outputStream;
     }
 
@@ -36,14 +34,13 @@ public class Server {
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
             HttpServerResponse httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
-            UpstreamService service = serviceFactory.provide(httpServerResponse, clientHttpRequest);
 
-            httpServerResponse = service.generateContent();
+            httpServerResponse = requestController.call(httpServerResponse, clientHttpRequest);
             LOGGER.log(Level.INFO, httpServerResponse.build().toString());
 
             outputStream.write(httpServerResponse.build());
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, e.toString());
         }
     }
 }

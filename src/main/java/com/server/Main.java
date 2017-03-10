@@ -22,7 +22,9 @@ public class Main {
         LOGGER.addHandler(fileHandle);
         Socket clientSocket;
 
-        ServerSocket serverSocket = new ServerSocket(5000);
+        ServerSettingsParser serverSettingsParser = new ServerSettingsParser();
+
+        ServerSocket serverSocket = new ServerSocket(serverSettingsParser.getPort());
         LinkedList<String> memory = new LinkedList<>();
 
         while (true) {
@@ -32,7 +34,7 @@ public class Main {
                         new InputStreamReader(clientSocket.getInputStream()));
                 OutputStream output = clientSocket.getOutputStream();
 
-                Server server = new Server(input, output, memory);
+                Server server = new Server(input, output, memory, serverSettingsParser.getDirectory());
                 server.start();
                 clientSocket.close();
             } catch (Exception exception) {

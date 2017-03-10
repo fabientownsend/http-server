@@ -7,14 +7,16 @@ import java.util.LinkedList;
 
 public class RequestController {
     private final LinkedList<String> memory;
+    private final String directory;
 
-    public RequestController(LinkedList<String> memory) {
+    public RequestController(LinkedList<String> memory, String directory) {
         this.memory = memory;
+        this.directory = directory;
     }
 
     public HttpServerResponse call(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
         Router router = new Router();
-        BaseController route = router.route(httpServerResponse, clientHttpRequest, memory);
+        BaseController route = router.route(httpServerResponse, clientHttpRequest, memory, directory);
         HttpServerResponse response = route.execute();
 
         return response;

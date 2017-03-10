@@ -11,10 +11,12 @@ import java.nio.file.Paths;
 public class FileProvider implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private final ClientHttpRequest clientHttpRequest;
+    private final String directoryPath;
 
-    public FileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
+    public FileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, String directory) {
         this.httpServerResponse = httpServerResponse;
         this.clientHttpRequest = clientHttpRequest;
+        this.directoryPath = directory;
     }
 
     public HttpServerResponse execute() {
@@ -24,7 +26,6 @@ public class FileProvider implements BaseController {
         }
 
         httpServerResponse.setHttpResponseCode(200);
-        String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
         String uri = clientHttpRequest.getUri();
         String path = directoryPath + uri.substring(1, uri.length());
 

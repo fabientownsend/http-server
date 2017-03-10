@@ -6,9 +6,11 @@ import java.io.File;
 
 public class DefaultPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
+    private final String directoryPath;
 
-    public DefaultPage(HttpServerResponse httpServerResponse) {
+    public DefaultPage(HttpServerResponse httpServerResponse, String directory) {
         this.httpServerResponse = httpServerResponse;
+        this.directoryPath = directory;
     }
 
     public HttpServerResponse execute() {
@@ -20,7 +22,6 @@ public class DefaultPage implements BaseController {
 
     private String getListFiles() {
         String result = "";
-        String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
         File directory = new File(directoryPath);
         String[] files = directory.list();
 

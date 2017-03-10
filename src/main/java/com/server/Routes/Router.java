@@ -8,13 +8,13 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 
 public class Router {
-    public BaseController route(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+    public BaseController route(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory, String directory) {
         String uri = clientHttpRequest.getUri();
 
-        Hashtable<String, Boolean> folderContent = getDirectoryFile();
+        Hashtable<String, Boolean> folderContent = getDirectoryFile(directory);
 
         if (uri.equals("/")) {
-            return new DefaultPage(httpServerResponse);
+            return new DefaultPage(httpServerResponse, directory);
         } else if (uri.equals("/tea")) {
             return new Tea(httpServerResponse);
         } else if (uri.equals("/form")) {
@@ -28,14 +28,13 @@ public class Router {
         } else if (uri.equals("/coffee")) {
             return new Coffee(httpServerResponse);
         } else if (folderContent.containsKey(uri)) {
-            return new FileProvider(httpServerResponse, clientHttpRequest);
+            return new FileProvider(httpServerResponse, clientHttpRequest, directory);
         } else {
             return new NotFoundPage(httpServerResponse);
         }
     }
 
-    private Hashtable getDirectoryFile() {
-        String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
+    private Hashtable getDirectoryFile(String directoryPath) {
         Hashtable<String, Boolean> router = new Hashtable<>();
 
         File directory = new File(directoryPath);

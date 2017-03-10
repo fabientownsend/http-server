@@ -21,10 +21,10 @@ public class Server {
     private RequestController requestController;
     private HttpServerResponse httpServerResponse;
 
-    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory) {
+    public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory, String directory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
-        this.requestController = new RequestController(memory);
+        this.requestController = new RequestController(memory, directory);
         this.httpServerResponse = new HttpServerResponse("");
         this.outputStream = outputStream;
     }

@@ -8,11 +8,13 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ServerTest {
+    private String directoryPath = "";
+
     @Test
     public void throwAnExceptionWhen() throws Exception {
         BufferedReader inputError = null;
         OutputStream output = getStreamTest();
-        Server server = new Server(inputError, output, new LinkedList<>());
+        Server server = new Server(inputError, output, new LinkedList<>(), directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("500 Internal Server Error");
@@ -24,7 +26,7 @@ public class ServerTest {
 
         OutputStream output = getStreamTest();
 
-        Server server = new Server(socketInput, output, new LinkedList<>());
+        Server server = new Server(socketInput, output, new LinkedList<>(), directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("400 Bad Request");

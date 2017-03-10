@@ -30,7 +30,7 @@ public class FileProvider implements BaseController {
         String path = directoryPath + uri.substring(1, uri.length());
 
         httpServerResponse.setHeader("Content-Type", getComment(uri));
-        httpServerResponse.setBody(getImageBinary(path));
+        httpServerResponse.setBody(getBinaryFile(path));
 
         return httpServerResponse;
     }
@@ -49,7 +49,7 @@ public class FileProvider implements BaseController {
         }
     }
 
-    private byte[] getImageBinary(String directoryPath) {
+    private byte[] getBinaryFile(String directoryPath) {
         byte[] binaryImage = new byte[1];
         try {
             binaryImage = Files.readAllBytes(Paths.get(directoryPath));

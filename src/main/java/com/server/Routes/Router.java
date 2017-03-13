@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
 
@@ -17,6 +18,8 @@ public class Router {
             return new DefaultPage(httpServerResponse, directory);
         } else if (uri.startsWith("/parameters")) {
             return new ParametersPage(httpServerResponse, clientHttpRequest);
+        } else if (uri.startsWith("/cookie")) {
+            return new Cookie(httpServerResponse, clientHttpRequest, memory);
         } else if (uri.equals("/logs")) {
             return new Logs(httpServerResponse, clientHttpRequest);
         } else if (uri.equals("/tea")) {

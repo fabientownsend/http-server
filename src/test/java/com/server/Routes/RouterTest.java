@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
 import org.junit.Test;
@@ -76,5 +77,13 @@ public class RouterTest {
         clientHttpRequest.setUri("/logs");
 
         assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(Logs.class);
+    }
+
+    @Test
+    public void returnsCookiePage() throws Exception {
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/cookie?type=chocolate");
+
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(Cookie.class);
     }
 }

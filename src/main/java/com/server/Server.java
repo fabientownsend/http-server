@@ -33,6 +33,7 @@ public class Server {
         try {
             String httpRequest = httpRequestProvider.getRequest();
             LOGGER.log(Level.INFO, "request: " + new String(httpRequest));
+            System.out.println(httpRequest);
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
             httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());

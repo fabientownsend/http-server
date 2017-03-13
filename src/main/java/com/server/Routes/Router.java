@@ -15,6 +15,8 @@ public class Router {
 
         if (uri.equals("/")) {
             return new DefaultPage(httpServerResponse, directory);
+        } else if (uri.startsWith("/parameters")) {
+            return new ParametersPage(httpServerResponse, clientHttpRequest);
         } else if (uri.equals("/tea")) {
             return new Tea(httpServerResponse);
         } else if (uri.equals("/form")) {

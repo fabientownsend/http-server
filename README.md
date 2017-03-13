@@ -1,9 +1,46 @@
+# HTTP Server
+
+``` bash
+┌─────────┐                                          ┌─────────┐
+│         │          ┌────────────────────┐          │         │
+│         │──────────┤   GET / HTTP/1.1   ├─────────▶│         │
+│         │          └────────────────────┘          │  Http   │
+│ Client  │                                          │ Server  │
+│         │          ┌────────────────────┐          │         │
+│         │◀─────────┤  HTTP/1.1 200 OK   ├──────────│         │
+│         │          └────────────────────┘          │         │
+└─────────┘                                          └─────────┘
+```
+
+``` bash
+
+Byequest          Request                                                    Web
+Client            Server             provider            parser              Framework
+
+│                   │                   │                   │                   │    
+├────────Http ─────▶│                   │                   │                   │    
+│      request      ├───Read socket ───▶│                   │                   │    
+│                   │                   │                   │                   │    
+│                   │◀──Http request ───┤                   │                   │    
+│                   │                   │                   │                   │    
+│                   │                   │                   │                   │    
+│                   ├──────────Parse http request ─────────▶│                   │    
+│                   │                   │                   │                   │    
+│                   │◀─────────Parsed http request──────────│                   │    
+│                   │                   │                   │                   │    
+│                   │                   │                   │                   │    
+│                   │───────────────────┼───Get response────┼──────────────────▶│    
+│                   │                   │                   │                   │    
+│                   │◀──────────────────┼─────Response──────┼───────────────────┤    
+│◀────────Http ─────┤                   │                   │                   │    
+│       response    │                   │                   │                   │    
+```
 ## Run
 ``` bash
   gradle execute
 ```
 
-By default the server run on the port 5000.
+
 You can connect to the server with netcat this way:
 
 ``` bash

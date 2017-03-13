@@ -17,13 +17,14 @@ public class HttpServerResponse {
         this.reasonPhrase = new Hashtable<>();
         reasonPhrase.put(200, "OK");
         reasonPhrase.put(201, "Created");
-        reasonPhrase.put(404, "Not Found");
+        reasonPhrase.put(204, "No Content");
         reasonPhrase.put(302, "Object Moved");
+        reasonPhrase.put(400, "Bad Request");
+        reasonPhrase.put(401, "Unauthorized");
+        reasonPhrase.put(404, "Not Found");
+        reasonPhrase.put(405, "Method Not Allowed");
         reasonPhrase.put(418, "I'm a teapot");
         reasonPhrase.put(500, "Internal Server Error");
-        reasonPhrase.put(400, "Bad Request");
-        reasonPhrase.put(405, "Method Not Allowed");
-        reasonPhrase.put(204, "No Content");
     }
 
     public void setHttpResponseCode(Integer httpResponseCode) {

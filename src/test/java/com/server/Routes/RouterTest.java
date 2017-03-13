@@ -69,4 +69,12 @@ public class RouterTest {
 
         assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(ParametersPage.class);
     }
+
+    @Test
+    public void returnsLogsPage() throws Exception {
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/logs");
+
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(Logs.class);
+    }
 }

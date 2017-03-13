@@ -1,13 +1,18 @@
 package com.server.HttpRequest;
 
 import java.util.Hashtable;
+import java.util.Map;
 
 public class ClientHttpRequest {
     private String verb;
     private String uri;
     private String httpVersion;
-    private Hashtable<String, String> sectionInformation;
+    private Map<String, String> sectionInformation;
     private String body;
+
+    public ClientHttpRequest() {
+        sectionInformation = new Hashtable<>();
+    }
 
     public String getVerb() {
         return verb;
@@ -34,10 +39,14 @@ public class ClientHttpRequest {
     }
 
     public String getInformation(String information) {
-        return sectionInformation.get(information);
+        if (sectionInformation.containsKey(information)) {
+            return sectionInformation.get(information);
+        } else {
+            return "";
+        }
     }
 
-    public void setSectionInformation(Hashtable<String,String> sectionInformation) {
+    public void setSectionInformation(Map<String,String> sectionInformation) {
         this.sectionInformation = sectionInformation;
     }
 

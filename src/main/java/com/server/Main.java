@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Main {
-    final static Logger LOGGER = Logger.getLogger(Server.class.getName());
+    public final static Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     public static void main(String[] args) throws IOException {
         FileHandler fileHandle = new FileHandler("logs/logger.log", false);

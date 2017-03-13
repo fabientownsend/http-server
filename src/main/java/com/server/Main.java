@@ -13,11 +13,10 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Main {
-    public final static Logger LOGGER = Logger.getLogger(Server.class.getName());
-    private static FileHandler fileHandle = null;
+    final static Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     public static void main(String[] args) throws IOException {
-        fileHandle = new FileHandler("logs/logger.log", false);
+        FileHandler fileHandle = new FileHandler("logs/logger.log", false);
         fileHandle.setFormatter(new SimpleFormatter());
         LOGGER.addHandler(fileHandle);
         Socket clientSocket;
@@ -31,7 +30,7 @@ public class Main {
             try {
                 clientSocket = serverSocket.accept();
                 BufferedReader input = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
+                    new InputStreamReader(clientSocket.getInputStream()));
                 OutputStream output = clientSocket.getOutputStream();
 
                 Server server = new Server(input, output, memory, serverSettingsParser.getDirectory());

@@ -36,7 +36,6 @@ public class FormPageTest {
         assertThat(httpServerResponse.build()).contains("hello".getBytes());
     }
 
-    @Ignore
     @Test
     public void returnTheSizeOfTheData() {
         LinkedList<String> memory = new LinkedList<>();
@@ -49,7 +48,6 @@ public class FormPageTest {
         httpServerResponse = formPage.execute();
         assertThat(httpServerResponse.build()).contains("Content-Length: 5".getBytes());
     }
-
     @Test
     public void saveDataIntoMemoryWhenPut() {
         LinkedList<String> memory = new LinkedList<>();

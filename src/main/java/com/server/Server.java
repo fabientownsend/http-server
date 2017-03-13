@@ -32,14 +32,15 @@ public class Server {
     public void start() throws IOException {
         try {
             String httpRequest = httpRequestProvider.getRequest();
-            LOGGER.log(Level.INFO, httpRequest);
+            LOGGER.log(Level.INFO, "request: " + httpRequest);
+            System.out.println("request : " + new String(httpRequest));
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
             httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
 
             httpServerResponse = requestController.call(httpServerResponse, clientHttpRequest);
-            System.out.println(httpServerResponse.build().toString());
-            LOGGER.log(Level.INFO, httpServerResponse.build().toString());
+            System.out.println("response: " + new String(httpServerResponse.build()));
+            LOGGER.log(Level.INFO, "response: " + httpServerResponse.build().toString());
         } catch (BadRequestException e) {
             httpServerResponse.setHttpResponseCode(400);
             httpServerResponse.setBody("The request could not be understood");

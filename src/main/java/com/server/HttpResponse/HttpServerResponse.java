@@ -16,12 +16,14 @@ public class HttpServerResponse {
         this.httpVersion = httpVersion;
         this.reasonPhrase = new Hashtable<>();
         reasonPhrase.put(200, "OK");
+        reasonPhrase.put(201, "Created");
         reasonPhrase.put(404, "Not Found");
         reasonPhrase.put(302, "Object Moved");
         reasonPhrase.put(418, "I'm a teapot");
         reasonPhrase.put(500, "Internal Server Error");
         reasonPhrase.put(400, "Bad Request");
         reasonPhrase.put(405, "Method Not Allowed");
+        reasonPhrase.put(204, "No Content");
     }
 
     public void setHttpResponseCode(Integer httpResponseCode) {
@@ -33,12 +35,12 @@ public class HttpServerResponse {
     }
 
     public void setBody(String bodyResponse) {
-        this.bodyResponse = bodyResponse;
+        setBody(bodyResponse.getBytes());
     }
 
     public void setBody(byte[] binaryImage) {
         ByteArrayOutputStream response = new ByteArrayOutputStream();
-        String header = "\nContent-Length: " + "\n\n";
+        String header = "\r\nContent-Length: " +  binaryImage.length + "\r\n\r\n";
 
         try {
             response.write(header.getBytes());
@@ -66,14 +68,14 @@ public class HttpServerResponse {
 
     private String httpResponseBody() {
         if (bodyResponse != null) {
-            return  "\n\n" + bodyResponse;
+            return  "\r\n\r\n" + bodyResponse;
         } else {
             return "";
         }
     }
 
     private String httpResponseHeader() {
-        return (header != null) ? "\n" + header : "";
+        return (header != null) ? "\r\n" + header : "";
     }
 
     private String httpResponseStatusLine() {

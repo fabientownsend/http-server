@@ -22,9 +22,7 @@ public class HttpRequestParser {
             return clientHttpRequest;
         } catch (BadRequestException message) {
             throw new BadRequestException(message.getMessage());
-        } catch (ArrayIndexOutOfBoundsException ignored) {
-            throw new BadRequestException("that's not a correct request. kkthxbye");
-        } catch (NullPointerException ignored) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
             throw new BadRequestException("that's not a correct request. kkthxbye");
         }
     }

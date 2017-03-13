@@ -7,6 +7,7 @@ import com.server.HttpVerb;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class FileProvider implements BaseController {
     private final HttpServerResponse httpServerResponse;
@@ -20,6 +21,16 @@ public class FileProvider implements BaseController {
     }
 
     public HttpServerResponse execute() {
+        if (clientHttpRequest.getVerb().equals(HttpVerb.PATCH.name())) {
+            try {
+                Files.write(Paths.get(directoryPath + "/patch-content.txt"), "patched content".getBytes(), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            httpServerResponse.setHttpResponseCode(204);
+            return httpServerResponse;
+        }
+
         if (!clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
             httpServerResponse.setHttpResponseCode(405);
             return httpServerResponse;

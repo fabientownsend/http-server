@@ -1,6 +1,5 @@
 package com.server.HttpResponse;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -35,7 +34,6 @@ public class ServerResponseTest {
         assertThat(serverResponse.build()).contains("the content".getBytes());
     }
 
-    @Ignore
     @Test
     public void setsTheContentLengthWhenItHasContent() throws IOException {
         HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
@@ -44,5 +42,23 @@ public class ServerResponseTest {
         serverResponse.setBody("the content");
 
         assertThat(serverResponse.build()).contains("Content-Length: 11".getBytes());
+    }
+
+    @Test
+    public void canCreateAResponseWithBodyBasedOnBytes() {
+        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
+        serverResponse.setHttpResponseCode(201);
+        serverResponse.setHeader("Content-Type", "text/plain");
+        serverResponse.setBody("201 Created");
+
+        String expected = "HTTP/1.1 201 Created\r\n" +
+                "Content-Type: text/plain\r\n" +
+                "Content-Length: 11\r\n" +
+                "\r\n" +
+                "201 Created";
+
+        String response = new String(serverResponse.build());
+
+        assertThat(response).isEqualTo(expected);
     }
 }

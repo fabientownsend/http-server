@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 import java.io.File;
 import java.util.Hashtable;
@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class Router {
     public BaseController route(ClientHttpRequest clientHttpRequest, LinkedList<String> memory, String directory) {
         String uri = clientHttpRequest.getUri();
-        HttpServerResponse httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
 
         Hashtable<String, Boolean> folderContent = getDirectoryFile(directory);
 
@@ -26,7 +26,7 @@ public class Router {
         } else if (uri.equals("/logs")) {
             return new Logs(clientHttpRequest);
         } else if (uri.equals("/tea")) {
-            return new Tea(httpServerResponse);
+            return new Tea(httpResponse);
         } else if (uri.equals("/form")) {
             return new FormPage(clientHttpRequest, memory);
         } else if (uri.equals("/redirect")) {

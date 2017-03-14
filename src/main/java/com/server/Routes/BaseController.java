@@ -1,7 +1,7 @@
 package com.server.Routes;
 
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 public interface BaseController {
-    HttpServerResponse execute();
+    HttpResponse execute();
 }

@@ -1,7 +1,7 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 import java.util.LinkedList;
 
@@ -14,10 +14,10 @@ public class RequestController {
         this.directory = directory;
     }
 
-    public HttpServerResponse call(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse call(ClientHttpRequest clientHttpRequest) {
         Router router = new Router();
         BaseController route = router.route(clientHttpRequest, memory, directory);
-        HttpServerResponse response = route.execute();
+        HttpResponse response = route.execute();
 
         return response;
     }

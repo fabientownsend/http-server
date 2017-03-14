@@ -14,7 +14,7 @@ public class CoffeeTest {
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
         Coffee coffee = new Coffee(clientHttpRequest);
-        assertThat(coffee.execute().build()).contains("HTTP/1.1 418 I'm a teapot".getBytes());
-        assertThat(coffee.execute().build()).contains("I'm a teapot".getBytes());
+        assertThat(coffee.execute().response()).contains("HTTP/1.1 418 I'm a teapot".getBytes());
+        assertThat(coffee.execute().response()).contains("I'm a teapot".getBytes());
     }
 }

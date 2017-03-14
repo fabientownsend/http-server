@@ -2,7 +2,6 @@ package com.server.Routes;
 
 import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
 import com.server.HttpVerb;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,8 +11,6 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CookieTest {
-    private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
-
     @Ignore
     @Test
     public void returns200Response() {
@@ -23,7 +20,7 @@ public class CookieTest {
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         Cookie cookie = new Cookie(clientHttpRequest, memory);
-        String response = new String(cookie.execute().build());
+        String response = new String(cookie.execute().response());
         assertThat(response).isEqualTo(
             "HTTP/1.1 200 OK\r\n"
             + "Set-Cookie: type:chocolate\r\n"

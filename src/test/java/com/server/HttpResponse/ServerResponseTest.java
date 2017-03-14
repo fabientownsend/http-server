@@ -9,47 +9,47 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class ServerResponseTest {
     @Test
     public void returnsHttpServerCode() throws IOException {
-        HttpServerResponse serverResponse = new HttpServerResponse("HTTP/1.1");
-        serverResponse.setHttpResponseCode(200);
+        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        serverResponse.statusCode(200);
 
-        assertThat(serverResponse.build()).contains("HTTP/1.1 200 OK".getBytes());
+        assertThat(serverResponse.response()).contains("HTTP/1.1 200 OK".getBytes());
     }
 
     @Test
     public void returnHttpServerHeader() throws IOException {
-        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
-        serverResponse.setHttpResponseCode(200);
-        serverResponse.setHeader("Content-Type", "text/plain");
+        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        serverResponse.statusCode(200);
+        serverResponse.addHeader("Content-Type", "text/plain");
 
-        assertThat(serverResponse.build()).contains("Content-Type: text/plain".getBytes());
+        assertThat(serverResponse.response()).contains("Content-Type: text/plain".getBytes());
     }
 
     @Test
     public void returnsTheBodyOffTheHttpRespnse() throws IOException {
-        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
-        serverResponse.setHttpResponseCode(200);
-        serverResponse.setHeader("Content-Type", "text/plain");
-        serverResponse.setBody("the content");
+        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        serverResponse.statusCode(200);
+        serverResponse.addHeader("Content-Type", "text/plain");
+        serverResponse.content("the content");
 
-        assertThat(serverResponse.build()).contains("the content".getBytes());
+        assertThat(serverResponse.response()).contains("the content".getBytes());
     }
 
     @Test
     public void setsTheContentLengthWhenItHasContent() throws IOException {
-        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
-        serverResponse.setHttpResponseCode(200);
-        serverResponse.setHeader("Content-Type", "text/plain");
-        serverResponse.setBody("the content");
+        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        serverResponse.statusCode(200);
+        serverResponse.addHeader("Content-Type", "text/plain");
+        serverResponse.content("the content");
 
-        assertThat(serverResponse.build()).contains("Content-Length: 11".getBytes());
+        assertThat(serverResponse.response()).contains("Content-Length: 11".getBytes());
     }
 
     @Test
     public void canCreateAResponseWithBodyBasedOnBytes() {
-        HttpServerResponse  serverResponse = new HttpServerResponse("HTTP/1.1");
-        serverResponse.setHttpResponseCode(201);
-        serverResponse.setHeader("Content-Type", "text/plain");
-        serverResponse.setBody("201 Created");
+        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        serverResponse.statusCode(201);
+        serverResponse.addHeader("Content-Type", "text/plain");
+        serverResponse.content("201 Created");
 
         String expected = "HTTP/1.1 201 Created\r\n" +
                 "Content-Type: text/plain\r\n" +
@@ -57,7 +57,7 @@ public class ServerResponseTest {
                 "\r\n" +
                 "201 Created";
 
-        String response = new String(serverResponse.build());
+        String response = new String(serverResponse.response());
 
         assertThat(response).isEqualTo(expected);
     }

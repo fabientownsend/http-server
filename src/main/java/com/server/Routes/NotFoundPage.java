@@ -1,17 +1,17 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 public class NotFoundPage implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
 
     public NotFoundPage(ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(404);
-        return httpServerResponse;
+    public HttpResponse execute() {
+        httpResponse.statusCode(404);
+        return httpResponse;
     }
 }

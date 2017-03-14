@@ -1,17 +1,17 @@
 package com.server.Routes;
 
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 public class Tea implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
 
-    public Tea(HttpServerResponse httpServerResponse) {
-        this.httpServerResponse = httpServerResponse;
+    public Tea(HttpResponse httpResponse) {
+        this.httpResponse = httpResponse;
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(200);
-        httpServerResponse.setHeader("Content-Type", "text/html");
-        return httpServerResponse;
+    public HttpResponse execute() {
+        httpResponse.statusCode(200);
+        httpResponse.addHeader("Content-Type", "text/html");
+        return httpResponse;
     }
 }

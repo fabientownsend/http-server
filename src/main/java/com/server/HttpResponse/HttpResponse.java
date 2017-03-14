@@ -4,15 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 
-public class HttpServerResponse {
+public class HttpResponse {
     private final String httpVersion;
     private Integer statusCode;
     private final Hashtable<Integer, String> reasonPhrase;
     private String header;
-    private String bodyResponse;
     private byte[] bodyImageResponse;
 
-    public HttpServerResponse(String httpVersion) {
+    public HttpResponse(String httpVersion) {
         this.httpVersion = httpVersion;
         this.reasonPhrase = new Hashtable<>();
         reasonPhrase.put(200, "OK");
@@ -27,25 +26,25 @@ public class HttpServerResponse {
         reasonPhrase.put(500, "Internal Server Error");
     }
 
-    public void setHttpResponseCode(Integer httpResponseCode) {
+    public void statusCode(Integer httpResponseCode) {
         this.statusCode = httpResponseCode;
     }
 
-    public void setHeader(String headerFieldName, String description) {
+    public void addHeader(String headerFieldName, String description) {
         this.header = headerFieldName + ": " + description;
     }
 
-    public void setBody(String bodyResponse) {
-        setBody(bodyResponse.getBytes());
+    public void content(String content) {
+        content(content.getBytes());
     }
 
-    public void setBody(byte[] binaryImage) {
+    public void content(byte[] content) {
         ByteArrayOutputStream response = new ByteArrayOutputStream();
-        String header = "\r\nContent-Length: " +  binaryImage.length + "\r\n\r\n";
+        String header = "\r\nContent-Length: " +  content.length + "\r\n\r\n";
 
         try {
             response.write(header.getBytes());
-            response.write(binaryImage);
+            response.write(content);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,26 +52,17 @@ public class HttpServerResponse {
         this.bodyImageResponse = response.toByteArray();
     }
 
-    public byte[] build() {
+    public byte[] response() {
         ByteArrayOutputStream response = new ByteArrayOutputStream();
         try {
             response.write(httpResponseStatusLine().getBytes());
             response.write(httpResponseHeader().getBytes());
-            response.write(httpResponseBody().getBytes());
             response.write((bodyImageResponse != null) ? bodyImageResponse : "".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return response.toByteArray();
-    }
-
-    private String httpResponseBody() {
-        if (bodyResponse != null) {
-            return  "\r\n\r\n" + bodyResponse;
-        } else {
-            return "";
-        }
     }
 
     private String httpResponseHeader() {

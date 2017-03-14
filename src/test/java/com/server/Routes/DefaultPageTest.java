@@ -16,8 +16,8 @@ public class DefaultPageTest {
 
         DefaultPage defaultPage = new DefaultPage(clientHttpRequest, directoryPath);
 
-        assertThat(defaultPage.execute().build()).contains("build.gradle".getBytes());
-        assertThat(defaultPage.execute().build()).contains("README.md".getBytes());
+        assertThat(defaultPage.execute().response()).contains("response.gradle".getBytes());
+        assertThat(defaultPage.execute().response()).contains("README.md".getBytes());
     }
 
     @Test
@@ -26,6 +26,6 @@ public class DefaultPageTest {
 
         DefaultPage defaultPage = new DefaultPage(clientHttpRequest, directoryPath);
 
-        assertThat(defaultPage.execute().build()).contains("<a href=\"/build.gradle\">build.gradle</a>".getBytes());
+        assertThat(defaultPage.execute().response()).contains("<a href=\"/response.gradle\">response.gradle</a>".getBytes());
     }
 }

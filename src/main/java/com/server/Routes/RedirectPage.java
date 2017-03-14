@@ -1,18 +1,18 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 public class RedirectPage implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
 
     public RedirectPage(ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(302);
-        httpServerResponse.setHeader("Location", "http://localhost:5000/");
-        return httpServerResponse;
+    public HttpResponse execute() {
+        httpResponse.statusCode(302);
+        httpResponse.addHeader("Location", "http://localhost:5000/");
+        return httpResponse;
     }
 }

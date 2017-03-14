@@ -1,7 +1,7 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
 
 import java.io.IOException;
@@ -10,54 +10,54 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class FileProviderPage implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
     private final ClientHttpRequest clientHttpRequest;
     private final String directoryPath;
     private FileProvider fileProvider = new FileProvider();
 
     public FileProviderPage(ClientHttpRequest clientHttpRequest, String directory) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
         this.directoryPath = directory;
     }
 
-    public HttpServerResponse execute() {
+    public HttpResponse execute() {
         if (clientHttpRequest.getVerb().equals(HttpVerb.PATCH.name())) {
             try {
                 Files.write(Paths.get(directoryPath + "/patch-content.txt"), "patched content".getBytes(), StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            httpServerResponse.setHttpResponseCode(204);
-            return httpServerResponse;
+            httpResponse.statusCode(204);
+            return httpResponse;
         }
 
         if (!clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
-            httpServerResponse.setHttpResponseCode(405);
-            return httpServerResponse;
+            httpResponse.statusCode(405);
+            return httpResponse;
         }
 
         if (!clientHttpRequest.getInformation("Range").isEmpty()) {
-            httpServerResponse.setHttpResponseCode(206);
+            httpResponse.statusCode(206);
             String uri = clientHttpRequest.getUri();
             String path = directoryPath + uri.substring(1, uri.length());
-            httpServerResponse.setHeader("Content-Type", getComment(uri));
+            httpResponse.addHeader("Content-Type", getComment(uri));
 
             int[] range = clientHttpRequest.getRange();
 
             byte[] partialFile = fileProvider.getPartialFile(path, range[0], range[1] + 1);
-            httpServerResponse.setBody(partialFile);
-            return httpServerResponse;
+            httpResponse.content(partialFile);
+            return httpResponse;
         }
 
-        httpServerResponse.setHttpResponseCode(200);
+        httpResponse.statusCode(200);
         String uri = clientHttpRequest.getUri();
         String path = directoryPath + uri.substring(1, uri.length());
 
-        httpServerResponse.setHeader("Content-Type", getComment(uri));
-        httpServerResponse.setBody(fileProvider.getFullFile(path));
+        httpResponse.addHeader("Content-Type", getComment(uri));
+        httpResponse.content(fileProvider.getFullFile(path));
 
-        return httpServerResponse;
+        return httpResponse;
     }
 
     private String getComment(String fileName) {

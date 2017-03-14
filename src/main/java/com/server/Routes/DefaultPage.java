@@ -1,24 +1,24 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 import java.io.File;
 
 public class DefaultPage implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
     private final String directoryPath;
 
     public DefaultPage(ClientHttpRequest clientHttpRequest, String directory) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         this.directoryPath = directory;
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(200);
-        httpServerResponse.setHeader("Content-Type", "text/html");
-        httpServerResponse.setBody(getListFiles().trim());
-        return  httpServerResponse;
+    public HttpResponse execute() {
+        httpResponse.statusCode(200);
+        httpResponse.addHeader("Content-Type", "text/html");
+        httpResponse.content(getListFiles().trim());
+        return httpResponse;
     }
 
     private String getListFiles() {

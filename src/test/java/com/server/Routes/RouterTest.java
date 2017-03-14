@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RouterTest {
     private LinkedList <String> memory = new LinkedList<>();
     private Router requestController = new Router();
-    private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
+    private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
     private String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
 
     @Test

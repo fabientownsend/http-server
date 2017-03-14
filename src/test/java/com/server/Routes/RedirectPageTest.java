@@ -14,6 +14,6 @@ public class RedirectPageTest {
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
         RedirectPage redirectPage = new RedirectPage(clientHttpRequest);
-        assertThat(redirectPage.execute().build()).contains("HTTP/1.1 302 Object Moved".getBytes());
+        assertThat(redirectPage.execute().response()).contains("HTTP/1.1 302 Object Moved".getBytes());
     }
 }

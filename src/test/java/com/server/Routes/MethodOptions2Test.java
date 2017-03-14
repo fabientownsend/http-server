@@ -14,7 +14,7 @@ public class MethodOptions2Test {
         clientHttpRequest.setVerb(HttpVerb.OPTIONS.name());
 
         MethodOptions2 methodOptions = new MethodOptions2(clientHttpRequest);
-        assertThat(methodOptions.execute().build()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.execute().response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -22,7 +22,7 @@ public class MethodOptions2Test {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
 
         MethodOptions2 methodOptions = new MethodOptions2(clientHttpRequest);
-        assertThat(methodOptions.execute().build()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.execute().response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class MethodOptions2Test {
         clientHttpRequest.setVerb(HttpVerb.POST.name());
 
         MethodOptions2 methodOptions = new MethodOptions2(clientHttpRequest);
-        assertThat(methodOptions.execute().build()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.execute().response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -38,6 +38,6 @@ public class MethodOptions2Test {
         clientHttpRequest.setVerb(HttpVerb.PUT.name());
 
         MethodOptions2 methodOptions = new MethodOptions2(clientHttpRequest);
-        assertThat(methodOptions.execute().build()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.execute().response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 }

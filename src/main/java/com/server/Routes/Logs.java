@@ -2,7 +2,7 @@ package com.server.Routes;
 
 import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
 
 import java.io.BufferedReader;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class Logs implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
     private final ClientHttpRequest clientHttpRequest;
     private static final String LOGS_PATH ="/Users/fabientownsend/Documents/Java/server/logs/logger.log";
     private static final String ADMIN_LOGIN = "admin";
@@ -20,24 +20,24 @@ public class Logs implements BaseController {
 
     public Logs(ClientHttpRequest clientHttpRequest) {
         this.clientHttpRequest = clientHttpRequest;
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
     }
 
-    public HttpServerResponse execute() {
+    public HttpResponse execute() {
         if (clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
             String authentication = clientHttpRequest.getInformation(HttpHeaders.AUTHORIZATION);
 
             if (!authentication.isEmpty() && isAdmin(extractBase64Auth(authentication))) {
-                httpServerResponse.setHttpResponseCode(200);
-                httpServerResponse.setHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
-                httpServerResponse.setBody(getLoggedHttpRequests());
+                httpResponse.statusCode(200);
+                httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
+                httpResponse.content(getLoggedHttpRequests());
             } else {
-                httpServerResponse.setHttpResponseCode(401);
-                httpServerResponse.setHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
+                httpResponse.statusCode(401);
+                httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
             }
         }
 
-        return httpServerResponse;
+        return httpResponse;
     }
 
     private String extractBase64Auth(String authentication) {

@@ -1,29 +1,29 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 import java.net.URLDecoder;
 
 public class ParametersPage implements BaseController {
     private final ClientHttpRequest clientHttpRequest;
-    private HttpServerResponse httpServerResponse;
+    private HttpResponse httpResponse;
 
     public ParametersPage(ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(200);
+    public HttpResponse execute() {
+        httpResponse.statusCode(200);
         String[] parameters = splitParameters(clientHttpRequest.getUri());
 
         String formattedParameters = formatListParameters(parameters);
         if (!formattedParameters.isEmpty()) {
-            httpServerResponse.setBody(formattedParameters);
+            httpResponse.content(formattedParameters);
         }
 
-        return httpServerResponse;
+        return httpResponse;
     }
 
     private String formatListParameters(String[] parameters) {

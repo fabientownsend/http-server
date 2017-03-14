@@ -3,7 +3,7 @@ package com.server;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import com.server.Routes.RequestController;
 
 import java.io.BufferedReader;
@@ -19,13 +19,13 @@ public class Server {
     private HttpRequestProvider httpRequestProvider;
     private HttpRequestParser httpRequestParser;
     private RequestController requestController;
-    private HttpServerResponse httpServerResponse;
+    private HttpResponse httpResponse;
 
     public Server(BufferedReader socketInput, OutputStream outputStream, LinkedList<String> memory, String directory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
         this.requestController = new RequestController(memory, directory);
-        this.httpServerResponse = new HttpServerResponse("");
+        this.httpResponse = new HttpResponse("");
         this.outputStream = outputStream;
     }
 
@@ -37,18 +37,18 @@ public class Server {
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
 
-            httpServerResponse = requestController.call(clientHttpRequest);
-            LOGGER.log(Level.INFO, "response: " + new String(httpServerResponse.build()));
+            httpResponse = requestController.call(clientHttpRequest);
+            LOGGER.log(Level.INFO, "response: " + new String(httpResponse.response()));
         } catch (BadRequestException e) {
-            httpServerResponse.setHttpResponseCode(400);
-            httpServerResponse.setBody("The request could not be understood");
+            httpResponse.statusCode(400);
+            httpResponse.content("The request could not be understood");
             LOGGER.log(Level.WARNING, e.getMessage());
         } catch (Exception e) {
-            httpServerResponse.setHttpResponseCode(500);
-            httpServerResponse.setBody("The server encountered an unexpected condition");
+            httpResponse.statusCode(500);
+            httpResponse.content("The server encountered an unexpected condition");
             LOGGER.log(Level.WARNING, e.toString());
         } finally {
-            outputStream.write(httpServerResponse.build());
+            outputStream.write(httpResponse.response());
         }
     }
 }

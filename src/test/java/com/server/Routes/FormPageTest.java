@@ -1,9 +1,8 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -11,7 +10,7 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FormPageTest {
-    private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
+    private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
 
     @Test
     public void returnsNoDataByDefault() {
@@ -20,7 +19,7 @@ public class FormPageTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
         FormPage formPage = new FormPage(clientHttpRequest, memory);
-        assertThat(formPage.execute().build()).isEqualTo("HTTP/1.1 200 OK".getBytes());
+        assertThat(formPage.execute().response()).isEqualTo("HTTP/1.1 200 OK".getBytes());
     }
 
     @Test
@@ -32,8 +31,8 @@ public class FormPageTest {
         memory.add("hello");
         FormPage formPage = new FormPage(clientHttpRequest, memory);
 
-        httpServerResponse = formPage.execute();
-        assertThat(httpServerResponse.build()).contains("hello".getBytes());
+        httpResponse = formPage.execute();
+        assertThat(httpResponse.response()).contains("hello".getBytes());
     }
 
     @Test
@@ -45,8 +44,8 @@ public class FormPageTest {
         memory.add("hello");
         FormPage formPage = new FormPage(clientHttpRequest, memory);
 
-        httpServerResponse = formPage.execute();
-        assertThat(httpServerResponse.build()).contains("Content-Length: 5".getBytes());
+        httpResponse = formPage.execute();
+        assertThat(httpResponse.response()).contains("Content-Length: 5".getBytes());
     }
     @Test
     public void saveDataIntoMemoryWhenPut() {

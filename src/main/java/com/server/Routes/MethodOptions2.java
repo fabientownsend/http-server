@@ -1,18 +1,18 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 
 public class MethodOptions2 implements BaseController {
-    private final HttpServerResponse httpServerResponse;
+    private final HttpResponse httpResponse;
 
     public MethodOptions2(ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
+        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
     }
 
-    public HttpServerResponse execute() {
-        httpServerResponse.setHttpResponseCode(200);
-        httpServerResponse.setHeader("Allow", "GET,OPTIONS");
-        return httpServerResponse;
+    public HttpResponse execute() {
+        httpResponse.statusCode(200);
+        httpResponse.addHeader("Allow", "GET,OPTIONS");
+        return httpResponse;
     }
 }

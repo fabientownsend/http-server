@@ -1,7 +1,7 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpServerResponse;
+import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
 import org.junit.Test;
 
@@ -12,18 +12,18 @@ import java.nio.file.Paths;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileProviderPageTest {
-    private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
+    private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
     private String directoryPath = "/Users/fabientownsend/Documents/Java/server/";
 
     @Test
     public void returnTheListingOfDirectory() {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
-        clientHttpRequest.setUri("/build.gradle");
+        clientHttpRequest.setUri("/response.gradle");
 
         FileProviderPage defaultPage = new FileProviderPage(clientHttpRequest, directoryPath);
 
-        assertThat(defaultPage.execute().build()).contains(getBinaryFile(directoryPath + "/build.gradle"));
+        assertThat(defaultPage.execute().response()).contains(getBinaryFile(directoryPath + "/response.gradle"));
     }
 
     private byte[] getBinaryFile(String directoryPath) {

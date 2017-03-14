@@ -36,6 +36,18 @@ public class FileProvider implements BaseController {
             return httpServerResponse;
         }
 
+        if (!clientHttpRequest.getInformation("Range").isEmpty()) {
+            httpServerResponse.setHttpResponseCode(206);
+            String uri = clientHttpRequest.getUri();
+            String path = directoryPath + uri.substring(1, uri.length());
+
+            httpServerResponse.setHeader("Content-Type", getComment(uri));
+            int[] range = clientHttpRequest.getRange();
+
+            httpServerResponse.setBody(getRangeFile(path, range[0], range[1] + 1)); // range
+            return httpServerResponse;
+        }
+
         httpServerResponse.setHttpResponseCode(200);
         String uri = clientHttpRequest.getUri();
         String path = directoryPath + uri.substring(1, uri.length());
@@ -58,6 +70,27 @@ public class FileProvider implements BaseController {
         } else {
             return "text/plain";
         }
+    }
+
+    private  byte[] getRangeFile(String path, int start, int end) {
+        byte[] file = getBinaryFile(path);
+
+        if (end <= 0) {
+            System.out.println("range file: " + file.length);
+            end = file.length;
+        }
+        if (start < 0) {
+            start = file.length - end + 1;
+            end = file.length;
+        }
+
+        int length = end - start;
+        byte[] content = new byte[length];
+
+        for (int i = 0; i < length; i++) {
+            content[i] = file[start + i];
+        }
+        return content;
     }
 
     private byte[] getBinaryFile(String directoryPath) {

@@ -9,12 +9,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class FileProvider implements BaseController {
+public class FileProviderPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private final ClientHttpRequest clientHttpRequest;
     private final String directoryPath;
+    private FileProvider fileProvider = new FileProvider();
 
-    public FileProvider(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, String directory) {
+    public FileProviderPage(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, String directory) {
         this.httpServerResponse = httpServerResponse;
         this.clientHttpRequest = clientHttpRequest;
         this.directoryPath = directory;
@@ -40,11 +41,12 @@ public class FileProvider implements BaseController {
             httpServerResponse.setHttpResponseCode(206);
             String uri = clientHttpRequest.getUri();
             String path = directoryPath + uri.substring(1, uri.length());
-
             httpServerResponse.setHeader("Content-Type", getComment(uri));
+
             int[] range = clientHttpRequest.getRange();
 
-            httpServerResponse.setBody(getRangeFile(path, range[0], range[1] + 1)); // range
+            byte[] partialFile = fileProvider.getPartialFile(path, range[0], range[1] + 1);
+            httpServerResponse.setBody(partialFile);
             return httpServerResponse;
         }
 
@@ -53,7 +55,7 @@ public class FileProvider implements BaseController {
         String path = directoryPath + uri.substring(1, uri.length());
 
         httpServerResponse.setHeader("Content-Type", getComment(uri));
-        httpServerResponse.setBody(getBinaryFile(path));
+        httpServerResponse.setBody(fileProvider.getFullFile(path));
 
         return httpServerResponse;
     }
@@ -70,37 +72,5 @@ public class FileProvider implements BaseController {
         } else {
             return "text/plain";
         }
-    }
-
-    private  byte[] getRangeFile(String path, int start, int end) {
-        byte[] file = getBinaryFile(path);
-
-        if (end <= 0) {
-            System.out.println("range file: " + file.length);
-            end = file.length;
-        }
-        if (start < 0) {
-            start = file.length - end + 1;
-            end = file.length;
-        }
-
-        int length = end - start;
-        byte[] content = new byte[length];
-
-        for (int i = 0; i < length; i++) {
-            content[i] = file[start + i];
-        }
-        return content;
-    }
-
-    private byte[] getBinaryFile(String directoryPath) {
-        byte[] binaryImage = new byte[1];
-        try {
-            binaryImage = Files.readAllBytes(Paths.get(directoryPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return binaryImage;
     }
 }

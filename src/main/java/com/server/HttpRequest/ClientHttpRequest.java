@@ -1,7 +1,10 @@
 package com.server.HttpRequest;
 
+import com.server.HttpHeaders.HttpHeaders;
+
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Scanner;
 
 public class ClientHttpRequest {
     private String verb;
@@ -56,5 +59,26 @@ public class ClientHttpRequest {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public int[] getRange() {
+        int[] range = new int[2];
+        range[0] = -100;
+        range[1] = -100;
+        if (sectionInformation.containsKey(HttpHeaders.RANGE)) {
+            String infoRange = sectionInformation.get(HttpHeaders.RANGE);
+            String infos = infoRange.split("=")[1];
+            String[] infos2 = infos.split("-", 2);
+            if (!infos2[0].isEmpty()) {
+                range[0] = Integer.parseInt(infos2[0]);
+            }
+            if (!infos2[1].isEmpty()) {
+                range[1] = Integer.parseInt(infos2[1]);
+            }
+
+            return range;
+        }
+
+        return range;
     }
 }

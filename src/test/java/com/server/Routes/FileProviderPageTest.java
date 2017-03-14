@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileProviderTest {
+public class FileProviderPageTest {
     private HttpServerResponse httpServerResponse = new HttpServerResponse("HTTP/1.1");
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
     private String directoryPath = "/Users/fabientownsend/Documents/Java/server/";
@@ -21,7 +21,7 @@ public class FileProviderTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setUri("/build.gradle");
 
-        FileProvider defaultPage = new FileProvider(httpServerResponse, clientHttpRequest, directoryPath);
+        FileProviderPage defaultPage = new FileProviderPage(httpServerResponse, clientHttpRequest, directoryPath);
 
         assertThat(defaultPage.execute().build()).contains(getBinaryFile(directoryPath + "/build.gradle"));
     }

@@ -17,6 +17,7 @@ public class HttpResponse {
         reasonPhrase.put(200, "OK");
         reasonPhrase.put(201, "Created");
         reasonPhrase.put(204, "No Content");
+        reasonPhrase.put(206, "Partial Content");
         reasonPhrase.put(302, "Object Moved");
         reasonPhrase.put(400, "Bad Request");
         reasonPhrase.put(401, "Unauthorized");

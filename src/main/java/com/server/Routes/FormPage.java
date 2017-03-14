@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
@@ -18,7 +19,7 @@ public class FormPage implements BaseController {
     }
 
     public HttpResponse execute() {
-        httpResponse.statusCode(200);
+        httpResponse.statusCode(HttpStatusCode.OK);
 
         if (clientHttpRequest.getVerb().equals(HttpVerb.POST.name())
             || clientHttpRequest.getVerb().equals(HttpVerb.PUT.name())) {

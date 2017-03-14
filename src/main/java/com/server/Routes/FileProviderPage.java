@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
@@ -28,17 +29,17 @@ public class FileProviderPage implements BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            httpResponse.statusCode(204);
+            httpResponse.statusCode(HttpStatusCode.NO_CONTENT);
             return httpResponse;
         }
 
         if (!clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
-            httpResponse.statusCode(405);
+            httpResponse.statusCode(HttpStatusCode.METHOD_NOT_ALLOWED);
             return httpResponse;
         }
 
         if (!clientHttpRequest.getInformation("Range").isEmpty()) {
-            httpResponse.statusCode(206);
+            httpResponse.statusCode(HttpStatusCode.PARTIAL_CONTENT);
             String uri = clientHttpRequest.getUri();
             String path = directoryPath + uri.substring(1, uri.length());
             httpResponse.addHeader("Content-Type", getComment(uri));
@@ -50,7 +51,7 @@ public class FileProviderPage implements BaseController {
             return httpResponse;
         }
 
-        httpResponse.statusCode(200);
+        httpResponse.statusCode(HttpStatusCode.OK);
         String uri = clientHttpRequest.getUri();
         String path = directoryPath + uri.substring(1, uri.length());
 

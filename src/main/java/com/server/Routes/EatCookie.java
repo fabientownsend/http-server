@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
@@ -17,7 +18,7 @@ public class EatCookie implements BaseController {
     }
 
     public HttpResponse execute() {
-        httpResponse.statusCode(200);
+        httpResponse.statusCode(HttpStatusCode.OK);
         String clientCookie = clientHttpRequest.getInformation("Cookie").split(":")[1];
         if (clientCookie.equals(memory.getLast())) {
             httpResponse.content("mmmm chocolate");

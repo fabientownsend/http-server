@@ -1,6 +1,7 @@
 package com.server.Routes;
 
 import com.server.HttpHeaders.HttpHeaders;
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
@@ -28,11 +29,11 @@ public class Logs implements BaseController {
             String authentication = clientHttpRequest.getInformation(HttpHeaders.AUTHORIZATION);
 
             if (!authentication.isEmpty() && isAdmin(extractBase64Auth(authentication))) {
-                httpResponse.statusCode(200);
+                httpResponse.statusCode(HttpStatusCode.OK);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
                 httpResponse.content(getLoggedHttpRequests());
             } else {
-                httpResponse.statusCode(401);
+                httpResponse.statusCode(HttpStatusCode.UNAUTHORIZED);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
             }
         }

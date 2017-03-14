@@ -6,8 +6,6 @@ import java.nio.file.Paths;
 
 public class FileProvider {
     public  byte[] getPartialFile(String path, int startAt, int stopAt) {
-        //https://sourcemaking.com/refactoring/replace-method-with-method-object
-        // RangeCalculation(this).compute();
         byte[] fullFile = getFullFile(path);
 
         if (stopAt <= 0) {

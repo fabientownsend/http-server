@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
@@ -15,7 +16,7 @@ public class DefaultPage implements BaseController {
     }
 
     public HttpResponse execute() {
-        httpResponse.statusCode(200);
+        httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader("Content-Type", "text/html");
         httpResponse.content(getListFiles().trim());
         return httpResponse;

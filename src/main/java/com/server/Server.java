@@ -1,5 +1,6 @@
 package com.server;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
@@ -31,20 +32,20 @@ public class Server {
 
     public void start() throws IOException {
         try {
-            String httpRequest = httpRequestProvider.getRequest();
-            LOGGER.log(Level.INFO, "request: " + new String(httpRequest));
-            System.out.println(httpRequest);
+            String socketOutput = httpRequestProvider.getRequest();
+            LOGGER.log(Level.INFO, "request: " + new String(socketOutput));
+            System.out.println(socketOutput);
 
-            ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
+            ClientHttpRequest clientHttpRequest = httpRequestParser.parse(socketOutput);
 
             httpResponse = requestController.call(clientHttpRequest);
             LOGGER.log(Level.INFO, "response: " + new String(httpResponse.response()));
         } catch (BadRequestException e) {
-            httpResponse.statusCode(400);
+            httpResponse.statusCode(HttpStatusCode.BAD_REQUEST);
             httpResponse.content("The request could not be understood");
             LOGGER.log(Level.WARNING, e.getMessage());
         } catch (Exception e) {
-            httpResponse.statusCode(500);
+            httpResponse.statusCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             httpResponse.content("The server encountered an unexpected condition");
             LOGGER.log(Level.WARNING, e.toString());
         } finally {

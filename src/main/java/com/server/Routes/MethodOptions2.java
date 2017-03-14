@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
@@ -11,7 +12,7 @@ public class MethodOptions2 implements BaseController {
     }
 
     public HttpResponse execute() {
-        httpResponse.statusCode(200);
+        httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader("Allow", "GET,OPTIONS");
         return httpResponse;
     }

@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
@@ -11,7 +12,7 @@ public class NotFoundPage implements BaseController {
     }
 
     public HttpResponse execute() {
-        httpResponse.statusCode(404);
+        httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
         return httpResponse;
     }
 }

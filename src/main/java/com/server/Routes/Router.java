@@ -20,6 +20,8 @@ public class Router {
             return new ParametersPage(httpServerResponse, clientHttpRequest);
         } else if (uri.startsWith("/cookie")) {
             return new Cookie(httpServerResponse, clientHttpRequest, memory);
+        } else if (uri.equals("/eat_cookie")) {
+            return new EatCookie(httpServerResponse, clientHttpRequest, memory);
         } else if (uri.equals("/logs")) {
             return new Logs(httpServerResponse, clientHttpRequest);
         } else if (uri.equals("/tea")) {

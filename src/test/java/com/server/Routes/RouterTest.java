@@ -86,4 +86,12 @@ public class RouterTest {
 
         assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(Cookie.class);
     }
+
+    @Test
+    public void returnsEatCookiePage() throws Exception {
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/eat_cookie");
+
+        assertThat(requestController.route(httpServerResponse, clientHttpRequest, memory, directoryPath)).isInstanceOf(EatCookie.class);
+    }
 }

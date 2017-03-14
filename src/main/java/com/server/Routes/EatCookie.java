@@ -8,15 +8,21 @@ import java.util.LinkedList;
 public class EatCookie implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private final LinkedList<String> memory;
+    private final ClientHttpRequest clientHttpRequest;
 
     public EatCookie(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
         this.httpServerResponse = httpServerResponse;
         this.memory = memory;
+        this.clientHttpRequest = clientHttpRequest;
     }
 
     public HttpServerResponse execute() {
         httpServerResponse.setHttpResponseCode(200);
-        httpServerResponse.setBody("mmmm" + memory.get(0));
+        String clientCookie = clientHttpRequest.getInformation("Cookie").split(":")[1];
+        if (clientCookie.equals(memory.getLast())) {
+            httpServerResponse.setBody("mmmm chocolate");
+        }
+
         return httpServerResponse;
     }
 }

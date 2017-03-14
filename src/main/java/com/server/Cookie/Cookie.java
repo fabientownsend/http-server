@@ -24,9 +24,9 @@ public class Cookie implements BaseController {
         memory.add(cookie);
 
         httpServerResponse.setHttpResponseCode(200);
+        httpServerResponse.setHeader("Set-Cookie", "type:chocolate");
         httpServerResponse.setBody(
-                "Eat\n" +
-                "mmmm chocolate");
+                "Eat\r\n");
         return httpServerResponse;
     }
 

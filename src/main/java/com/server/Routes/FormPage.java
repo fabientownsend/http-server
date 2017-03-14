@@ -11,12 +11,8 @@ public class FormPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private LinkedList<String> memory;
 
-    public FormPage(
-            HttpServerResponse httpServerResponse,
-            ClientHttpRequest clientHttpRequest,
-            LinkedList<String> memory
-    ) {
-        this.httpServerResponse = httpServerResponse;
+    public FormPage(ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
         this.memory = memory;
     }

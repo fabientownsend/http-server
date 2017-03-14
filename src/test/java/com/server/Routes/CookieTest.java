@@ -22,7 +22,7 @@ public class CookieTest {
         clientHttpRequest.setUri("/cookie?type=chocolate");
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
-        Cookie cookie = new Cookie(httpServerResponse, clientHttpRequest, memory);
+        Cookie cookie = new Cookie(clientHttpRequest, memory);
         String response = new String(cookie.execute().build());
         assertThat(response).isEqualTo(
             "HTTP/1.1 200 OK\r\n"

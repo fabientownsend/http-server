@@ -18,9 +18,9 @@ public class Logs implements BaseController {
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASSWORD = "hunter2";
 
-    public Logs(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = httpServerResponse;
+    public Logs(ClientHttpRequest clientHttpRequest) {
         this.clientHttpRequest = clientHttpRequest;
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
     }
 
     public HttpServerResponse execute() {

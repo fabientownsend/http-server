@@ -14,9 +14,9 @@ public class RequestController {
         this.directory = directory;
     }
 
-    public HttpServerResponse call(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
+    public HttpServerResponse call(ClientHttpRequest clientHttpRequest) {
         Router router = new Router();
-        BaseController route = router.route(httpServerResponse, clientHttpRequest, memory, directory);
+        BaseController route = router.route(clientHttpRequest, memory, directory);
         HttpServerResponse response = route.execute();
 
         return response;

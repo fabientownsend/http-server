@@ -10,8 +10,8 @@ public class EatCookie implements BaseController {
     private final LinkedList<String> memory;
     private final ClientHttpRequest clientHttpRequest;
 
-    public EatCookie(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
-        this.httpServerResponse = httpServerResponse;
+    public EatCookie(ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.memory = memory;
         this.clientHttpRequest = clientHttpRequest;
     }

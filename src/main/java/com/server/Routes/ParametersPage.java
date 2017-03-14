@@ -9,8 +9,8 @@ public class ParametersPage implements BaseController {
     private final ClientHttpRequest clientHttpRequest;
     private HttpServerResponse httpServerResponse;
 
-    public ParametersPage(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = httpServerResponse;
+    public ParametersPage(ClientHttpRequest clientHttpRequest) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
     }
 

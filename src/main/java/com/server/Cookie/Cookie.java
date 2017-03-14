@@ -12,9 +12,9 @@ public class Cookie implements BaseController {
     private final ClientHttpRequest clientHttpRequest;
     private final LinkedList<String> memory;
 
-    public Cookie(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+    public Cookie(ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
-        this.httpServerResponse = httpServerResponse;
         this.memory = memory;
     }
 

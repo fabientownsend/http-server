@@ -36,9 +36,8 @@ public class Server {
             System.out.println(httpRequest);
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(httpRequest);
-            httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
 
-            httpServerResponse = requestController.call(httpServerResponse, clientHttpRequest);
+            httpServerResponse = requestController.call(clientHttpRequest);
             LOGGER.log(Level.INFO, "response: " + new String(httpServerResponse.build()));
         } catch (BadRequestException e) {
             httpServerResponse.setHttpResponseCode(400);

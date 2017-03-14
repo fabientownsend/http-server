@@ -21,7 +21,7 @@ public class FileProviderPageTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setUri("/build.gradle");
 
-        FileProviderPage defaultPage = new FileProviderPage(httpServerResponse, clientHttpRequest, directoryPath);
+        FileProviderPage defaultPage = new FileProviderPage(clientHttpRequest, directoryPath);
 
         assertThat(defaultPage.execute().build()).contains(getBinaryFile(directoryPath + "/build.gradle"));
     }

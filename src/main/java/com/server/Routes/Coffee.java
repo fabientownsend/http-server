@@ -1,13 +1,14 @@
 package com.server.Routes;
 
+import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
 
 public class Coffee implements BaseController {
 
     private final HttpServerResponse httpServerResponse;
 
-    public Coffee(HttpServerResponse httpServerResponse) {
-        this.httpServerResponse = httpServerResponse;
+    public Coffee(ClientHttpRequest clientHttpRequest) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
     }
 
     public HttpServerResponse execute() {

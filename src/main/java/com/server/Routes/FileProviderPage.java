@@ -15,8 +15,8 @@ public class FileProviderPage implements BaseController {
     private final String directoryPath;
     private FileProvider fileProvider = new FileProvider();
 
-    public FileProviderPage(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest, String directory) {
-        this.httpServerResponse = httpServerResponse;
+    public FileProviderPage(ClientHttpRequest clientHttpRequest, String directory) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
         this.directoryPath = directory;
     }

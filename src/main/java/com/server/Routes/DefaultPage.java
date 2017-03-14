@@ -1,5 +1,6 @@
 package com.server.Routes;
 
+import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpServerResponse;
 
 import java.io.File;
@@ -8,8 +9,8 @@ public class DefaultPage implements BaseController {
     private final HttpServerResponse httpServerResponse;
     private final String directoryPath;
 
-    public DefaultPage(HttpServerResponse httpServerResponse, String directory) {
-        this.httpServerResponse = httpServerResponse;
+    public DefaultPage(ClientHttpRequest clientHttpRequest, String directory) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.directoryPath = directory;
     }
 

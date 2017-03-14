@@ -8,8 +8,8 @@ public class MethodOptions implements BaseController {
     private final ClientHttpRequest clientHttpRequest;
     private final HttpServerResponse httpServerResponse;
 
-    public MethodOptions(HttpServerResponse httpServerResponse, ClientHttpRequest clientHttpRequest) {
-        this.httpServerResponse = httpServerResponse;
+    public MethodOptions(ClientHttpRequest clientHttpRequest) {
+        this.httpServerResponse = new HttpServerResponse(clientHttpRequest.getHttpVersion());
         this.clientHttpRequest = clientHttpRequest;
     }
 

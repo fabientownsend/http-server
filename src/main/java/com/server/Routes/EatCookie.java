@@ -16,7 +16,7 @@ public class EatCookie implements BaseController {
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
            HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
-        String clientCookie = clientHttpRequest.getInformation("Cookie").split(":")[1];
+        String clientCookie = clientHttpRequest.getInformation("Cookie");
         if (clientCookie.equals(memory.getLast())) {
             httpResponse.content("mmmm chocolate");
         }

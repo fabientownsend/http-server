@@ -81,7 +81,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/cookie?type=chocolate");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(Cookie.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(CookieController.class);
     }
 
     @Test

@@ -6,11 +6,13 @@ import com.server.HttpResponse.HttpResponse;
 
 import java.net.URLDecoder;
 
-public class ParametersPage implements BaseController {
+public class ParameterDecodeController implements BaseController {
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
-        String[] parameters = splitParameters(clientHttpRequest.getUri());
+
+        String queries = getQueries(clientHttpRequest.getUri());
+        String[] parameters = splitParameters(queries);
 
         String formattedParameters = formatListParameters(parameters);
         if (!formattedParameters.isEmpty()) {
@@ -18,6 +20,14 @@ public class ParametersPage implements BaseController {
         }
 
         return httpResponse;
+    }
+
+    private String getQueries(String uri) {
+        return extractParameters(uri);
+    }
+
+    private String[] splitParameters(String queries) {
+        return queries.split("&");
     }
 
     private String formatListParameters(String[] parameters) {
@@ -48,10 +58,6 @@ public class ParametersPage implements BaseController {
         } catch (Exception e) { }
 
         return formattedParameters;
-    }
-
-    private String[] splitParameters(String uri) {
-        return extractParameters(uri).split("&");
     }
 
     private String extractParameters(String uri) {

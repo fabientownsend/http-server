@@ -30,7 +30,7 @@ public class Router {
         Map<String, Object> controllers = new Hashtable<>();
 
         controllers.put("/", new DefaultController(publicDirectoryPath));
-        controllers.put("/parameters", new ParametersPage());
+        controllers.put("/parameters", new ParameterDecodeController());
         controllers.put("/cookie", new CookieController(memory));
         controllers.put("/eat_cookie", new EatCookieController(memory));
         controllers.put("/logs", new LogsController());

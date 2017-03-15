@@ -39,7 +39,7 @@ public class Router {
         controllers.put("/redirect", new RedirectPage());
         controllers.put("/method_options", new MethodOptions());
         controllers.put("/method_options2", new MethodOptions2());
-        controllers.put("/coffee", new Coffee());
+        controllers.put("/coffee", new CoffeeController());
 
         return controllers;
     }

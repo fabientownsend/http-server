@@ -29,7 +29,7 @@ public class Router {
     private Map<String, Object> addControllers(LinkedList<String> memory, String publicDirectoryPath) {
         Map<String, Object> controllers = new Hashtable<>();
 
-        controllers.put("/", new DefaultPage(publicDirectoryPath));
+        controllers.put("/", new DefaultController(publicDirectoryPath));
         controllers.put("/parameters", new ParametersPage());
         controllers.put("/cookie", new CookieController(memory));
         controllers.put("/eat_cookie", new EatCookie(memory));

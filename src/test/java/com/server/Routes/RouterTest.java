@@ -17,7 +17,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(DefaultPage.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(DefaultController.class);
     }
 
     @Test

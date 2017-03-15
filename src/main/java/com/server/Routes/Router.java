@@ -18,7 +18,7 @@ public class Router {
         if (routes.containsKey(withoutQueries(path))) {
             return (BaseController) routes.get(withoutQueries(path));
         } else {
-            return new NotFoundPage();
+            return new NotFoundController();
         }
     }
 
@@ -34,11 +34,11 @@ public class Router {
         controllers.put("/cookie", new CookieController(memory));
         controllers.put("/eat_cookie", new EatCookieController(memory));
         controllers.put("/logs", new LogsController());
-        controllers.put("/tea", new Tea());
+        controllers.put("/tea", new TeaController());
         controllers.put("/form", new FormPage(memory));
-        controllers.put("/redirect", new RedirectPage());
+        controllers.put("/redirect", new RedirectionController());
         controllers.put("/method_options", new MethodOptions());
-        controllers.put("/method_options2", new MethodOptions2());
+        controllers.put("/method_options2", new MethodOptions2Controller());
         controllers.put("/coffee", new CoffeeController());
 
         return controllers;

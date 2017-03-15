@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RedirectPageTest {
+public class TeaControllerTest {
     @Test
-    public void returnsRedirectionHeader() {
+    public void returnTeaRedirection() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        RedirectPage redirectPage = new RedirectPage();
-        assertThat(redirectPage.execute(clientHttpRequest).response()).contains("HTTP/1.1 302 Object Moved".getBytes());
+        TeaController teaController = new TeaController();
+        assertThat(teaController.execute(clientHttpRequest).response()).contains("HTTP/1.1 200 OK".getBytes());
     }
 }

@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NotFoundPageTest {
+public class NotFoundControllerTest {
     @Test
     public void returnsNotFoundPageHeader() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        NotFoundPage notFoundPage = new NotFoundPage();
-        assertThat(notFoundPage.execute(clientHttpRequest).response()).contains("HTTP/1.1 404 Not Found".getBytes());
+        NotFoundController notFoundController = new NotFoundController();
+        assertThat(notFoundController.execute(clientHttpRequest).response()).contains("HTTP/1.1 404 Not Found".getBytes());
     }
 }

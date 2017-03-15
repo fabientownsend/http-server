@@ -33,7 +33,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/redirect");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(RedirectPage.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(RedirectionController.class);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options2");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptions2.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptions2Controller.class);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/it_doesnt_exist");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(NotFoundPage.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(NotFoundController.class);
     }
 
     @Test
@@ -90,5 +90,13 @@ public class RouterTest {
         clientHttpRequest.setUri("/eat_cookie");
 
         assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(EatCookieController.class);
+    }
+
+    @Test
+    public void returnsTeaController() throws Exception {
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
+        clientHttpRequest.setUri("/tea");
+
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(TeaController.class);
     }
 }

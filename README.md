@@ -66,3 +66,7 @@ You can connect to the server with netcat this way:
 ``` bash
   gradle test
 ```
+
+### What's next?
+
+I want to implement a cache system with the Optimal Replacement Policy algorithm.

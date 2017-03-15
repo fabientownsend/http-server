@@ -19,10 +19,8 @@ public class FormController implements BaseController {
 
         if (submitRequest(clientHttpRequest)) {
             memory.setContent(clientHttpRequest.getBody());
-        } else if (getRequest(clientHttpRequest)) {
-            if (!memory.content().isEmpty()) {
-                httpResponse.content(memory.content());
-            }
+        } else if (getRequest(clientHttpRequest) && !memory.content().isEmpty()) {
+            httpResponse.content(memory.content());
         } else if (deleteRequest(clientHttpRequest)) {
             memory.remove();
         }

@@ -2,7 +2,7 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Cookie;
+import com.server.Routes.Memory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EatCookieControllerTest {
-    private Cookie memoryServer;
+    private Memory memoryServer;
     private ClientHttpRequest clientHttpRequest;
     private HashMap headerInfo;
 
@@ -21,7 +21,7 @@ public class EatCookieControllerTest {
         this.clientHttpRequest.setVerb(HttpVerb.GET.name());
         this.clientHttpRequest.setHttpVersion("HTTP/1.1");
         this.headerInfo = new HashMap<>();
-        this.memoryServer = new Cookie();
+        this.memoryServer = new Memory();
     }
 
     @Test

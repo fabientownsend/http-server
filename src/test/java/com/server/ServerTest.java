@@ -1,20 +1,27 @@
 package com.server;
 
+import com.server.Routes.Memory;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ServerTest {
     private String directoryPath = "";
+    private Memory memory;
+
+    @Before
+    public void initialize() {
+        this.memory = new Memory();
+    }
 
     @Test
     public void throwAnExceptionWhen() throws Exception {
         BufferedReader inputError = null;
         OutputStream output = getStreamTest();
-        Server server = new Server(inputError, output, cookie, new LinkedList<>(), directoryPath);
+        Server server = new Server(inputError, output, memory, directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("500 Internal Server Error");
@@ -26,7 +33,7 @@ public class ServerTest {
 
         OutputStream output = getStreamTest();
 
-        Server server = new Server(socketInput, output, cookie, new LinkedList<>(), directoryPath);
+        Server server = new Server(socketInput, output, memory, directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("400 Bad Request");

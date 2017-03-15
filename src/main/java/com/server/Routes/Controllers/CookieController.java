@@ -4,23 +4,23 @@ import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-import com.server.Routes.Cookie;
+import com.server.Routes.Memory;
 
 public class CookieController implements BaseController {
-    private Cookie cookie;
+    private Memory memory;
 
-    public CookieController(Cookie cookie) {
-        this.cookie = cookie;
+    public CookieController(Memory memory) {
+        this.memory = memory;
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         String queries = query(clientHttpRequest.getUri());
 
-        cookie.setContent(changeFormat(queries));
+        memory.setContent(changeFormat(queries));
 
         httpResponse.statusCode(HttpStatusCode.OK);
-        httpResponse.addHeader(HttpHeaders.SET_COOKIE, cookie.content());
+        httpResponse.addHeader(HttpHeaders.SET_COOKIE, memory.content());
         httpResponse.content("Eat");
         return httpResponse;
     }

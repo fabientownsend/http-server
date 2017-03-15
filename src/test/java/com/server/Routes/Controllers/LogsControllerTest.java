@@ -75,7 +75,6 @@ public class LogsControllerTest {
             HttpHeaders.WWW_AUTHENTICATE + ": Basic YWRtaW46aHVudGVyMg==");
     }
 
-    @Ignore
     @Test
     public void returnsLogsRequests() {
         String base64LoginPassword = new String(Base64.getEncoder().encode("admin:hunter2".getBytes()));

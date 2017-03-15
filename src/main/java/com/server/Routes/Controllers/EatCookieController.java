@@ -1,24 +1,25 @@
 package com.server.Routes.Controllers;
 
+import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-import com.server.Routes.Cookie;
+import com.server.Routes.Memory;
 
 public class EatCookieController implements BaseController {
-    private Cookie cookie;
+    private Memory memory;
 
-    public EatCookieController(Cookie cookie) {
-        this.cookie = cookie;
+    public EatCookieController(Memory memory) {
+        this.memory = memory;
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 
-        String clientCookie = clientHttpRequest.getInformation("Cookie");
+        String clientCookie = clientHttpRequest.getInformation(HttpHeaders.COOKIE);
 
-        if (clientCookie.equals(cookie.content())) {
+        if (clientCookie.equals(memory.content())) {
             httpResponse.content("mmmm chocolate");
         }
 

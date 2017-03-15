@@ -6,12 +6,11 @@ import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
 import com.server.HttpResponse.HttpResponse;
 import com.server.Routes.Controllers.RequestController;
-import com.server.Routes.Cookie;
+import com.server.Routes.Memory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LinkedList;
 import java.util.logging.Level;
 
 import static com.server.Main.LOGGER;
@@ -23,10 +22,10 @@ public class Server {
     private RequestController requestController;
     private HttpResponse httpResponse;
 
-    public Server(BufferedReader socketInput, OutputStream outputStream, Cookie cookie, LinkedList<String> memory, String directory) {
+    public Server(BufferedReader socketInput, OutputStream outputStream, Memory memory, String directory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
-        this.requestController = new RequestController(cookie, memory, directory);
+        this.requestController = new RequestController(memory, directory);
         this.httpResponse = new HttpResponse("");
         this.outputStream = outputStream;
     }

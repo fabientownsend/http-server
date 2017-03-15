@@ -4,13 +4,12 @@ import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
-
-import java.util.LinkedList;
+import com.server.Routes.Memory;
 
 public class FormController implements BaseController {
-    private LinkedList<String> memory;
+    private Memory memory;
 
-    public FormController(LinkedList<String> memory) {
+    public FormController(Memory memory) {
         this.memory = memory;
     }
 
@@ -21,7 +20,10 @@ public class FormController implements BaseController {
         if (submitData(clientHttpRequest)) {
             saveData(clientHttpRequest);
         } else if (requestedData(clientHttpRequest)) {
-            httpResponse.content(getData());
+            String data = getData();
+            if (!data.isEmpty()) {
+                httpResponse.content(getData());
+            }
         } else if (deleteRequest(clientHttpRequest)) {
             deleteData();
         }
@@ -30,15 +32,15 @@ public class FormController implements BaseController {
     }
 
     private String deleteData() {
-        return memory.remove(0);
+        return memory.remove();
     }
 
     private String getData() {
-        return memory.get(0);
+        return memory.content();
     }
 
     private void saveData(ClientHttpRequest clientHttpRequest) {
-        memory.add(0, clientHttpRequest.getBody());
+        memory.setContent(clientHttpRequest.getBody());
     }
 
     private boolean deleteRequest(ClientHttpRequest clientHttpRequest) {
@@ -46,7 +48,7 @@ public class FormController implements BaseController {
     }
 
     private boolean requestedData(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb().equals(HttpVerb.GET.name()) && memory.size() > 0;
+        return clientHttpRequest.getVerb().equals(HttpVerb.GET.name());
     }
 
     private boolean submitData(ClientHttpRequest clientHttpRequest) {

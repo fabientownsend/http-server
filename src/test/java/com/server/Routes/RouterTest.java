@@ -4,14 +4,12 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.Routes.Controllers.*;
 import org.junit.Test;
 
-import java.util.LinkedList;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RouterTest {
-    private LinkedList <String> memory = new LinkedList<>();
+    private Memory memory = new Memory();
     private String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
-    private Router requestController = new Router(cookie, memory, directoryPath);
+    private Router requestController = new Router(memory, directoryPath);
 
     @Test
     public void returnsDefaultPage() throws Exception {

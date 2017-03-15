@@ -2,19 +2,19 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Cookie;
+import com.server.Routes.Memory;
 import org.junit.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CookieControllerTest {
     private ClientHttpRequest clientHttpRequest;
-    private Cookie cookie;
+    private Memory cookie;
     private CookieController cookieController;
 
     @Before
     public void initialize() {
-        this.cookie = new Cookie();
+        this.cookie = new Memory();
         this.cookieController = new CookieController(cookie);
         this.clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());

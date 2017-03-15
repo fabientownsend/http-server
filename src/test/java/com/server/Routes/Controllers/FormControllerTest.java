@@ -3,33 +3,37 @@ package com.server.Routes.Controllers;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.FormController;
+import com.server.Routes.Memory;
+import org.junit.Before;
 import org.junit.Test;
-
-import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FormControllerTest {
     private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
+    private Memory memory;
+
+    @Before
+    public void initialize() {
+        this.memory = new Memory();
+    }
 
     @Test
     public void returnsNoDataByDefault() {
-        LinkedList<String> memory = new LinkedList<>();
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
         FormController formController = new FormController(memory);
-        assertThat(formController.execute(clientHttpRequest).response()).isEqualTo("HTTP/1.1 200 OK".getBytes());
+        String httpResponse = new String(formController.execute(clientHttpRequest).response());
+        assertThat(httpResponse).isEqualTo("HTTP/1.1 200 OK");
     }
 
     @Test
     public void returnDataWhenDataIntoMemory() {
-        LinkedList<String> memory = new LinkedList<>();
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
-        memory.add("hello");
+        memory.setContent("hello");
         FormController formController = new FormController(memory);
 
         httpResponse = formController.execute(clientHttpRequest);
@@ -38,11 +42,10 @@ public class FormControllerTest {
 
     @Test
     public void returnTheSizeOfTheData() {
-        LinkedList<String> memory = new LinkedList<>();
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
-        memory.add("hello");
+        memory.setContent("hello");
         FormController formController = new FormController(memory);
 
         httpResponse = formController.execute(clientHttpRequest);
@@ -50,7 +53,6 @@ public class FormControllerTest {
     }
     @Test
     public void saveDataIntoMemoryWhenPut() {
-        LinkedList<String> memory = new LinkedList<>();
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
         clientHttpRequest.setVerb(HttpVerb.PUT.name());
@@ -63,7 +65,6 @@ public class FormControllerTest {
 
     @Test
     public void saveDataIntoMemoryWhenPost() {
-        LinkedList<String> memory = new LinkedList<>();
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
         clientHttpRequest.setVerb(HttpVerb.POST.name());
@@ -72,23 +73,6 @@ public class FormControllerTest {
         formController.execute(clientHttpRequest);
 
         assertThat(memory.remove()).contains("hello");
-    }
-
-    @Test
-    public void removesDataWhenDeleteVerb() {
-        LinkedList<String> memory = new LinkedList<>();
-        ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-
-        clientHttpRequest.setVerb(HttpVerb.POST.name());
-        clientHttpRequest.setBody("hello");
-        FormController formController = new FormController(memory);
-        formController.execute(clientHttpRequest);
-
-        clientHttpRequest.setVerb(HttpVerb.DELETE.name());
-        formController = new FormController(memory);
-        formController.execute(clientHttpRequest);
-
-        assertThat(memory.size()).isEqualTo(0);
     }
 }
 

@@ -73,7 +73,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/logs");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(Logs.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(LogsController.class);
     }
 
     @Test

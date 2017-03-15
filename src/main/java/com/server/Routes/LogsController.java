@@ -11,8 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.logging.Level;
 
-public class Logs implements BaseController {
+import static com.server.Main.LOGGER;
+
+public class LogsController implements BaseController {
     private static final String LOGS_PATH ="/Users/fabientownsend/Documents/Java/server/logs/logger.log";
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASSWORD = "hunter2";
@@ -20,12 +23,12 @@ public class Logs implements BaseController {
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
            HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         if (clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
-            String authentication = clientHttpRequest.getInformation(HttpHeaders.AUTHORIZATION);
 
-            if (!authentication.isEmpty() && isAdmin(extractBase64Auth(authentication))) {
+            String authentication = authentication(clientHttpRequest);
+            if (isAuthenticated(authentication)) {
                 httpResponse.statusCode(HttpStatusCode.OK);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
-                httpResponse.content(getLoggedHttpRequests());
+                httpResponse.content(logsHttpRequests());
             } else {
                 httpResponse.statusCode(HttpStatusCode.UNAUTHORIZED);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
@@ -33,6 +36,14 @@ public class Logs implements BaseController {
         }
 
         return httpResponse;
+    }
+
+    private String authentication(ClientHttpRequest clientHttpRequest) {
+        return clientHttpRequest.getInformation(HttpHeaders.AUTHORIZATION);
+    }
+
+    private boolean isAuthenticated(String authentication) {
+        return !authentication.isEmpty() && isAdmin(extractBase64Auth(authentication));
     }
 
     private String extractBase64Auth(String authentication) {
@@ -47,7 +58,7 @@ public class Logs implements BaseController {
         return login.equals(ADMIN_LOGIN) && password.equals(ADMIN_PASSWORD);
     }
 
-    private String getLoggedHttpRequests() {
+    private String logsHttpRequests() {
         String httpRequests = "";
 
         try {
@@ -55,9 +66,9 @@ public class Logs implements BaseController {
             BufferedReader bufferReader = new BufferedReader(fileReader);
             httpRequests = getHttpRequest(bufferReader);
         } catch (FileNotFoundException e) {
-            // should create a new log file
+            LOGGER.log(Level.WARNING, "can't find log file. " + e.getMessage());
         } catch (IOException e) {
-            // log with file from main
+            LOGGER.log(Level.WARNING, "error when reading log file. " + e.getMessage());
         }
 
         return httpRequests;

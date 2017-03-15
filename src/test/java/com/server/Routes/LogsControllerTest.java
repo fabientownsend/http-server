@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class logsTest {
+public class LogsControllerTest {
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
     private Map<String, String> header = new HashMap<>();
 
@@ -25,8 +25,8 @@ public class logsTest {
     @Test
     public void returnsUnauthorizedWhenNoAuthenticateInHeader() {
         clientHttpRequest.setHttpVersion("HTTP/1.1");
-        Logs logsPage = new Logs();
-        String response = new String(logsPage.execute(clientHttpRequest).response());
+        LogsController logsControllerPage = new LogsController();
+        String response = new String(logsControllerPage.execute(clientHttpRequest).response());
         assertThat(response).isEqualTo(
             "HTTP/1.1 401 Unauthorized\r\n" +
             HttpHeaders.WWW_AUTHENTICATE + ": Basic realm=\"User Visible Realm\"");
@@ -39,8 +39,8 @@ public class logsTest {
         clientHttpRequest.setSectionInformation(header);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        Logs logsPage = new Logs();
-        String response = new String(logsPage.execute(clientHttpRequest).response());
+        LogsController logsControllerPage = new LogsController();
+        String response = new String(logsControllerPage.execute(clientHttpRequest).response());
         assertThat(response).contains(
             "HTTP/1.1 401 Unauthorized\r\n" +
             HttpHeaders.WWW_AUTHENTICATE + ": Basic realm=\"User Visible Realm\"");
@@ -53,8 +53,8 @@ public class logsTest {
         clientHttpRequest.setSectionInformation(header);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        Logs logsPage = new Logs();
-        String response = new String(logsPage.execute(clientHttpRequest).response());
+        LogsController logsControllerPage = new LogsController();
+        String response = new String(logsControllerPage.execute(clientHttpRequest).response());
         assertThat(response).contains(
             "HTTP/1.1 401 Unauthorized\r\n" +
             HttpHeaders.WWW_AUTHENTICATE + ": Basic realm=\"User Visible Realm\"");
@@ -67,8 +67,8 @@ public class logsTest {
         clientHttpRequest.setSectionInformation(header);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        Logs logsPage = new Logs();
-        String response = new String(logsPage.execute(clientHttpRequest).response());
+        LogsController logsControllerPage = new LogsController();
+        String response = new String(logsControllerPage.execute(clientHttpRequest).response());
         assertThat(response).contains(
             "HTTP/1.1 200 OK\r\n" +
             HttpHeaders.WWW_AUTHENTICATE + ": Basic YWRtaW46aHVudGVyMg==");
@@ -82,8 +82,8 @@ public class logsTest {
         clientHttpRequest.setSectionInformation(header);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        Logs logsPage = new Logs();
-        String response = new String(logsPage.execute(clientHttpRequest).response());
+        LogsController logsControllerPage = new LogsController();
+        String response = new String(logsControllerPage.execute(clientHttpRequest).response());
         assertThat(response).contains("GET /logs HTTP/1.1");
     }
 }

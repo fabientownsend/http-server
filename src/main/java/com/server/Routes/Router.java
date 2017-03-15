@@ -51,7 +51,7 @@ public class Router {
 
         if (files != null) {
             for (String file : files) {
-                publicFiles.put("/" + file, new FileProviderPage(publicDirectoryPath));
+                publicFiles.put("/" + file, new PublicFilesController(publicDirectoryPath));
             }
         }
 

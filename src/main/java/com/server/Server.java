@@ -5,7 +5,7 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
 import com.server.HttpResponse.HttpResponse;
-import com.server.Routes.Controllers.RequestController;
+import com.server.Routes.RequestController;
 import com.server.Routes.Memory;
 
 import java.io.BufferedReader;

@@ -28,9 +28,7 @@ public class DefaultController implements BaseController {
         String[] files = directory.list();
 
         for (String file : files) {
-            if (!file.startsWith(".")) {
-                linkFiles += "<a href=\"/" + file + "\">" + file + "</a>\n";
-            }
+            linkFiles += "<a href=\"/" + file + "\">" + file + "</a>\n";
         }
 
         return linkFiles.trim();

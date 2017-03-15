@@ -14,7 +14,7 @@ public class CookieController implements BaseController {
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
-       HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         String queries = query(clientHttpRequest.getUri());
 
         memory.setContent(changeFormat(queries));

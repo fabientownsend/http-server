@@ -1,8 +1,9 @@
-package com.server.Routes.Controllers;
+package com.server.Routes;
 
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
+import com.server.Routes.Controllers.BaseController;
 import com.server.Routes.Memory;
 import com.server.Routes.Router;
 

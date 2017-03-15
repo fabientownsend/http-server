@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MethodOptionsTest {
+public class MethodOptionsControllerTest {
     private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
@@ -15,7 +15,7 @@ public class MethodOptionsTest {
     public void returnsOptionsWhenOptionVerb() {
         clientHttpRequest.setVerb(HttpVerb.OPTIONS.name());
 
-        MethodOptions methodOptions = new MethodOptions();
+        MethodOptionsController methodOptions = new MethodOptionsController();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,HEAD,POST,OPTIONS,PUT".getBytes());
     }
 
@@ -23,7 +23,7 @@ public class MethodOptionsTest {
     public void returnsOptionsWhenGetVerb() {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
 
-        MethodOptions methodOptions = new MethodOptions();
+        MethodOptionsController methodOptions = new MethodOptionsController();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
@@ -31,7 +31,7 @@ public class MethodOptionsTest {
     public void returnsOptionsWhenPostVerb() {
         clientHttpRequest.setVerb(HttpVerb.POST.name());
 
-        MethodOptions methodOptions = new MethodOptions();
+        MethodOptionsController methodOptions = new MethodOptionsController();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
@@ -39,7 +39,7 @@ public class MethodOptionsTest {
     public void returnsOptionsWhenPutVerb() {
         clientHttpRequest.setVerb(HttpVerb.PUT.name());
 
-        MethodOptions methodOptions = new MethodOptions();
+        MethodOptionsController methodOptions = new MethodOptionsController();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 }

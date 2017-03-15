@@ -37,7 +37,7 @@ public class Router {
         controllers.put("/tea", new TeaController());
         controllers.put("/form", new FormController(memory));
         controllers.put("/redirect", new RedirectionController());
-        controllers.put("/method_options", new MethodOptions());
+        controllers.put("/method_options", new MethodOptionsController());
         controllers.put("/method_options2", new MethodOptions2Controller());
         controllers.put("/coffee", new CoffeeController());
 

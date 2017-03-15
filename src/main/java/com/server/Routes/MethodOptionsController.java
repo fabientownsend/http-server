@@ -5,7 +5,7 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
 
-public class MethodOptions implements BaseController {
+public class MethodOptionsController implements BaseController {
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);

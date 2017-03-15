@@ -41,7 +41,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptions.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptionsController.class);
     }
 
     @Test

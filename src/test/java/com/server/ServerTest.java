@@ -14,7 +14,7 @@ public class ServerTest {
     public void throwAnExceptionWhen() throws Exception {
         BufferedReader inputError = null;
         OutputStream output = getStreamTest();
-        Server server = new Server(inputError, output, new LinkedList<>(), directoryPath);
+        Server server = new Server(inputError, output, cookie, new LinkedList<>(), directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("500 Internal Server Error");
@@ -26,7 +26,7 @@ public class ServerTest {
 
         OutputStream output = getStreamTest();
 
-        Server server = new Server(socketInput, output, new LinkedList<>(), directoryPath);
+        Server server = new Server(socketInput, output, cookie, new LinkedList<>(), directoryPath);
         server.start();
 
         assertThat(output.toString()).contains("400 Bad Request");

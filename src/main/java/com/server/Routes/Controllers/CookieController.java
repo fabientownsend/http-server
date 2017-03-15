@@ -4,29 +4,28 @@ import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-
-import java.util.LinkedList;
+import com.server.Routes.Cookie;
 
 public class CookieController implements BaseController {
-    private final LinkedList<String> memory;
+    private Cookie cookie;
 
-    public CookieController(LinkedList<String> memory) {
-        this.memory = memory;
+    public CookieController(Cookie cookie) {
+        this.cookie = cookie;
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         String queries = query(clientHttpRequest.getUri());
 
-        memory.add(firstQueryAsCookie(queries));
+        cookie.setContent(changeFormat(queries));
 
         httpResponse.statusCode(HttpStatusCode.OK);
-        httpResponse.addHeader(HttpHeaders.SET_COOKIE, firstQueryAsCookie(queries));
+        httpResponse.addHeader(HttpHeaders.SET_COOKIE, cookie.content());
         httpResponse.content("Eat");
         return httpResponse;
     }
 
-    private String firstQueryAsCookie(String query) {
+    private String changeFormat(String query) {
         String[] queryValues = query.split("=");
         if (queryValues.length >= 2) {
             return String.join(":", queryValues[0], queryValues[1]);

@@ -1,5 +1,7 @@
 package com.server;
 
+import com.server.Routes.Cookie;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,6 +28,7 @@ public class Main {
 
         ServerSocket serverSocket = new ServerSocket(serverSettingsParser.getPort());
         LinkedList<String> memory = new LinkedList<>();
+        Cookie cookie = new Cookie();
         ExecutorService executor = Executors.newFixedThreadPool(100);
 
         while (true) {
@@ -34,7 +37,7 @@ public class Main {
                 try {
                     BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     OutputStream output = clientSocket.getOutputStream();
-                    Server server = new Server(input, output, memory, serverSettingsParser.getDirectory());
+                    Server server = new Server(input, output, cookie, memory, serverSettingsParser.getDirectory());
                     server.start();
                     clientSocket.close();
                 } catch (Exception exception) {

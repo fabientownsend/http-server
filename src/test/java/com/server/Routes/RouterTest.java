@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RouterTest {
     private LinkedList <String> memory = new LinkedList<>();
     private String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
-    private Router requestController = new Router(memory, directoryPath);
+    private Router requestController = new Router(cookie, memory, directoryPath);
 
     @Test
     public void returnsDefaultPage() throws Exception {

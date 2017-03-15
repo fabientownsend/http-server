@@ -8,9 +8,11 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Router {
+    private final Cookie cookie;
     private Map<String, Object> routes;
 
-    public Router(LinkedList<String> memory, String publicDirectoryPath) {
+    public Router(Cookie cookie, LinkedList<String> memory, String publicDirectoryPath) {
+        this.cookie = cookie;
         this.routes = new Hashtable<>();
         routes.putAll(addControllers(memory, publicDirectoryPath));
         routes.putAll(addFiles(publicDirectoryPath));
@@ -33,8 +35,8 @@ public class Router {
 
         controllers.put("/", new DefaultController(publicDirectoryPath));
         controllers.put("/parameters", new ParameterDecodeController());
-        controllers.put("/cookie", new CookieController(memory));
-        controllers.put("/eat_cookie", new EatCookieController(memory));
+        controllers.put("/cookie", new CookieController(cookie));
+        controllers.put("/eat_cookie", new EatCookieController(cookie));
         controllers.put("/logs", new LogsController());
         controllers.put("/tea", new TeaController());
         controllers.put("/form", new FormController(memory));

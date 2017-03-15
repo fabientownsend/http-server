@@ -3,14 +3,13 @@ package com.server.Routes.Controllers;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-
-import java.util.LinkedList;
+import com.server.Routes.Cookie;
 
 public class EatCookieController implements BaseController {
-    private final LinkedList<String> memory;
+    private Cookie cookie;
 
-    public EatCookieController(LinkedList<String> memory) {
-        this.memory = memory;
+    public EatCookieController(Cookie cookie) {
+        this.cookie = cookie;
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
@@ -18,8 +17,8 @@ public class EatCookieController implements BaseController {
         httpResponse.statusCode(HttpStatusCode.OK);
 
         String clientCookie = clientHttpRequest.getInformation("Cookie");
-        System.out.println("client cookie: " + clientCookie);
-        if (clientCookie.equals(memory.getLast())) {
+
+        if (clientCookie.equals(cookie.content())) {
             httpResponse.content("mmmm chocolate");
         }
 

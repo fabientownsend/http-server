@@ -2,22 +2,20 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.CookieController;
+import com.server.Routes.Cookie;
 import org.junit.*;
-
-import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CookieControllerTest {
     private ClientHttpRequest clientHttpRequest;
-    private LinkedList memory;
+    private Cookie cookie;
     private CookieController cookieController;
 
     @Before
     public void initialize() {
-        this.memory = new LinkedList<>();
-        this.cookieController = new CookieController(memory);
+        this.cookie = new Cookie();
+        this.cookieController = new CookieController(cookie);
         this.clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
@@ -57,6 +55,6 @@ public class CookieControllerTest {
 
         cookieController.execute(clientHttpRequest);
 
-        assertThat(memory.getLast()).isEqualTo("type:apple");
+        assertThat(cookie.content()).isEqualTo("type:apple");
     }
 }

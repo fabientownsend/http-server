@@ -2,17 +2,16 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.EatCookieController;
+import com.server.Routes.Cookie;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EatCookieControllerTest {
-    private LinkedList memoryServer;
+    private Cookie memoryServer;
     private ClientHttpRequest clientHttpRequest;
     private HashMap headerInfo;
 
@@ -22,13 +21,13 @@ public class EatCookieControllerTest {
         this.clientHttpRequest.setVerb(HttpVerb.GET.name());
         this.clientHttpRequest.setHttpVersion("HTTP/1.1");
         this.headerInfo = new HashMap<>();
-        this.memoryServer = new LinkedList<>();
+        this.memoryServer = new Cookie();
     }
 
     @Test
     public void returnsMessageWhenUserCookieIdSimilar() {
         headerInfo.put("Cookie", "user id");
-        memoryServer.add("user id");
+        memoryServer.setContent("user id");
         clientHttpRequest.setSectionInformation(headerInfo);
         EatCookieController coffee = new EatCookieController(memoryServer);
 
@@ -40,7 +39,7 @@ public class EatCookieControllerTest {
     @Test
     public void returnsMessageWhenUserCookieIdDifferent() {
         headerInfo.put("Cookie", "user id");
-        memoryServer.add("user id different");
+        memoryServer.setContent("user id different");
         clientHttpRequest.setSectionInformation(headerInfo);
         EatCookieController coffee = new EatCookieController(memoryServer);
 

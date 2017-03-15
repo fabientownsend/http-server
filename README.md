@@ -50,8 +50,14 @@ Client            Server             provider            parser              Fra
 
 ```
 
-You can connect to the server with netcat this way:
+You can run the server this way:
 
+## Run the server
+``` bash
+  java -jar build/libs/server.jar -p 5000 -d /your/public/directory
+```
+
+You can connect to the server with netcat this way:
 ``` bash
   nc localhost 5000
 ```

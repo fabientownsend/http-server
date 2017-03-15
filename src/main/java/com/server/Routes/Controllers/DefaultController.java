@@ -1,4 +1,4 @@
-package com.server.Routes;
+package com.server.Routes.Controllers;
 
 import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;

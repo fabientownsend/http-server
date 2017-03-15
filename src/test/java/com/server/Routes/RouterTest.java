@@ -1,6 +1,7 @@
 package com.server.Routes;
 
 import com.server.HttpRequest.ClientHttpRequest;
+import com.server.Routes.Controllers.*;
 import org.junit.Test;
 
 import java.util.LinkedList;

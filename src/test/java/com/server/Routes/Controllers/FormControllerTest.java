@@ -1,8 +1,9 @@
-package com.server.Routes;
+package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
+import com.server.Routes.Controllers.FormController;
 import org.junit.Test;
 
 import java.util.LinkedList;

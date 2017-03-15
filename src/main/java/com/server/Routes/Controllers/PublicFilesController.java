@@ -1,9 +1,10 @@
-package com.server.Routes;
+package com.server.Routes.Controllers;
 
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
+import com.server.Routes.FileProvider;
 
 import java.io.File;
 import java.io.IOException;

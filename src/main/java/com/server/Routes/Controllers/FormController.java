@@ -17,41 +17,29 @@ public class FormController implements BaseController {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 
-        if (submitData(clientHttpRequest)) {
-            saveData(clientHttpRequest);
-        } else if (requestedData(clientHttpRequest)) {
-            String data = getData();
-            if (!data.isEmpty()) {
-                httpResponse.content(getData());
+        if (submitRequest(clientHttpRequest)) {
+            memory.setContent(clientHttpRequest.getBody());
+        } else if (getRequest(clientHttpRequest)) {
+            if (!memory.content().isEmpty()) {
+                httpResponse.content(memory.content());
             }
         } else if (deleteRequest(clientHttpRequest)) {
-            deleteData();
+            memory.remove();
         }
 
         return httpResponse;
-    }
-
-    private String deleteData() {
-        return memory.remove();
-    }
-
-    private String getData() {
-        return memory.content();
-    }
-
-    private void saveData(ClientHttpRequest clientHttpRequest) {
-        memory.setContent(clientHttpRequest.getBody());
     }
 
     private boolean deleteRequest(ClientHttpRequest clientHttpRequest) {
         return clientHttpRequest.getVerb().equals(HttpVerb.DELETE.name());
     }
 
-    private boolean requestedData(ClientHttpRequest clientHttpRequest) {
+    private boolean getRequest(ClientHttpRequest clientHttpRequest) {
         return clientHttpRequest.getVerb().equals(HttpVerb.GET.name());
     }
 
-    private boolean submitData(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb().equals(HttpVerb.POST.name()) || clientHttpRequest.getVerb().equals(HttpVerb.PUT.name());
+    private boolean submitRequest(ClientHttpRequest clientHttpRequest) {
+        return clientHttpRequest.getVerb().equals(HttpVerb.POST.name())
+            || clientHttpRequest.getVerb().equals(HttpVerb.PUT.name());
     }
 }

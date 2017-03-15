@@ -1,58 +1,60 @@
 package com.server.Routes;
 
-import com.server.Cookie.Cookie;
-import com.server.HttpRequest.ClientHttpRequest;
-import com.server.HttpResponse.HttpResponse;
-
 import java.io.File;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Router {
-    public BaseController route(ClientHttpRequest clientHttpRequest, LinkedList<String> memory, String directory) {
-        String uri = clientHttpRequest.getUri();
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+    private Map<String, Object> routes;
 
-        Hashtable<String, Boolean> folderContent = getDirectoryFile(directory);
+    public Router(LinkedList<String> memory, String publicDirectoryPath) {
+        this.routes = new Hashtable<>();
+        routes.putAll(addControllers(memory, publicDirectoryPath));
+        routes.putAll(addFiles(publicDirectoryPath));
+    }
 
-        if (uri.equals("/")) {
-            return new DefaultPage(clientHttpRequest, directory);
-        } else if (uri.startsWith("/parameters")) {
-            return new ParametersPage(clientHttpRequest);
-        } else if (uri.startsWith("/cookie")) {
-            return new Cookie(clientHttpRequest, memory);
-        } else if (uri.equals("/eat_cookie")) {
-            return new EatCookie(clientHttpRequest, memory);
-        } else if (uri.equals("/logs")) {
-            return new Logs(clientHttpRequest);
-        } else if (uri.equals("/tea")) {
-            return new Tea(httpResponse);
-        } else if (uri.equals("/form")) {
-            return new FormPage(clientHttpRequest, memory);
-        } else if (uri.equals("/redirect")) {
-            return new RedirectPage(clientHttpRequest);
-        } else if (uri.equals("/method_options")) {
-            return new MethodOptions(clientHttpRequest);
-        } else if (uri.equals("/method_options2")) {
-            return new MethodOptions2(clientHttpRequest);
-        } else if (uri.equals("/coffee")) {
-            return new Coffee(clientHttpRequest);
-        } else if (folderContent.containsKey(uri)) {
-            return new FileProviderPage(clientHttpRequest, directory);
+    public BaseController route(String path) {
+        if (routes.containsKey(withoutQueries(path))) {
+            return (BaseController) routes.get(withoutQueries(path));
         } else {
-            return new NotFoundPage(clientHttpRequest);
+            return new NotFoundPage();
         }
     }
 
-    private Hashtable getDirectoryFile(String directoryPath) {
-        Hashtable<String, Boolean> router = new Hashtable<>();
+    private String withoutQueries(String path) {
+        return path.split("\\?")[0];
+    }
 
-        File directory = new File(directoryPath);
+    private Map<String, Object> addControllers(LinkedList<String> memory, String publicDirectoryPath) {
+        Map<String, Object> controllers = new Hashtable<>();
+
+        controllers.put("/", new DefaultPage(publicDirectoryPath));
+        controllers.put("/parameters", new ParametersPage());
+        controllers.put("/cookie", new Cookie(memory));
+        controllers.put("/eat_cookie", new EatCookie(memory));
+        controllers.put("/logs", new Logs());
+        controllers.put("/tea", new Tea());
+        controllers.put("/form", new FormPage(memory));
+        controllers.put("/redirect", new RedirectPage());
+        controllers.put("/method_options", new MethodOptions());
+        controllers.put("/method_options2", new MethodOptions2());
+        controllers.put("/coffee", new Coffee());
+
+        return controllers;
+    }
+
+    private Map<String, Object> addFiles(String publicDirectoryPath) {
+        Map<String, Object> publicFiles = new Hashtable<>();
+        File directory = new File(publicDirectoryPath);
         String[] files = directory.list();
 
-        for (String file : files) {
-            router.put("/" + file, true);
+        if (files != null) {
+            for (String file : files) {
+                publicFiles.put("/" + file, new FileProviderPage(publicDirectoryPath));
+            }
         }
-        return router;
+
+        return publicFiles;
     }
 }

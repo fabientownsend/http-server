@@ -5,13 +5,8 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
 public class MethodOptions2 implements BaseController {
-    private final HttpResponse httpResponse;
-
-    public MethodOptions2(ClientHttpRequest clientHttpRequest) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-    }
-
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader("Allow", "GET,OPTIONS");
         return httpResponse;

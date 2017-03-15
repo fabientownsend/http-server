@@ -11,18 +11,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class FileProviderPage implements BaseController {
-    private final HttpResponse httpResponse;
-    private final ClientHttpRequest clientHttpRequest;
     private final String directoryPath;
     private FileProvider fileProvider = new FileProvider();
 
-    public FileProviderPage(ClientHttpRequest clientHttpRequest, String directory) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        this.clientHttpRequest = clientHttpRequest;
+    public FileProviderPage(String directory) {
         this.directoryPath = directory;
     }
 
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+            HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         if (clientHttpRequest.getVerb().equals(HttpVerb.PATCH.name())) {
             try {
                 Files.write(Paths.get(directoryPath + "/patch-content.txt"), "patched content".getBytes(), StandardOpenOption.APPEND);

@@ -21,9 +21,9 @@ public class FileProviderPageTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setUri("/response.gradle");
 
-        FileProviderPage defaultPage = new FileProviderPage(clientHttpRequest, directoryPath);
+        FileProviderPage defaultPage = new FileProviderPage(directoryPath);
 
-        assertThat(defaultPage.execute().response()).contains(getBinaryFile(directoryPath + "/response.gradle"));
+        assertThat(defaultPage.execute(clientHttpRequest).response()).contains(getBinaryFile(directoryPath + "/response.gradle"));
     }
 
     private byte[] getBinaryFile(String directoryPath) {

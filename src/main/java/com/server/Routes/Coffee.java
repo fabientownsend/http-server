@@ -5,14 +5,8 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
 public class Coffee implements BaseController {
-
-    private final HttpResponse httpResponse;
-
-    public Coffee(ClientHttpRequest clientHttpRequest) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-    }
-
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.I_M_A_TEAPOT);
         httpResponse.addHeader("Content-Type", "text/html");
         httpResponse.content("I'm a teapot");

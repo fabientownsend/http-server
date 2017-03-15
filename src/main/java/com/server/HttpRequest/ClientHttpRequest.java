@@ -4,7 +4,6 @@ import com.server.HttpHeaders.HttpHeaders;
 
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Scanner;
 
 public class ClientHttpRequest {
     private String verb;

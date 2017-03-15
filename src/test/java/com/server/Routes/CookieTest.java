@@ -1,6 +1,5 @@
 package com.server.Routes;
 
-import com.server.Cookie.Cookie;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
 import org.junit.Ignore;
@@ -19,8 +18,8 @@ public class CookieTest {
         clientHttpRequest.setUri("/cookie?type=chocolate");
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
-        Cookie cookie = new Cookie(clientHttpRequest, memory);
-        String response = new String(cookie.execute().response());
+        Cookie cookie = new Cookie(memory);
+        String response = new String(cookie.execute(clientHttpRequest).response());
         assertThat(response).isEqualTo(
             "HTTP/1.1 200 OK\r\n"
             + "Set-Cookie: type:chocolate\r\n"

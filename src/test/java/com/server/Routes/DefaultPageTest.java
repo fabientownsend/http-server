@@ -14,18 +14,18 @@ public class DefaultPageTest {
     public void returnTheListingOfDirectory() {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
 
-        DefaultPage defaultPage = new DefaultPage(clientHttpRequest, directoryPath);
+        DefaultPage defaultPage = new DefaultPage(directoryPath);
 
-        assertThat(defaultPage.execute().response()).contains("response.gradle".getBytes());
-        assertThat(defaultPage.execute().response()).contains("README.md".getBytes());
+        assertThat(defaultPage.execute(clientHttpRequest).response()).contains("response.gradle".getBytes());
+        assertThat(defaultPage.execute(clientHttpRequest).response()).contains("README.md".getBytes());
     }
 
     @Test
     public void contrainLinksOfFiles() {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
 
-        DefaultPage defaultPage = new DefaultPage(clientHttpRequest, directoryPath);
+        DefaultPage defaultPage = new DefaultPage(directoryPath);
 
-        assertThat(defaultPage.execute().response()).contains("<a href=\"/response.gradle\">response.gradle</a>".getBytes());
+        assertThat(defaultPage.execute(clientHttpRequest).response()).contains("<a href=\"/response.gradle\">response.gradle</a>".getBytes());
     }
 }

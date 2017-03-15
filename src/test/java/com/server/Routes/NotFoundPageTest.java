@@ -13,7 +13,7 @@ public class NotFoundPageTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        NotFoundPage notFoundPage = new NotFoundPage(clientHttpRequest);
-        assertThat(notFoundPage.execute().response()).contains("HTTP/1.1 404 Not Found".getBytes());
+        NotFoundPage notFoundPage = new NotFoundPage();
+        assertThat(notFoundPage.execute(clientHttpRequest).response()).contains("HTTP/1.1 404 Not Found".getBytes());
     }
 }

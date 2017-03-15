@@ -13,18 +13,12 @@ import java.io.IOException;
 import java.util.Base64;
 
 public class Logs implements BaseController {
-    private final HttpResponse httpResponse;
-    private final ClientHttpRequest clientHttpRequest;
     private static final String LOGS_PATH ="/Users/fabientownsend/Documents/Java/server/logs/logger.log";
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASSWORD = "hunter2";
 
-    public Logs(ClientHttpRequest clientHttpRequest) {
-        this.clientHttpRequest = clientHttpRequest;
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-    }
-
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+           HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         if (clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
             String authentication = clientHttpRequest.getInformation(HttpHeaders.AUTHORIZATION);
 

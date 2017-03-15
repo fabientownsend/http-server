@@ -6,15 +6,8 @@ import com.server.HttpResponse.HttpResponse;
 import com.server.HttpVerb;
 
 public class MethodOptions implements BaseController {
-    private final ClientHttpRequest clientHttpRequest;
-    private final HttpResponse httpResponse;
-
-    public MethodOptions(ClientHttpRequest clientHttpRequest) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        this.clientHttpRequest = clientHttpRequest;
-    }
-
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 
         if (clientHttpRequest.getVerb().equals(HttpVerb.OPTIONS.name())) {

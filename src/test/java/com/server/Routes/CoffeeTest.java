@@ -13,8 +13,8 @@ public class CoffeeTest {
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
-        Coffee coffee = new Coffee(clientHttpRequest);
-        assertThat(coffee.execute().response()).contains("HTTP/1.1 418 I'm a teapot".getBytes());
-        assertThat(coffee.execute().response()).contains("I'm a teapot".getBytes());
+        Coffee coffee = new Coffee();
+        assertThat(coffee.execute(clientHttpRequest).response()).contains("HTTP/1.1 418 I'm a teapot".getBytes());
+        assertThat(coffee.execute(clientHttpRequest).response()).contains("I'm a teapot".getBytes());
     }
 }

@@ -7,15 +7,8 @@ import com.server.HttpResponse.HttpResponse;
 import java.net.URLDecoder;
 
 public class ParametersPage implements BaseController {
-    private final ClientHttpRequest clientHttpRequest;
-    private HttpResponse httpResponse;
-
-    public ParametersPage(ClientHttpRequest clientHttpRequest) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        this.clientHttpRequest = clientHttpRequest;
-    }
-
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
         String[] parameters = splitParameters(clientHttpRequest.getUri());
 

@@ -8,17 +8,14 @@ import com.server.HttpVerb;
 import java.util.LinkedList;
 
 public class FormPage implements BaseController {
-    private final ClientHttpRequest clientHttpRequest;
-    private final HttpResponse httpResponse;
     private LinkedList<String> memory;
 
-    public FormPage(ClientHttpRequest clientHttpRequest, LinkedList<String> memory) {
-        this.httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        this.clientHttpRequest = clientHttpRequest;
+    public FormPage(LinkedList<String> memory) {
         this.memory = memory;
     }
 
-    public HttpResponse execute() {
+    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+           HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 
         if (clientHttpRequest.getVerb().equals(HttpVerb.POST.name())

@@ -6,17 +6,19 @@ import com.server.HttpResponse.HttpResponse;
 
 import java.util.LinkedList;
 
-public class EatCookie implements BaseController {
+public class EatCookieController implements BaseController {
     private final LinkedList<String> memory;
 
-    public EatCookie(LinkedList<String> memory) {
+    public EatCookieController(LinkedList<String> memory) {
         this.memory = memory;
     }
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
-           HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
+
         String clientCookie = clientHttpRequest.getInformation("Cookie");
+        System.out.println("client cookie: " + clientCookie);
         if (clientCookie.equals(memory.getLast())) {
             httpResponse.content("mmmm chocolate");
         }

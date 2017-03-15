@@ -89,6 +89,6 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/eat_cookie");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(EatCookie.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(EatCookieController.class);
     }
 }

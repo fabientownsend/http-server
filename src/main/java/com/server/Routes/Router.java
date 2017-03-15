@@ -32,7 +32,7 @@ public class Router {
         controllers.put("/", new DefaultController(publicDirectoryPath));
         controllers.put("/parameters", new ParametersPage());
         controllers.put("/cookie", new CookieController(memory));
-        controllers.put("/eat_cookie", new EatCookie(memory));
+        controllers.put("/eat_cookie", new EatCookieController(memory));
         controllers.put("/logs", new Logs());
         controllers.put("/tea", new Tea());
         controllers.put("/form", new FormPage(memory));

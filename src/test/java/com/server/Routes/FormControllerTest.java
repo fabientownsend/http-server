@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FormPageTest {
+public class FormControllerTest {
     private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
 
     @Test
@@ -18,8 +18,8 @@ public class FormPageTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         clientHttpRequest.setHttpVersion("HTTP/1.1");
-        FormPage formPage = new FormPage(memory);
-        assertThat(formPage.execute(clientHttpRequest).response()).isEqualTo("HTTP/1.1 200 OK".getBytes());
+        FormController formController = new FormController(memory);
+        assertThat(formController.execute(clientHttpRequest).response()).isEqualTo("HTTP/1.1 200 OK".getBytes());
     }
 
     @Test
@@ -29,9 +29,9 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         memory.add("hello");
-        FormPage formPage = new FormPage(memory);
+        FormController formController = new FormController(memory);
 
-        httpResponse = formPage.execute(clientHttpRequest);
+        httpResponse = formController.execute(clientHttpRequest);
         assertThat(httpResponse.response()).contains("hello".getBytes());
     }
 
@@ -42,9 +42,9 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.GET.name());
         memory.add("hello");
-        FormPage formPage = new FormPage(memory);
+        FormController formController = new FormController(memory);
 
-        httpResponse = formPage.execute(clientHttpRequest);
+        httpResponse = formController.execute(clientHttpRequest);
         assertThat(httpResponse.response()).contains("Content-Length: 5".getBytes());
     }
     @Test
@@ -54,8 +54,8 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.PUT.name());
         clientHttpRequest.setBody("hello");
-        FormPage formPage = new FormPage(memory);
-        formPage.execute(clientHttpRequest);
+        FormController formController = new FormController(memory);
+        formController.execute(clientHttpRequest);
 
         assertThat(memory.remove()).contains("hello");
     }
@@ -67,8 +67,8 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.POST.name());
         clientHttpRequest.setBody("hello");
-        FormPage formPage = new FormPage(memory);
-        formPage.execute(clientHttpRequest);
+        FormController formController = new FormController(memory);
+        formController.execute(clientHttpRequest);
 
         assertThat(memory.remove()).contains("hello");
     }
@@ -80,12 +80,12 @@ public class FormPageTest {
 
         clientHttpRequest.setVerb(HttpVerb.POST.name());
         clientHttpRequest.setBody("hello");
-        FormPage formPage = new FormPage(memory);
-        formPage.execute(clientHttpRequest);
+        FormController formController = new FormController(memory);
+        formController.execute(clientHttpRequest);
 
         clientHttpRequest.setVerb(HttpVerb.DELETE.name());
-        formPage = new FormPage(memory);
-        formPage.execute(clientHttpRequest);
+        formController = new FormController(memory);
+        formController.execute(clientHttpRequest);
 
         assertThat(memory.size()).isEqualTo(0);
     }

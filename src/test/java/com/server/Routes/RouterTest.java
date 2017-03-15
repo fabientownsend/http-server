@@ -25,7 +25,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/form");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(FormPage.class);
+        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(FormController.class);
     }
 
     @Test

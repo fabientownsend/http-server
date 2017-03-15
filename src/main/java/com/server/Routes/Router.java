@@ -35,7 +35,7 @@ public class Router {
         controllers.put("/eat_cookie", new EatCookieController(memory));
         controllers.put("/logs", new LogsController());
         controllers.put("/tea", new TeaController());
-        controllers.put("/form", new FormPage(memory));
+        controllers.put("/form", new FormController(memory));
         controllers.put("/redirect", new RedirectionController());
         controllers.put("/method_options", new MethodOptions());
         controllers.put("/method_options2", new MethodOptions2Controller());

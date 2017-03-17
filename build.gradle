@@ -1,3 +1,8 @@
+plugins {
+  id "com.github.kt3k.coveralls" version "2.6.3"
+  id "jacoco"
+}
+
 apply plugin: 'java'
 
 repositories {

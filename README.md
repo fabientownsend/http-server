@@ -56,6 +56,7 @@ You can run the server this way:
 
 ## Run the server
 ``` bash
+  gradle jar
   java -jar build/libs/server.jar -p 5000 -d /your/public/directory
 ```
 

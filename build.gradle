@@ -20,7 +20,19 @@ dependencies {
   testCompile 'org.assertj:assertj-core:3.6.1'
 }
 
-task execute(type: JavaExec) {
-  main = "com.server.Main"
-  classpath = sourceSets.main.runtimeClasspath
+jacocoTestReport {
+  reports {
+    xml.enabled true
+  }
+  afterEvaluate {
+    classDirectories = files(classDirectories.files.collect {
+        fileTree(dir: it,
+            exclude: ['**/Main.*'
+            ])
+        })
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.2'
 }

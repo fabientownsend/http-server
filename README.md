@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/fabientownsend/http-server.svg?branch=master)](https://travis-ci.org/fabientownsend/http-server)
+[![Coverage Status](https://coveralls.io/repos/github/fabientownsend/http-server/badge.svg?branch=master)](https://coveralls.io/github/fabientownsend/http-server?branch=master)
 
 # HTTP Server
 

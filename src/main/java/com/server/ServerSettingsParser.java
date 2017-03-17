@@ -1,8 +1,5 @@
 package com.server;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class ServerSettingsParser {
     private final String[] serverSettings;
     private int port = 1;

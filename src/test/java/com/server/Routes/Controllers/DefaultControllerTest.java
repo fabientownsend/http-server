@@ -2,14 +2,17 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.DefaultController;
 import org.junit.Test;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DefaultControllerTest {
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-    private String directoryPath = "/Users/fabientownsend/Documents/Java/server/src/test/java/com/server";
+    private Path currentPath = Paths.get("");
+    private String directoryPath =  currentPath.toAbsolutePath().toString();
 
     @Test
     public void displaysListOfFiles() {
@@ -18,8 +21,8 @@ public class DefaultControllerTest {
         DefaultController defaultController = new DefaultController(directoryPath);
         String httpResponse = new String(defaultController.execute(clientHttpRequest).response());
 
-        assertThat(httpResponse).contains("ServerTest.java");
-        assertThat(httpResponse).contains("ServerSettingsParserTest.java");
+        assertThat(httpResponse).contains("build.gradle");
+        assertThat(httpResponse).contains(".travis.yml");
     }
 
     @Test
@@ -29,6 +32,6 @@ public class DefaultControllerTest {
         DefaultController defaultController = new DefaultController(directoryPath);
         String httpResponse = new String(defaultController.execute(clientHttpRequest).response());
 
-        assertThat(httpResponse).contains("<a href=\"/ServerTest.java\">ServerTest.java</a>");
+        assertThat(httpResponse).contains("<a href=\"/build.gradle\">build.gradle</a>");
     }
 }

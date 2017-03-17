@@ -2,19 +2,20 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.PublicFilesController;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PublicFilesControllerTest {
     private ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-    private String directoryPath = "/Users/fabientownsend/Documents/Java/server/";
+    private Path currentPath = Paths.get("");
+    private String directoryPath =  currentPath.toAbsolutePath().toString();
 
     @Before
     public void initialize() {
@@ -57,8 +58,9 @@ public class PublicFilesControllerTest {
     public void returnsBinaryFilesRequested() {
         clientHttpRequest.setUri("/build.gradle");
 
+
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
-        byte[] binaryFile = getBinaryFile(directoryPath + "/build.gradle");
+        byte[] binaryFile = getBinaryFile(directoryPath + "build.gradle");
 
         assertThat(defaultPage.execute(clientHttpRequest).response()).contains(binaryFile);
     }

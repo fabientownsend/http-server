@@ -2,10 +2,7 @@ package com.server;
 
 import com.server.Routes.Memory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -19,6 +16,11 @@ public class Main {
     public final static Logger LOGGER = Logger.getLogger(Server.class.getName());
 
     public static void main(String[] args) throws IOException {
+        File dir = new File("logs");
+        dir.mkdir();
+        File yourFile = new File("logs/score.txt");
+        yourFile.createNewFile();
+
         FileHandler fileHandle = new FileHandler("logs/logger.log", false);
         fileHandle.setFormatter(new SimpleFormatter());
         LOGGER.addHandler(fileHandle);

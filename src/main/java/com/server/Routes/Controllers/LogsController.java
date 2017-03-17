@@ -28,7 +28,9 @@ public class LogsController implements BaseController {
             if (isAuthenticated(authentication)) {
                 httpResponse.statusCode(HttpStatusCode.OK);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
-                httpResponse.content(logsHttpRequests());
+                if (!logsHttpRequests().isEmpty()) {
+                    httpResponse.content(logsHttpRequests());
+                }
             } else {
                 httpResponse.statusCode(HttpStatusCode.UNAUTHORIZED);
                 httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");

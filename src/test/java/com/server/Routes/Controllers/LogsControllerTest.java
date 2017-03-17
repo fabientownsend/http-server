@@ -3,9 +3,7 @@ package com.server.Routes.Controllers;
 import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.LogsController;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Base64;

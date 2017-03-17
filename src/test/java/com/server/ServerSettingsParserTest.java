@@ -47,12 +47,4 @@ public class ServerSettingsParserTest {
             () -> serverSettingsParser.getDirectory()
         );
     }
-
-    @Test
-    public void returnDefaultSetting() {
-        ServerSettingsParser serverSettingsParser = new ServerSettingsParser();
-
-        assertThat(serverSettingsParser.getDirectory()).isEqualTo("/Users/fabientownsend/Documents/Java/cob_spec/public/");
-        assertThat(serverSettingsParser.getPort()).isEqualTo(5000);
-    }
 }

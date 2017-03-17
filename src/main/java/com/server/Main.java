@@ -25,7 +25,7 @@ public class Main {
         fileHandle.setFormatter(new SimpleFormatter());
         LOGGER.addHandler(fileHandle);
 
-        ServerSettingsParser serverSettingsParser = new ServerSettingsParser();
+        ServerSettingsParser serverSettingsParser = new ServerSettingsParser(args);
 
         ServerSocket serverSocket = new ServerSocket(serverSettingsParser.getPort());
         Memory memory = new Memory();

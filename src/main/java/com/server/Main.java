@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         File dir = new File("logs");
         dir.mkdir();
-        File yourFile = new File("logs/score.txt");
+        File yourFile = new File("logs/logger.log");
         yourFile.createNewFile();
 
         FileHandler fileHandle = new FileHandler("logs/logger.log", false);

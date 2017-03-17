@@ -4,11 +4,15 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.Routes.Controllers.*;
 import org.junit.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RouterTest {
     private Memory memory = new Memory();
-    private String directoryPath = "/Users/fabientownsend/Documents/Java/cob_spec/public/";
+    private Path currentPath = Paths.get("/src/test/java/com/server/public");
+    private String directoryPath =  currentPath.toAbsolutePath().toString();
     private Router requestController = new Router(memory, directoryPath);
 
     @Test

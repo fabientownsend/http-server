@@ -6,6 +6,7 @@ import com.server.HttpVerb;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,7 +75,17 @@ public class LogsControllerTest {
     }
 
     @Test
-    public void returnsLogsRequests() {
+    public void returnsLogsRequests() throws IOException {
+        File dir = new File("logs");
+        dir.mkdir();
+        File yourFile = new File("logs/logger.log");
+        yourFile.createNewFile();
+
+        Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(yourFile), "utf-8"));
+        writer.write("INFO: request: GET /logs HTTP/1.1");
+        writer.close();
+
         String base64LoginPassword = new String(Base64.getEncoder().encode("admin:hunter2".getBytes()));
         header.put(HttpHeaders.AUTHORIZATION, "Basic " + base64LoginPassword);
         clientHttpRequest.setSectionInformation(header);

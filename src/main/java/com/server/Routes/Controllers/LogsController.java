@@ -10,13 +10,17 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.logging.Level;
 
 import static com.server.Main.LOGGER;
 
 public class LogsController implements BaseController {
-    private static final String LOGS_PATH ="/Users/fabientownsend/Documents/Java/server/logs/logger.log";
+    private Path currentPath = Paths.get("");
+    private String directoryPath =  currentPath.toAbsolutePath().toString();
+    private final String LOGS_PATH = directoryPath + "/logs/logger.log";
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASSWORD = "hunter2";
 

@@ -1,15 +1,31 @@
 package com.server.HttpHeaders;
 
-public final class HttpStatusCode {
-    public static final int OK = 200;
-    public static final int CREATED = 201;
-    public static final int NO_CONTENT = 204;
-    public static final int PARTIAL_CONTENT = 206;
-    public static final int OBJECT_MOVED = 302;
-    public static final int BAD_REQUEST = 400;
-    public static final int UNAUTHORIZED = 401;
-    public static final int NOT_FOUND = 404;
-    public static final int METHOD_NOT_ALLOWED = 405;
-    public static final int I_M_A_TEAPOT = 418;
-    public static final int INTERNAL_SERVER_ERROR = 500;
+public enum HttpStatusCode {
+    OK(200, "OK"),
+    CREATED(201, "Created"),
+    NO_CONTENT(204, "No Content"),
+    PARTIAL_CONTENT(206, "Partial Content"),
+    OBJECT_MOVED(302, "Object Moved"),
+    BAD_REQUEST(400, "Bad Request"),
+    UNAUTHORIZED(401, "Unauthorized"),
+    NOT_FOUND(404, "Not Found"),
+    METHOD_NOT_ALLOWED(405, "Method Not Allowed"),
+    I_M_A_TEAPOT(418, "I'm a teapot"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+
+    private final int code;
+    private final String phrase;
+
+    HttpStatusCode(int code, String phrase) {
+        this.code = code;
+        this.phrase = phrase;
+    }
+
+    public Object getPhrase() {
+        return this.phrase;
+    }
+
+    public int getCode() {
+        return code;
+    }
 }

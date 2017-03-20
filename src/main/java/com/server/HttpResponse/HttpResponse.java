@@ -1,33 +1,22 @@
 package com.server.HttpResponse;
 
+import com.server.HttpHeaders.HttpStatusCode;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 
 public class HttpResponse {
     private final String httpVersion;
-    private Integer statusCode;
-    private final Hashtable<Integer, String> reasonPhrase;
+    private HttpStatusCode statusCode;
     private String header;
     private byte[] bodyImageResponse;
 
     public HttpResponse(String httpVersion) {
         this.httpVersion = httpVersion;
-        this.reasonPhrase = new Hashtable<>();
-        reasonPhrase.put(200, "OK");
-        reasonPhrase.put(201, "Created");
-        reasonPhrase.put(204, "No Content");
-        reasonPhrase.put(206, "Partial Content");
-        reasonPhrase.put(302, "Object Moved");
-        reasonPhrase.put(400, "Bad Request");
-        reasonPhrase.put(401, "Unauthorized");
-        reasonPhrase.put(404, "Not Found");
-        reasonPhrase.put(405, "Method Not Allowed");
-        reasonPhrase.put(418, "I'm a teapot");
-        reasonPhrase.put(500, "Internal Server Error");
     }
 
-    public void statusCode(Integer httpResponseCode) {
+    public void statusCode(HttpStatusCode httpResponseCode) {
         this.statusCode = httpResponseCode;
     }
 
@@ -71,6 +60,6 @@ public class HttpResponse {
     }
 
     private String httpResponseStatusLine() {
-        return httpVersion + " " + statusCode.toString() + " " + reasonPhrase.get(statusCode);
+        return httpVersion + " " + statusCode.getCode() + " " + statusCode.getPhrase();
     }
 }

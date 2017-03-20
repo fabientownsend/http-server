@@ -19,7 +19,7 @@ public class HttpRequestParserTest {
         HttpRequestParser httpRequestParser = new HttpRequestParser();
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(simpleHttpRequest);
 
-        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.GET.name());
+        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.GET);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class HttpRequestParserTest {
         HttpRequestParser httpRequestParser = new HttpRequestParser();
         ClientHttpRequest clientHttpRequest = httpRequestParser.parse(simpleHttpRequest);
 
-        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.POST.name());
+        assertThat(clientHttpRequest.getVerb()).isEqualTo(HttpVerb.POST);
     }
 
     @Test

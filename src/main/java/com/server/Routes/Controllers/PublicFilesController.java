@@ -29,11 +29,11 @@ public class PublicFilesController implements BaseController {
             return httpResponse;
         }
 
-        if (clientHttpRequest.getVerb().equals(HttpVerb.PATCH.name())) {
+        if (clientHttpRequest.getVerb() == HttpVerb.PATCH) {
             return patchFile(httpResponse);
         }
 
-        if (!clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
+        if (clientHttpRequest.getVerb() != HttpVerb.GET) {
             httpResponse.statusCode(HttpStatusCode.METHOD_NOT_ALLOWED);
             return httpResponse;
         }

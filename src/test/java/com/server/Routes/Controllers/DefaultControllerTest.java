@@ -16,7 +16,7 @@ public class DefaultControllerTest {
 
     @Test
     public void displaysListOfFiles() {
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
 
         DefaultController defaultController = new DefaultController(directoryPath);
         String httpResponse = new String(defaultController.execute(clientHttpRequest).response());
@@ -27,7 +27,7 @@ public class DefaultControllerTest {
 
     @Test
     public void displaysLinksToEachFiles() {
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
 
         DefaultController defaultController = new DefaultController(directoryPath);
         String httpResponse = new String(defaultController.execute(clientHttpRequest).response());

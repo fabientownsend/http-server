@@ -10,7 +10,7 @@ public class MethodOptionsController implements BaseController {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 
-        if (clientHttpRequest.getVerb().equals(HttpVerb.OPTIONS.name())) {
+        if (clientHttpRequest.getVerb() == HttpVerb.OPTIONS) {
             httpResponse.addHeader("Allow", "GET,HEAD,POST,OPTIONS,PUT");
         } else {
             httpResponse.addHeader("Allow", "GET,OPTIONS");

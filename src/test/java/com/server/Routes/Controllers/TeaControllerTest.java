@@ -2,7 +2,6 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.TeaController;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +10,7 @@ public class TeaControllerTest {
     @Test
     public void returnTeaRedirection() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
         TeaController teaController = new TeaController();

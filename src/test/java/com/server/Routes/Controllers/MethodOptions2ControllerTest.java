@@ -2,7 +2,6 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.MethodOptions2Controller;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +11,7 @@ public class MethodOptions2ControllerTest {
 
     @Test
     public void returnsOptionsWhenOptionVerb() {
-        clientHttpRequest.setVerb(HttpVerb.OPTIONS.name());
+        clientHttpRequest.setVerb(HttpVerb.OPTIONS);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
@@ -20,7 +19,7 @@ public class MethodOptions2ControllerTest {
 
     @Test
     public void returnsOptionsWhenGetVerb() {
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
@@ -28,7 +27,7 @@ public class MethodOptions2ControllerTest {
 
     @Test
     public void returnsOptionsWhenPostVerb() {
-        clientHttpRequest.setVerb(HttpVerb.POST.name());
+        clientHttpRequest.setVerb(HttpVerb.POST);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
@@ -36,7 +35,7 @@ public class MethodOptions2ControllerTest {
 
     @Test
     public void returnsOptionsWhenPutVerb() {
-        clientHttpRequest.setVerb(HttpVerb.PUT.name());
+        clientHttpRequest.setVerb(HttpVerb.PUT);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
         assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());

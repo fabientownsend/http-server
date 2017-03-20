@@ -3,9 +3,7 @@ package com.server.Routes.Controllers;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Categories;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +19,7 @@ public class PublicFilesControllerTest {
 
     @Before
     public void initialize() {
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
     }
 
@@ -48,7 +46,7 @@ public class PublicFilesControllerTest {
     @Test
     public void returnNotAllowedWhenNotGetOrPatch() {
         clientHttpRequest.setUri("/build.gradle");
-        clientHttpRequest.setVerb(HttpVerb.OPTIONS.name());
+        clientHttpRequest.setVerb(HttpVerb.OPTIONS);
 
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
         String httpResponse = new String(defaultPage.execute(clientHttpRequest).response());

@@ -26,7 +26,7 @@ public class LogsController implements BaseController {
 
     public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
            HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        if (clientHttpRequest.getVerb().equals(HttpVerb.GET.name())) {
+        if (clientHttpRequest.getVerb() == HttpVerb.GET) {
 
             String authentication = authentication(clientHttpRequest);
             if (isAuthenticated(authentication)) {

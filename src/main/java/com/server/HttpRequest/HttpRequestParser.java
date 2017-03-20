@@ -1,6 +1,7 @@
 package com.server.HttpRequest;
 
 import com.server.BadRequestException;
+import com.server.HttpVerb;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -23,16 +24,22 @@ public class HttpRequestParser {
         } catch (BadRequestException message) {
             throw new BadRequestException(message.getMessage());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
-            throw new BadRequestException("that's not a correct request. kkthxbye");
+            throw new BadRequestException("that's not a correct request.");
         }
     }
 
-    private String parseVerb() {
+    private HttpVerb parseVerb() {
         String requestLine = getRequestLine();
         String[] infoLine = requestLine.split("\\s+");
         String strVerb = infoLine[0];
 
-        return strVerb;
+        for (HttpVerb verb : HttpVerb.values()) {
+            if (strVerb.equals(verb.name())) {
+                return verb;
+            }
+        }
+
+        return HttpVerb.UNKNOWN;
     }
 
     private String parseUri() {

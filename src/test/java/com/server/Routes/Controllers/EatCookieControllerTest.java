@@ -18,7 +18,7 @@ public class EatCookieControllerTest {
     @Before
     public void initialization() {
         this.clientHttpRequest = new ClientHttpRequest();
-        this.clientHttpRequest.setVerb(HttpVerb.GET.name());
+        this.clientHttpRequest.setVerb(HttpVerb.GET);
         this.clientHttpRequest.setHttpVersion("HTTP/1.1");
         this.headerInfo = new HashMap<>();
         this.memoryServer = new Memory();

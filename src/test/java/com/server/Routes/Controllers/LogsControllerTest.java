@@ -19,7 +19,7 @@ public class LogsControllerTest {
 
     @Before
     public void initialize() {
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class LogsControllerTest {
         yourFile.createNewFile();
 
         Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(yourFile), "utf-8"));
+            new FileOutputStream(yourFile), "utf-8"));
         writer.write("INFO: request: GET /logs HTTP/1.1");
         writer.close();
 

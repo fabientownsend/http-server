@@ -29,15 +29,15 @@ public class FormController implements BaseController {
     }
 
     private boolean deleteRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb().equals(HttpVerb.DELETE.name());
+        return clientHttpRequest.getVerb() == HttpVerb.DELETE;
     }
 
     private boolean getRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb().equals(HttpVerb.GET.name());
+        return clientHttpRequest.getVerb() == HttpVerb.GET;
     }
 
     private boolean submitRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb().equals(HttpVerb.POST.name())
-            || clientHttpRequest.getVerb().equals(HttpVerb.PUT.name());
+        return clientHttpRequest.getVerb() == HttpVerb.POST
+            || clientHttpRequest.getVerb() == HttpVerb.PUT;
     }
 }

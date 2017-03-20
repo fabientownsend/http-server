@@ -21,7 +21,7 @@ public class FormControllerTest {
     @Test
     public void returnsNoDataByDefault() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
         FormController formController = new FormController(memory);
         String httpResponse = new String(formController.execute(clientHttpRequest).response());
@@ -32,7 +32,7 @@ public class FormControllerTest {
     public void returnDataWhenDataIntoMemory() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         memory.setContent("hello");
         FormController formController = new FormController(memory);
 
@@ -44,7 +44,7 @@ public class FormControllerTest {
     public void returnTheSizeOfTheData() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         memory.setContent("hello");
         FormController formController = new FormController(memory);
 
@@ -55,7 +55,7 @@ public class FormControllerTest {
     public void saveDataIntoMemoryWhenPut() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
-        clientHttpRequest.setVerb(HttpVerb.PUT.name());
+        clientHttpRequest.setVerb(HttpVerb.PUT);
         clientHttpRequest.setBody("hello");
         FormController formController = new FormController(memory);
         formController.execute(clientHttpRequest);
@@ -67,7 +67,7 @@ public class FormControllerTest {
     public void saveDataIntoMemoryWhenPost() {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
 
-        clientHttpRequest.setVerb(HttpVerb.POST.name());
+        clientHttpRequest.setVerb(HttpVerb.POST);
         clientHttpRequest.setBody("hello");
         FormController formController = new FormController(memory);
         formController.execute(clientHttpRequest);

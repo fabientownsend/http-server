@@ -3,7 +3,8 @@ package com.server.Routes.Controllers;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
 import com.server.Routes.Memory;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +18,7 @@ public class CookieControllerTest {
         this.cookie = new Memory();
         this.cookieController = new CookieController(cookie);
         this.clientHttpRequest = new ClientHttpRequest();
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
     }
 

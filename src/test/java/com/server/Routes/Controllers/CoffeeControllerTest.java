@@ -2,7 +2,6 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
-import com.server.Routes.Controllers.CoffeeController;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ public class CoffeeControllerTest {
     @Before
     public void initialize() {
         this.clientHttpRequest = new ClientHttpRequest();
-        clientHttpRequest.setVerb(HttpVerb.GET.name());
+        clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
         this.coffeeController = new CoffeeController();
     }

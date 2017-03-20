@@ -1,12 +1,13 @@
 package com.server.HttpRequest;
 
 import com.server.HttpHeaders.HttpHeaders;
+import com.server.HttpVerb;
 
 import java.util.Hashtable;
 import java.util.Map;
 
 public class ClientHttpRequest {
-    private String verb;
+    private HttpVerb verb;
     private String uri;
     private String httpVersion;
     private Map<String, String> sectionInformation;
@@ -16,11 +17,11 @@ public class ClientHttpRequest {
         sectionInformation = new Hashtable<>();
     }
 
-    public String getVerb() {
+    public HttpVerb getVerb() {
         return verb;
     }
 
-    public void setVerb(String verb) {
+    public void setVerb(HttpVerb verb) {
         this.verb = verb;
     }
 

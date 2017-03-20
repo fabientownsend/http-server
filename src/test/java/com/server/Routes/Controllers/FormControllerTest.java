@@ -60,7 +60,7 @@ public class FormControllerTest {
         FormController formController = new FormController(memory);
         formController.execute(clientHttpRequest);
 
-        assertThat(memory.remove()).contains("hello");
+        assertThat(memory.content()).contains("hello");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class FormControllerTest {
         FormController formController = new FormController(memory);
         formController.execute(clientHttpRequest);
 
-        assertThat(memory.remove()).contains("hello");
+        assertThat(memory.content()).contains("hello");
     }
 }
 

@@ -1,27 +1,17 @@
 package com.server.Routes;
 
-import java.util.LinkedList;
-
 public class Memory {
-    private LinkedList<String> cookie;
-
-    public Memory() {
-        this.cookie = new LinkedList<>();
-    }
+    private String memory = "";
 
     public String content() {
-        if (cookie.size() == 0) {
-            return "";
-        } else {
-            return cookie.get(0);
-        }
+        return memory;
     }
 
     public void setContent(String value) {
-        cookie.add(0, value);
+        this.memory = value;
     }
 
-    public String remove() {
-        return cookie.remove(0);
+    public void remove() {
+        memory = "";
     }
 }

@@ -39,7 +39,6 @@ public class Server {
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(socketOutput);
 
             httpResponse = requestController.call(clientHttpRequest);
-            LOGGER.log(Level.INFO, "response: " + new String(httpResponse.response()));
         } catch (BadRequestException e) {
             httpResponse.statusCode(HttpStatusCode.BAD_REQUEST);
             httpResponse.content("The request could not be understood");

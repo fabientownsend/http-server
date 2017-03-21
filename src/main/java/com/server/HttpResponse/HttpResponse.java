@@ -16,6 +16,10 @@ public class HttpResponse {
         this.httpVersion = httpVersion;
     }
 
+    public HttpResponse() {
+        this.httpVersion = "HTTP/1.1";
+    }
+
     public void statusCode(HttpStatusCode httpResponseCode) {
         this.statusCode = httpResponseCode;
     }

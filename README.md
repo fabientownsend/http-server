@@ -67,9 +67,21 @@ You can connect to the server with netcat this way:
 ```
 
 ## Test
+
+Run unit tests
 ``` bash
   gradle test
 ```
+
+Run acceptence tests
+``` bash
+  gradle jar
+  cd cob_spec
+  mvn package
+  java -jar fitnesse.jar -p 9090
+```
+
+You can then going on the fitnesse test page which by default is: [default test page](http://localhost:9090/HttpTestSuite?suite)
 
 ### What's next?
 

@@ -21,11 +21,11 @@ public enum HttpStatusCode {
         this.phrase = phrase;
     }
 
-    public Object getPhrase() {
-        return this.phrase;
-    }
-
     public int getCode() {
         return code;
+    }
+
+    public String getPhrase() {
+        return phrase;
     }
 }

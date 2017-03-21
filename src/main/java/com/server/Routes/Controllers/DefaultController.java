@@ -14,11 +14,20 @@ public class DefaultController implements BaseController {
         this.directoryPath = directory;
     }
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doHead(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
+        httpResponse.statusCode(HttpStatusCode.OK);
+        return httpResponse;
+    }
+
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
         httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader(HttpHeaders.CONTENT_TYPE, "text/html");
         httpResponse.content(htmlLinksToFiles());
+
         return httpResponse;
     }
 

@@ -6,6 +6,7 @@ public enum HttpVerb {
     PUT,
     DELETE,
     OPTIONS,
+    HEAD,
     PATCH,
 
     UNKNOWN

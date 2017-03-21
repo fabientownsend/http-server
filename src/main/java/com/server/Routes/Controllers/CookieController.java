@@ -13,16 +13,21 @@ public class CookieController implements BaseController {
         this.memory = memory;
     }
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        String queries = query(clientHttpRequest.getUri());
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
+        saveQuery(clientHttpRequest);
 
-        memory.setContent(changeFormat(queries));
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
 
         httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader(HttpHeaders.SET_COOKIE, memory.content());
         httpResponse.content("Eat");
+
         return httpResponse;
+    }
+
+    private void saveQuery(ClientHttpRequest clientHttpRequest) {
+        String queries = query(clientHttpRequest.getUri());
+        memory.setContent(changeFormat(queries));
     }
 
     private String changeFormat(String query) {

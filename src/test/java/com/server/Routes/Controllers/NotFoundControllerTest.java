@@ -14,6 +14,6 @@ public class NotFoundControllerTest {
         clientHttpRequest.setHttpVersion("HTTP/1.1");
 
         NotFoundController notFoundController = new NotFoundController();
-        assertThat(notFoundController.execute(clientHttpRequest).response()).contains("HTTP/1.1 404 Not Found".getBytes());
+        assertThat(notFoundController.doGet(clientHttpRequest).response()).contains("HTTP/1.1 404 Not Found".getBytes());
     }
 }

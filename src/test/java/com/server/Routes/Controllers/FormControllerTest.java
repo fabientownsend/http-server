@@ -24,7 +24,7 @@ public class FormControllerTest {
         clientHttpRequest.setVerb(HttpVerb.GET);
         clientHttpRequest.setHttpVersion("HTTP/1.1");
         FormController formController = new FormController(memory);
-        String httpResponse = new String(formController.execute(clientHttpRequest).response());
+        String httpResponse = new String(formController.doGet(clientHttpRequest).response());
         assertThat(httpResponse).isEqualTo("HTTP/1.1 200 OK");
     }
 
@@ -36,7 +36,7 @@ public class FormControllerTest {
         memory.setContent("hello");
         FormController formController = new FormController(memory);
 
-        httpResponse = formController.execute(clientHttpRequest);
+        httpResponse = formController.doGet(clientHttpRequest);
         assertThat(httpResponse.response()).contains("hello".getBytes());
     }
 
@@ -48,7 +48,7 @@ public class FormControllerTest {
         memory.setContent("hello");
         FormController formController = new FormController(memory);
 
-        httpResponse = formController.execute(clientHttpRequest);
+        httpResponse = formController.doGet(clientHttpRequest);
         assertThat(httpResponse.response()).contains("Content-Length: 5".getBytes());
     }
     @Test
@@ -58,7 +58,7 @@ public class FormControllerTest {
         clientHttpRequest.setVerb(HttpVerb.PUT);
         clientHttpRequest.setBody("hello");
         FormController formController = new FormController(memory);
-        formController.execute(clientHttpRequest);
+        formController.doPut(clientHttpRequest);
 
         assertThat(memory.content()).contains("hello");
     }
@@ -70,10 +70,9 @@ public class FormControllerTest {
         clientHttpRequest.setVerb(HttpVerb.POST);
         clientHttpRequest.setBody("hello");
         FormController formController = new FormController(memory);
-        formController.execute(clientHttpRequest);
+        formController.doPost(clientHttpRequest);
 
         assertThat(memory.content()).contains("hello");
     }
 }
-
 

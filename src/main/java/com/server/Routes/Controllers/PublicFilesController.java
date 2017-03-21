@@ -3,7 +3,6 @@ package com.server.Routes.Controllers;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-import com.server.HttpVerb;
 import com.server.Routes.FileProvider;
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class PublicFilesController implements BaseController {
         this.directoryPath = directory;
     }
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doPatch(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         String file = clientHttpRequest.getUri();
 
@@ -29,12 +28,15 @@ public class PublicFilesController implements BaseController {
             return httpResponse;
         }
 
-        if (clientHttpRequest.getVerb() == HttpVerb.PATCH) {
-            return patchFile(httpResponse);
-        }
+        return patchFile(httpResponse);
+    }
 
-        if (clientHttpRequest.getVerb() != HttpVerb.GET) {
-            httpResponse.statusCode(HttpStatusCode.METHOD_NOT_ALLOWED);
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        String file = clientHttpRequest.getUri();
+
+        if (!fileExist(file)) {
+            httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
             return httpResponse;
         }
 

@@ -7,7 +7,7 @@ import com.server.HttpResponse.HttpResponse;
 import java.net.URLDecoder;
 
 public class ParameterDecodeController implements BaseController {
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.OK);
 

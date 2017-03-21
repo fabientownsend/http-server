@@ -26,7 +26,7 @@ public class CookieControllerTest {
     public void returns200WithSetCookieEqualChocolate() {
         clientHttpRequest.setUri("/cookie?type=chocolate");
 
-        String httpResponse = new String(cookieController.execute(clientHttpRequest).response());
+        String httpResponse = new String(cookieController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).isEqualTo(
             "HTTP/1.1 200 OK\r\n"
@@ -40,7 +40,7 @@ public class CookieControllerTest {
     public void returns200WithSetCookieEqualApple() {
         clientHttpRequest.setUri("/cookie?type=apple");
 
-        String httpResponse = new String(cookieController.execute(clientHttpRequest).response());
+        String httpResponse = new String(cookieController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).isEqualTo(
             "HTTP/1.1 200 OK\r\n"
@@ -54,7 +54,7 @@ public class CookieControllerTest {
     public void cookieValueIsSavedInMemory() {
         clientHttpRequest.setUri("/cookie?type=apple");
 
-        cookieController.execute(clientHttpRequest);
+        cookieController.doGet(clientHttpRequest);
 
         assertThat(cookie.content()).isEqualTo("type:apple");
     }

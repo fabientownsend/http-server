@@ -5,7 +5,13 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 
 public class NotFoundController implements BaseController {
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doHead(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
+        return httpResponse;
+    }
+
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
         httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
         return httpResponse;

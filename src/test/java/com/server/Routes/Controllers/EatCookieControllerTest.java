@@ -31,7 +31,7 @@ public class EatCookieControllerTest {
         clientHttpRequest.setSectionInformation(headerInfo);
         EatCookieController coffee = new EatCookieController(memoryServer);
 
-        String httpResponse  = new String(coffee.execute(clientHttpRequest).response());
+        String httpResponse  = new String(coffee.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("mmmm chocolat");
     }
@@ -43,7 +43,7 @@ public class EatCookieControllerTest {
         clientHttpRequest.setSectionInformation(headerInfo);
         EatCookieController coffee = new EatCookieController(memoryServer);
 
-        String httpResponse  = new String(coffee.execute(clientHttpRequest).response());
+        String httpResponse  = new String(coffee.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).doesNotContain("mmmm chocolat");
     }

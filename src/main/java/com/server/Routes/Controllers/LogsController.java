@@ -4,7 +4,6 @@ import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-import com.server.HttpVerb;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -24,21 +23,19 @@ public class LogsController implements BaseController {
     private static final String ADMIN_LOGIN = "admin";
     private static final String ADMIN_PASSWORD = "hunter2";
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
-           HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        if (clientHttpRequest.getVerb() == HttpVerb.GET) {
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
+       HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
 
-            String authentication = authentication(clientHttpRequest);
-            if (isAuthenticated(authentication)) {
-                httpResponse.statusCode(HttpStatusCode.OK);
-                httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
-                if (!logsHttpRequests().isEmpty()) {
-                    httpResponse.content(logsHttpRequests());
-                }
-            } else {
-                httpResponse.statusCode(HttpStatusCode.UNAUTHORIZED);
-                httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
+        String authentication = authentication(clientHttpRequest);
+        if (isAuthenticated(authentication)) {
+            httpResponse.statusCode(HttpStatusCode.OK);
+            httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, authentication);
+            if (!logsHttpRequests().isEmpty()) {
+                httpResponse.content(logsHttpRequests());
             }
+        } else {
+            httpResponse.statusCode(HttpStatusCode.UNAUTHORIZED);
+            httpResponse.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"User Visible Realm\"");
         }
 
         return httpResponse;

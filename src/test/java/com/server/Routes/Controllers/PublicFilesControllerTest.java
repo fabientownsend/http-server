@@ -28,7 +28,7 @@ public class PublicFilesControllerTest {
         clientHttpRequest.setUri("/build.gradle");
 
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
-        String httpResponse = new String(defaultPage.execute(clientHttpRequest).response());
+        String httpResponse = new String(defaultPage.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("HTTP/1.1 200 OK");
     }
@@ -38,7 +38,7 @@ public class PublicFilesControllerTest {
         clientHttpRequest.setUri("/asdfjkl;as");
 
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
-        String httpResponse = new String(defaultPage.execute(clientHttpRequest).response());
+        String httpResponse = new String(defaultPage.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("HTTP/1.1 404 Not Found");
     }
@@ -49,7 +49,7 @@ public class PublicFilesControllerTest {
         clientHttpRequest.setVerb(HttpVerb.OPTIONS);
 
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
-        String httpResponse = new String(defaultPage.execute(clientHttpRequest).response());
+        String httpResponse = new String(defaultPage.doOptions(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("HTTP/1.1 405 Method Not Allowed");
     }
@@ -62,7 +62,7 @@ public class PublicFilesControllerTest {
         PublicFilesController defaultPage = new PublicFilesController(directoryPath);
         byte[] binaryFile = getBinaryFile(directoryPath + "build.gradle");
 
-        assertThat(defaultPage.execute(clientHttpRequest).response()).contains(binaryFile);
+        assertThat(defaultPage.doGet(clientHttpRequest).response()).contains(binaryFile);
     }
 
     private byte[] getBinaryFile(String directoryPath) {

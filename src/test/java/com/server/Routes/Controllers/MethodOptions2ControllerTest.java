@@ -14,7 +14,7 @@ public class MethodOptions2ControllerTest {
         clientHttpRequest.setVerb(HttpVerb.OPTIONS);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
-        assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.doOptions(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -22,7 +22,7 @@ public class MethodOptions2ControllerTest {
         clientHttpRequest.setVerb(HttpVerb.GET);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
-        assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.doGet(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class MethodOptions2ControllerTest {
         clientHttpRequest.setVerb(HttpVerb.POST);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
-        assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.doPost(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 
     @Test
@@ -38,6 +38,6 @@ public class MethodOptions2ControllerTest {
         clientHttpRequest.setVerb(HttpVerb.PUT);
 
         MethodOptions2Controller methodOptions = new MethodOptions2Controller();
-        assertThat(methodOptions.execute(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
+        assertThat(methodOptions.doPut(clientHttpRequest).response()).contains("Allow: GET,OPTIONS".getBytes());
     }
 }

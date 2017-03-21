@@ -19,7 +19,7 @@ public class DefaultControllerTest {
         clientHttpRequest.setVerb(HttpVerb.GET);
 
         DefaultController defaultController = new DefaultController(directoryPath);
-        String httpResponse = new String(defaultController.execute(clientHttpRequest).response());
+        String httpResponse = new String(defaultController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("build.gradle");
         assertThat(httpResponse).contains(".travis.yml");
@@ -30,7 +30,7 @@ public class DefaultControllerTest {
         clientHttpRequest.setVerb(HttpVerb.GET);
 
         DefaultController defaultController = new DefaultController(directoryPath);
-        String httpResponse = new String(defaultController.execute(clientHttpRequest).response());
+        String httpResponse = new String(defaultController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("<a href=\"/build.gradle\">build.gradle</a>");
     }

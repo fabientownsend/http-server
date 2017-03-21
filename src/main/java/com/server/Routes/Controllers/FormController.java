@@ -3,7 +3,6 @@ package com.server.Routes.Controllers;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
-import com.server.HttpVerb;
 import com.server.Routes.Memory;
 
 public class FormController implements BaseController {
@@ -13,31 +12,42 @@ public class FormController implements BaseController {
         this.memory = memory;
     }
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
         httpResponse.statusCode(HttpStatusCode.OK);
 
-        if (submitRequest(clientHttpRequest)) {
-            memory.setContent(clientHttpRequest.getBody());
-        } else if (getRequest(clientHttpRequest) && !memory.content().isEmpty()) {
+        if (!memory.content().isEmpty()) {
             httpResponse.content(memory.content());
-        } else if (deleteRequest(clientHttpRequest)) {
-            memory.remove();
         }
 
         return httpResponse;
     }
 
-    private boolean deleteRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb() == HttpVerb.DELETE;
+    public HttpResponse doDelete(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
+        httpResponse.statusCode(HttpStatusCode.OK);
+        memory.remove();
+
+        return httpResponse;
     }
 
-    private boolean getRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb() == HttpVerb.GET;
+    public HttpResponse doPost(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
+        httpResponse.statusCode(HttpStatusCode.OK);
+        memory.setContent(clientHttpRequest.getBody());
+
+        return httpResponse;
     }
 
-    private boolean submitRequest(ClientHttpRequest clientHttpRequest) {
-        return clientHttpRequest.getVerb() == HttpVerb.POST
-            || clientHttpRequest.getVerb() == HttpVerb.PUT;
+    public HttpResponse doPut(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
+        httpResponse.statusCode(HttpStatusCode.OK);
+        memory.setContent(clientHttpRequest.getBody());
+
+        return httpResponse;
     }
 }

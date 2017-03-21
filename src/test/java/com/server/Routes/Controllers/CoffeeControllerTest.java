@@ -21,14 +21,14 @@ public class CoffeeControllerTest {
 
     @Test
     public void returns418HttpCode() {
-        String httpResponse = new String(coffeeController.execute(clientHttpRequest).response());
+        String httpResponse = new String(coffeeController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("HTTP/1.1 418 I'm a teapot");
     }
 
     @Test
     public void returnsContentPage() {
-        String httpResponse = new String(coffeeController.execute(clientHttpRequest).response());
+        String httpResponse = new String(coffeeController.doGet(clientHttpRequest).response());
 
         assertThat(httpResponse).contains("I'm a teapot");
     }

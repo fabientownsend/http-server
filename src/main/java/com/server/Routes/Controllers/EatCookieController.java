@@ -13,16 +13,19 @@ public class EatCookieController implements BaseController {
         this.memory = memory;
     }
 
-    public HttpResponse execute(ClientHttpRequest clientHttpRequest) {
+    public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+
         httpResponse.statusCode(HttpStatusCode.OK);
 
-        String clientCookie = clientHttpRequest.getInformation(HttpHeaders.COOKIE);
-
-        if (clientCookie.equals(memory.content())) {
+        if (clientCookie(clientHttpRequest).equals(memory.content())) {
             httpResponse.content("mmmm chocolate");
         }
 
         return httpResponse;
+    }
+
+    private String clientCookie(ClientHttpRequest clientHttpRequest) {
+        return clientHttpRequest.getInformation(HttpHeaders.COOKIE);
     }
 }

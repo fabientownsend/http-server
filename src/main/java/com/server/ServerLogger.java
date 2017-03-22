@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class ServerLogger {
-    public final static Logger LOGGER = Logger.getLogger(Server.class.getName());
+    public final static Logger LOGGER = Logger.getLogger(SocketHandler.class.getName());
 
     public static void initialise() throws IOException {
         File dir = new File("logs");

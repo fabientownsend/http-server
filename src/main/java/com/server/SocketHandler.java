@@ -12,14 +12,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class Server {
+public class SocketHandler {
     private final OutputStream outputStream;
     private HttpRequestProvider httpRequestProvider;
     private HttpRequestParser httpRequestParser;
     private RouteAction routeAction;
     private HttpResponse httpResponse;
 
-    public Server(BufferedReader socketInput, OutputStream outputStream, Memory memory, String directory) {
+    public SocketHandler(BufferedReader socketInput, OutputStream outputStream, Memory memory, String directory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
         this.routeAction = new RouteAction(memory, directory);

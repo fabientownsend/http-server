@@ -8,7 +8,7 @@ import java.io.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ServerTest {
+public class SocketHandlerTest {
     private String directoryPath = "";
     private Memory memory;
 
@@ -21,8 +21,8 @@ public class ServerTest {
     public void throwAnExceptionWhen() throws Exception {
         BufferedReader inputError = null;
         OutputStream output = getStreamTest();
-        Server server = new Server(inputError, output, memory, directoryPath);
-        server.start();
+        SocketHandler socketHandler = new SocketHandler(inputError, output, memory, directoryPath);
+        socketHandler.start();
 
         assertThat(output.toString()).contains("500 Internal Server Error");
     }
@@ -33,8 +33,8 @@ public class ServerTest {
 
         OutputStream output = getStreamTest();
 
-        Server server = new Server(socketInput, output, memory, directoryPath);
-        server.start();
+        SocketHandler socketHandler = new SocketHandler(socketInput, output, memory, directoryPath);
+        socketHandler.start();
 
         assertThat(output.toString()).contains("400 Bad Request");
     }

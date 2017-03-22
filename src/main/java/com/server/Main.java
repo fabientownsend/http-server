@@ -27,8 +27,8 @@ public class Main {
                 try {
                     BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     OutputStream output = clientSocket.getOutputStream();
-                    Server server = new Server(input, output, memory, serverSettingsParser.getDirectory());
-                    server.start();
+                    SocketHandler socketHandler = new SocketHandler(input, output, memory, serverSettingsParser.getDirectory());
+                    socketHandler.start();
                     clientSocket.close();
                 } catch (Exception exception) {
                     ServerLogger.logWarning(exception.getMessage());

@@ -4,6 +4,7 @@ import com.server.HttpHeaders.HttpHeaders;
 import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
+import com.server.ServerLogger;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,9 +13,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.logging.Level;
-
-import static com.server.Main.LOGGER;
 
 public class LogsController implements BaseController {
     private Path currentPath = Paths.get("");
@@ -69,9 +67,9 @@ public class LogsController implements BaseController {
             BufferedReader bufferReader = new BufferedReader(fileReader);
             httpRequests = getHttpRequest(bufferReader);
         } catch (FileNotFoundException e) {
-            LOGGER.log(Level.WARNING, "can't find log file. " + e.getMessage());
+            ServerLogger.logWarning("can't find log file. " + e.getMessage());
         } catch (IOException e) {
-            LOGGER.log(Level.WARNING, "error when reading log file. " + e.getMessage());
+            ServerLogger.logWarning("error when reading log file. " + e.getMessage());
         }
 
         return httpRequests;

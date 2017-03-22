@@ -4,10 +4,7 @@ import com.server.HttpHeaders.HttpStatusCode;
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpResponse.HttpResponse;
 import com.server.Routes.Controllers.BaseController;
-
-import java.util.logging.Level;
-
-import static com.server.Main.LOGGER;
+import com.server.ServerLogger;
 
 public class RouteAction {
     private RouteProvider routeProvider;
@@ -27,7 +24,7 @@ public class RouteAction {
             httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
             httpResponse.statusCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             httpResponse.content("The server encountered an unexpected condition");
-            LOGGER.log(Level.WARNING, e.toString());
+            ServerLogger.logWarning(e.getMessage());
         }
 
         return  httpResponse;

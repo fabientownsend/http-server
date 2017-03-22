@@ -2,28 +2,18 @@ package com.server;
 
 import com.server.Routes.Memory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class Main {
-    public final static Logger LOGGER = Logger.getLogger(Server.class.getName());
-
     public static void main(String[] args) throws IOException {
-        File dir = new File("logs");
-        dir.mkdir();
-        File yourFile = new File("logs/logger.log");
-        yourFile.createNewFile();
-
-        FileHandler fileHandle = new FileHandler("logs/logger.log", false);
-        fileHandle.setFormatter(new SimpleFormatter());
-        LOGGER.addHandler(fileHandle);
+        ServerLogger.initialise();
 
         ServerSettingsParser serverSettingsParser = new ServerSettingsParser(args);
 
@@ -41,7 +31,7 @@ public class Main {
                     server.start();
                     clientSocket.close();
                 } catch (Exception exception) {
-                    LOGGER.log(Level.WARNING, exception.getMessage());
+                    ServerLogger.logWarning(exception.getMessage());
                     System.out.println(exception.getMessage());
                 }
             });

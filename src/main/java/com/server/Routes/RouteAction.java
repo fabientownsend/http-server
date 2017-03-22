@@ -9,21 +9,22 @@ import java.util.logging.Level;
 
 import static com.server.Main.LOGGER;
 
-public class RequestController {
-    private Router router;
+public class RouteAction {
+    private RouteProvider routeProvider;
 
-    public RequestController(Memory memory, String directory) {
-        this.router = new Router(memory, directory);
+    public RouteAction(Memory memory, String directory) {
+        this.routeProvider = new RouteProvider(memory, directory);
     }
 
-    public HttpResponse call(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+    public HttpResponse executeResult(ClientHttpRequest clientHttpRequest) {
+        HttpResponse httpResponse;
 
-        BaseController route = router.route(clientHttpRequest.getUri());
+        BaseController requiredRoute = routeProvider.getRequiredRoute(clientHttpRequest.getUri());
 
         try {
-            httpResponse = route.execute(clientHttpRequest);
+            httpResponse = requiredRoute.execute(clientHttpRequest);
         } catch (Exception e) {
+            httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
             httpResponse.statusCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             httpResponse.content("The server encountered an unexpected condition");
             LOGGER.log(Level.WARNING, e.toString());

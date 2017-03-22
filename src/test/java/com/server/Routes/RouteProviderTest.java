@@ -9,18 +9,18 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RouterTest {
+public class RouteProviderTest {
     private Memory memory = new Memory();
     private Path currentPath = Paths.get("/src/test/java/com/server/public");
     private String directoryPath =  currentPath.toAbsolutePath().toString();
-    private Router requestController = new Router(memory, directoryPath);
+    private RouteProvider requestController = new RouteProvider(memory, directoryPath);
 
     @Test
     public void returnsDefaultPage() throws Exception {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(DefaultController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(DefaultController.class);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/form");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(FormController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(FormController.class);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/redirect");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(RedirectionController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(RedirectionController.class);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptionsController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(MethodOptionsController.class);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/method_options2");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(MethodOptions2Controller.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(MethodOptions2Controller.class);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/it_doesnt_exist");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(NotFoundController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(NotFoundController.class);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/parameters?variable_1=Operators%20%3C%2C%20%3E%2C%20%3D%2C%20!%3D%3B%20%2B%2C%20-%2C%20*%2C%20%26%2C%20%40%2C%20%23%2C%20%24%2C%20%5B%2C%20%5D%3A%20%22is%20that%20all%22%3F&variable_2=stuff");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(ParameterDecodeController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(ParameterDecodeController.class);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/logs");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(LogsController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(LogsController.class);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/cookie?type=chocolate");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(CookieController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(CookieController.class);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/eat_cookie");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(EatCookieController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(EatCookieController.class);
     }
 
     @Test
@@ -100,6 +100,6 @@ public class RouterTest {
         ClientHttpRequest clientHttpRequest = new ClientHttpRequest();
         clientHttpRequest.setUri("/tea");
 
-        assertThat(requestController.route(clientHttpRequest.getUri())).isInstanceOf(TeaController.class);
+        assertThat(requestController.getRequiredRoute(clientHttpRequest.getUri())).isInstanceOf(TeaController.class);
     }
 }

@@ -3,14 +3,14 @@ package com.server.Routes;
 import com.server.Routes.Controllers.BaseController;
 import com.server.Routes.Controllers.NotFoundController;
 
-public class Router {
+public class RouteProvider {
     private final RouteMap routeMap;
 
-    public Router(Memory memory, String publicDirectoryPath) {
+    public RouteProvider(Memory memory, String publicDirectoryPath) {
         this.routeMap = new RouteMap(memory, publicDirectoryPath);
     }
 
-    public BaseController route(String path) {
+    public BaseController getRequiredRoute(String path) {
         if (routeMap.contain(withoutQueries(path))) {
             return routeMap.provide(withoutQueries(path));
         } else {

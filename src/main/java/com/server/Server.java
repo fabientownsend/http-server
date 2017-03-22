@@ -5,7 +5,7 @@ import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpRequest.HttpRequestParser;
 import com.server.HttpRequest.HttpRequestProvider;
 import com.server.HttpResponse.HttpResponse;
-import com.server.Routes.RequestController;
+import com.server.Routes.RouteAction;
 import com.server.Routes.Memory;
 
 import java.io.BufferedReader;
@@ -19,13 +19,13 @@ public class Server {
     private final OutputStream outputStream;
     private HttpRequestProvider httpRequestProvider;
     private HttpRequestParser httpRequestParser;
-    private RequestController requestController;
+    private RouteAction routeAction;
     private HttpResponse httpResponse;
 
     public Server(BufferedReader socketInput, OutputStream outputStream, Memory memory, String directory) {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
-        this.requestController = new RequestController(memory, directory);
+        this.routeAction = new RouteAction(memory, directory);
         this.httpResponse = new HttpResponse("");
         this.outputStream = outputStream;
     }
@@ -38,7 +38,7 @@ public class Server {
 
             ClientHttpRequest clientHttpRequest = httpRequestParser.parse(socketOutput);
 
-            httpResponse = requestController.call(clientHttpRequest);
+            httpResponse = routeAction.executeResult(clientHttpRequest);
         } catch (BadRequestException e) {
             httpResponse.statusCode(HttpStatusCode.BAD_REQUEST);
             httpResponse.content("The request could not be understood");

@@ -2,8 +2,8 @@ package com.server.Routes.Controllers;
 
 import com.server.HttpRequest.ClientHttpRequest;
 import com.server.HttpVerb;
+import com.server.Routes.FileProvider;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -12,8 +12,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -65,6 +63,23 @@ public class PublicFilesControllerTest {
     }
 
     @Test
+    public void returnsAFile() throws IOException {
+        final File createdFile = getFileWithContent("patched content");
+        byte[] createdFileBytes = getFileBytes(createdFile.getPath());
+        clientHttpRequest.setUri("/temp2.txt");
+        PublicFilesController defaultPage = new PublicFilesController(createdFile.getParent());
+
+        byte[] httpResponse = defaultPage.doGet(clientHttpRequest).response();
+
+        assertThat(httpResponse).contains(createdFileBytes);
+    }
+
+    private byte[] getFileBytes(String filePath) {
+        FileProvider fileProvider = new FileProvider();
+        return fileProvider.getFullFile(filePath);
+    }
+
+    @Test
     public void raiseFilePatchExceptionWhenCantPatchFile() throws IOException {
         final File createdFile = folder.newFile("temp.txt");
         createdFile.setReadOnly();
@@ -90,9 +105,7 @@ public class PublicFilesControllerTest {
     @Test
     public void patchTheFile() throws IOException {
         final File createdFile = folder.newFile("temp.txt");
-
         final File fileReference = getFileWithContent("patched content");
-
         clientHttpRequest.setUri("/temp.txt");
         PublicFilesController defaultPage = new PublicFilesController(createdFile.getParent());
 

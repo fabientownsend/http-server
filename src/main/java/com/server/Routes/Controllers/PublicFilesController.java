@@ -8,32 +8,52 @@ import com.server.Routes.FileProvider;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class PublicFilesController implements BaseController {
-    private final String directoryPath;
+    private final String publicDirectoryPath;
     private FileProvider fileProvider = new FileProvider();
 
     public PublicFilesController(String directory) {
-        this.directoryPath = directory;
+        this.publicDirectoryPath = directory;
     }
 
     public HttpResponse doPatch(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        String file = clientHttpRequest.getUri();
+        String fileName = clientHttpRequest.getUri();
 
-        if (!fileExist(file)) {
+        if (!fileExist(fileName)) {
             httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
             return httpResponse;
         }
 
-        return patchFile(httpResponse);
+        return patchFile(httpResponse, fileName);
     }
+
+    private boolean fileExist(String file) {
+        return new File(publicDirectoryPath + file).exists();
+    }
+
+    private HttpResponse patchFile(HttpResponse httpResponse, String fileName)  {
+        Path filePathToPatch = Paths.get(publicDirectoryPath + fileName);
+        byte[] patchContent = "patched content".getBytes();
+
+        try {
+            Files.write(filePathToPatch, patchContent, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new FilePatchException("Couldn't patch the file: " + publicDirectoryPath);
+        }
+
+        httpResponse.statusCode(HttpStatusCode.NO_CONTENT);
+        return httpResponse;
+    }
+
 
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
-        String file = clientHttpRequest.getUri();
+        String file = "/" + clientHttpRequest.getUri();
 
         if (!fileExist(file)) {
             httpResponse.statusCode(HttpStatusCode.NOT_FOUND);
@@ -47,20 +67,10 @@ public class PublicFilesController implements BaseController {
         return returnFullFile(clientHttpRequest, httpResponse);
     }
 
-    private HttpResponse returnFullFile(ClientHttpRequest clientHttpRequest, HttpResponse httpResponse) {
-        httpResponse.statusCode(HttpStatusCode.OK);
-        String uri = clientHttpRequest.getUri();
-        String path = directoryPath + uri.substring(1, uri.length());
-
-        httpResponse.addHeader("Content-Type", getComment(uri));
-        httpResponse.content(fileProvider.getFullFile(path));
-        return httpResponse;
-    }
-
     private HttpResponse returnPartialFile(ClientHttpRequest clientHttpRequest, HttpResponse httpResponse) {
         httpResponse.statusCode(HttpStatusCode.PARTIAL_CONTENT);
-        String uri = clientHttpRequest.getUri();
-        String path = directoryPath + uri.substring(1, uri.length());
+        String uri = "/" + clientHttpRequest.getUri();
+        String path = publicDirectoryPath + uri.substring(1, uri.length());
         httpResponse.addHeader("Content-Type", getComment(uri));
 
         int[] range = clientHttpRequest.getRange();
@@ -70,18 +80,14 @@ public class PublicFilesController implements BaseController {
         return httpResponse;
     }
 
-    private HttpResponse patchFile(HttpResponse httpResponse) {
-        try {
-            Files.write(Paths.get(directoryPath + "/patch-content.txt"), "patched content".getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        httpResponse.statusCode(HttpStatusCode.NO_CONTENT);
-        return httpResponse;
-    }
+    private HttpResponse returnFullFile(ClientHttpRequest clientHttpRequest, HttpResponse httpResponse) {
+        httpResponse.statusCode(HttpStatusCode.OK);
+        String uri = clientHttpRequest.getUri();
+        String path = publicDirectoryPath + uri;
 
-    private boolean fileExist(String file) {
-        return new File(directoryPath + file).exists();
+        httpResponse.addHeader("Content-Type", getComment(uri));
+        httpResponse.content(fileProvider.getFullFile(path));
+        return httpResponse;
     }
 
     private String getComment(String fileName) {

@@ -21,7 +21,7 @@ public class RouteAction {
         try {
             httpResponse = requiredRoute.execute(clientHttpRequest);
         } catch (Exception e) {
-            httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+            httpResponse = new HttpResponse();
             httpResponse.statusCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             httpResponse.content("The server encountered an unexpected condition");
             ServerLogger.logWarning(e.getMessage());

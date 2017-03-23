@@ -21,7 +21,7 @@ public class PublicFilesController implements BaseController {
     }
 
     public HttpResponse doPatch(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
         String fileName = clientHttpRequest.getUri();
 
         if (!fileExist(fileName)) {
@@ -52,7 +52,7 @@ public class PublicFilesController implements BaseController {
 
 
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
         String file = "/" + clientHttpRequest.getUri();
 
         if (!fileExist(file)) {

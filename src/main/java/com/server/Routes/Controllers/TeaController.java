@@ -6,7 +6,7 @@ import com.server.HttpResponse.HttpResponse;
 
 public class TeaController implements BaseController {
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
         httpResponse.statusCode(HttpStatusCode.OK);
         return httpResponse;
     }

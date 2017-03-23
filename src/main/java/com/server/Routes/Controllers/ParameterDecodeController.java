@@ -8,7 +8,7 @@ import java.net.URLDecoder;
 
 public class ParameterDecodeController implements BaseController {
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
         httpResponse.statusCode(HttpStatusCode.OK);
 
         String queries = getQueries(clientHttpRequest.getUri());

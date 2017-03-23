@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FormControllerTest {
-    private HttpResponse httpResponse = new HttpResponse("HTTP/1.1");
+    private HttpResponse httpResponse = new HttpResponse();
     private Memory memory;
 
     @Before

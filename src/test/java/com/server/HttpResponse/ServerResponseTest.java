@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 public class ServerResponseTest {
     @Test
     public void returnsHttpServerCode() throws IOException {
-        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        HttpResponse serverResponse = new HttpResponse();
         serverResponse.statusCode(HttpStatusCode.OK);
 
         assertThat(serverResponse.response()).contains("HTTP/1.1 200 OK".getBytes());
@@ -18,7 +18,7 @@ public class ServerResponseTest {
 
     @Test
     public void returnHttpServerHeader() throws IOException {
-        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        HttpResponse serverResponse = new HttpResponse();
         serverResponse.statusCode(HttpStatusCode.OK);
         serverResponse.addHeader("Content-Type", "text/plain");
 
@@ -27,7 +27,7 @@ public class ServerResponseTest {
 
     @Test
     public void returnsTheBodyOffTheHttpRespnse() throws IOException {
-        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        HttpResponse serverResponse = new HttpResponse();
         serverResponse.statusCode(HttpStatusCode.OK);
         serverResponse.addHeader("Content-Type", "text/plain");
         serverResponse.content("the content");
@@ -37,7 +37,7 @@ public class ServerResponseTest {
 
     @Test
     public void setsTheContentLengthWhenItHasContent() throws IOException {
-        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        HttpResponse serverResponse = new HttpResponse();
         serverResponse.statusCode(HttpStatusCode.OK);
         serverResponse.addHeader("Content-Type", "text/plain");
         serverResponse.content("the content");
@@ -47,7 +47,7 @@ public class ServerResponseTest {
 
     @Test
     public void canCreateAResponseWithBodyBasedOnBytes() {
-        HttpResponse serverResponse = new HttpResponse("HTTP/1.1");
+        HttpResponse serverResponse = new HttpResponse();
         serverResponse.statusCode(HttpStatusCode.CREATED);
         serverResponse.addHeader("Content-Type", "text/plain");
         serverResponse.content("201 Created");

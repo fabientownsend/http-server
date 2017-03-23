@@ -13,7 +13,7 @@ public class FormController implements BaseController {
     }
 
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
 
@@ -25,7 +25,7 @@ public class FormController implements BaseController {
     }
 
     public HttpResponse doDelete(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         memory.remove();
@@ -34,7 +34,7 @@ public class FormController implements BaseController {
     }
 
     public HttpResponse doPost(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         memory.setContent(clientHttpRequest.getBody());
@@ -43,7 +43,7 @@ public class FormController implements BaseController {
     }
 
     public HttpResponse doPut(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         memory.setContent(clientHttpRequest.getBody());

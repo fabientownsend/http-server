@@ -22,7 +22,7 @@ public class LogsController implements BaseController {
     private static final String ADMIN_PASSWORD = "hunter2";
 
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-       HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+       HttpResponse httpResponse = new HttpResponse();
 
         String authentication = authentication(clientHttpRequest);
         if (isAuthenticated(authentication)) {

@@ -23,7 +23,7 @@ public class SocketHandler {
         this.httpRequestProvider = new HttpRequestProvider(socketInput);
         this.httpRequestParser = new HttpRequestParser();
         this.routeAction = new RouteAction(memory, directory);
-        this.httpResponse = new HttpResponse("");
+        this.httpResponse = new HttpResponse();
         this.outputStream = outputStream;
     }
 

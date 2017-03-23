@@ -4,17 +4,12 @@ import com.server.HttpHeaders.HttpStatusCode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Hashtable;
 
 public class HttpResponse {
     private final String httpVersion;
     private HttpStatusCode statusCode;
     private String header;
     private byte[] bodyImageResponse;
-
-    public HttpResponse(String httpVersion) {
-        this.httpVersion = httpVersion;
-    }
 
     public HttpResponse() {
         this.httpVersion = "HTTP/1.1";

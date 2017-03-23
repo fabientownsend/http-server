@@ -6,7 +6,7 @@ import com.server.HttpResponse.HttpResponse;
 
 public class CoffeeController implements BaseController {
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.I_M_A_TEAPOT);
         httpResponse.addHeader("Content-Type", "text/html");

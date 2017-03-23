@@ -6,27 +6,27 @@ import com.server.HttpResponse.HttpResponse;
 
 public class MethodOptions2Controller implements BaseController {
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        return defaultResponse(clientHttpRequest);
+        return defaultResponse();
     }
 
     public HttpResponse doPost(ClientHttpRequest clientHttpRequest) {
-        return defaultResponse(clientHttpRequest);
+        return defaultResponse();
     }
 
     public HttpResponse doPut(ClientHttpRequest clientHttpRequest) {
-        return defaultResponse(clientHttpRequest);
+        return defaultResponse();
     }
 
     public HttpResponse doHead(ClientHttpRequest clientHttpRequest) {
-        return defaultResponse(clientHttpRequest);
+        return defaultResponse();
     }
 
     public HttpResponse doOptions(ClientHttpRequest clientHttpRequest) {
-        return defaultResponse(clientHttpRequest);
+        return defaultResponse();
     }
 
-    public HttpResponse defaultResponse(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+    public HttpResponse defaultResponse() {
+        HttpResponse httpResponse = new HttpResponse();
         httpResponse.statusCode(HttpStatusCode.OK);
 
         httpResponse.addHeader("Allow", "GET,OPTIONS");

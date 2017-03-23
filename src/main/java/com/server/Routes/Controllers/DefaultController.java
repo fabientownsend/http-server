@@ -15,14 +15,14 @@ public class DefaultController implements BaseController {
     }
 
     public HttpResponse doHead(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         return httpResponse;
     }
 
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader(HttpHeaders.CONTENT_TYPE, "text/html");

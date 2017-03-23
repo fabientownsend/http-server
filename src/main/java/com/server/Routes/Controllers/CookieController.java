@@ -16,7 +16,7 @@ public class CookieController implements BaseController {
     public HttpResponse doGet(ClientHttpRequest clientHttpRequest) {
         saveQuery(clientHttpRequest);
 
-        HttpResponse httpResponse = new HttpResponse(clientHttpRequest.getHttpVersion());
+        HttpResponse httpResponse = new HttpResponse();
 
         httpResponse.statusCode(HttpStatusCode.OK);
         httpResponse.addHeader(HttpHeaders.SET_COOKIE, memory.content());
